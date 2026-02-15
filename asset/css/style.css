@@ -1,0 +1,252 @@
+/* ===============================
+   GLOBAL RESET
+================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ 
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+ 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #F8FAFC;
+  color: #1F2937;
+  line-height: 1.7;
+}
+ 
+/* ===============================
+   LAYOUT GRID
+================================ */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr 240px;
+  min-height: 100vh;
+}
+ 
+/* ===============================
+   TOP BAR (MOBILE)
+================================ */
+.topbar {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #E2E8F0;
+  font-weight: 600;
+  border-bottom: 1px solid #CBD5E1;
+}
+ 
+.menu-btn {
+  cursor: pointer;
+  font-size: 20px;
+}
+ 
+/* ===============================
+   SIDEBAR
+================================ */
+.sidebar {
+  background: #FFFFFF;
+  border-right: 1px solid #E2E8F0;
+  padding: 20px 0;
+  overflow-y: auto;
+}
+ 
+.sidebar h2 {
+  padding: 0 20px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #0F172A;
+}
+ 
+.sidebar a {
+  display: block;
+  padding: 8px 20px;
+  text-decoration: none;
+  color: #334155;
+  font-size: 14px;
+  border-left: 3px solid transparent;
+  transition: 0.2s ease;
+}
+ 
+.sidebar a:hover {
+  background: #EFF6FF;
+  color: #2563EB;
+  border-left-color: #2563EB;
+}
+ 
+.sidebar a.active {
+  background: #DBEAFE;
+  color: #1D4ED8;
+  font-weight: 600;
+  border-left-color: #1D4ED8;
+}
+ 
+/* ===============================
+   TREE STRUCTURE
+================================ */
+.tree-toggle {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 8px 20px;
+  font-size: 14px;
+  color: #0F172A;
+}
+ 
+.tree-children {
+  display: none;
+  padding-left: 10px;
+}
+ 
+.tree-children a {
+  font-size: 13px;
+  padding-left: 30px;
+}
+ 
+/* ===============================
+   MAIN CONTENT
+================================ */
+.content {
+  padding: 50px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+ 
+.content section {
+  margin-bottom: 60px;
+}
+ 
+.content h1 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  color: #0F172A;
+}
+ 
+.content h2 {
+  margin-top: 40px;
+  margin-bottom: 15px;
+  font-size: 1.6rem;
+  color: #0F172A;
+}
+ 
+.content p {
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+ 
+/* ===============================
+   BREADCRUMB
+================================ */
+.breadcrumb {
+  font-size: 13px;
+  margin-bottom: 20px;
+  color: #64748B;
+}
+ 
+.breadcrumb a {
+  text-decoration: none;
+  color: #2563EB;
+}
+ 
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+ 
+/* ===============================
+   RIGHT PANEL
+================================ */
+.right-panel {
+  border-left: 1px solid #E2E8F0;
+  background: #FFFFFF;
+  padding: 25px;
+}
+ 
+.right-panel h4 {
+  margin-bottom: 15px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #0F172A;
+}
+ 
+.right-panel a {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #2563EB;
+  text-decoration: none;
+}
+ 
+.right-panel a:hover {
+  text-decoration: underline;
+}
+ 
+/* ===============================
+   NAV BUTTONS
+================================ */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+ 
+.nav-buttons a {
+  background: #2563EB;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+ 
+.nav-buttons a:hover {
+  background: #1D4ED8;
+}
+ 
+/* ===============================
+   RESPONSIVE DESIGN
+================================ */
+@media (max-width: 1200px) {
+  .layout {
+    grid-template-columns: 260px 1fr;
+  }
+ 
+  .right-panel {
+    display: none;
+  }
+}
+ 
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+ 
+  .topbar {
+    display: flex;
+  }
+ 
+  .sidebar {
+    position: fixed;
+    width: 260px;
+    height: 100%;
+    left: -260px;
+    top: 0;
+    transition: 0.3s ease;
+    z-index: 1000;
+    background: white;
+  }
+ 
+  .sidebar.active {
+    left: 0;
+  }
+ 
+  .content {
+    padding: 20px;
+  }
+}
