@@ -1,96 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  
-  <title>Excellency by Krunal Mankar | ServiceNow Architecture</title>
-  <meta name="description" content="Excellency is a structured ServiceNow architecture knowledge platform by Krunal Mankar covering ITOM, CMDB, CSDM, and enterprise integration patterns.">
-  <meta name="author" content="Krunal Mankar">
+<title>Excellency | ServiceNow Architecture by Krunal Mankar</title>
+<meta name="description" content="Excellency is a structured ServiceNow architecture documentation platform covering ITOM, CMDB, and CSDM.">
  
-  <!-- Open Graph -->
-  <meta property="og:title" content="Excellency | ServiceNow Architecture Platform">
-  <meta property="og:description" content="Engineering Excellence in ServiceNow Architecture.">
-  <meta property="og:type" content="website">
- 
-  <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
- 
 <body>
  
-<div class="site-container">
+<div class="topbar">
+    <div>Excellency</div>
+    <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+</div>
  
-  <!-- ===== HEADER ===== -->
-  <header class="site-header">
-    <a href="index.html" class="site-logo">Excellency</a>
-    <span class="site-tagline">by Krunal Mankar</span>
-    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
-  </header>
+<div class="layout">
  
-  <!-- ===== SIDEBAR ===== -->
-  <nav class="sidebar" id="sidebar">
-    <ul class="nav-tree">
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
  
-      <li class="nav-item">
-        <a href="index.html" class="nav-link active">Home</a>
-      </li>
+<h2>Excellency</h2>
  
-      <li class="nav-item">
-        <a href="about.html" class="nav-link">About</a>
-      </li>
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
  
-      <!-- ITOM Module -->
-      <li class="nav-item">
-        <div class="nav-module" onclick="toggleModule(this)">
-          ITOM <span class="nav-expand-icon">▶</span>
-        </div>
-        <ul class="nav-sublist">
-          <li><a href="itom/index.html" class="nav-sublink">Overview</a></li>
-          <li><a href="itom/discovery.html" class="nav-sublink">Discovery Architecture</a></li>
-          <li><a href="itom/service-mapping.html" class="nav-sublink">Service Mapping</a></li>
-          <li><a href="itom/event-management.html" class="nav-sublink">Event Management</a></li>
-        </ul>
-      </li>
+<div class="tree-toggle">ITOM</div>
+<div class="tree-children">
+    <a href="itom/index.html">Overview</a>
+    <a href="itom/discovery.html">Discovery</a>
+    <a href="itom/service-mapping.html">Service Mapping</a>
+    <a href="itom/event-management.html">Event Management</a>
+</div>
  
-      <li class="nav-item">
-        <a href="cmdb/index.html" class="nav-link">CMDB</a>
-      </li>
+<a href="cmdb/index.html">CMDB</a>
+<a href="csdm/index.html">CSDM</a>
+<a href="projects.html">Projects</a>
+<a href="contact.html">Contact</a>
  
-      <li class="nav-item">
-        <a href="csdm/index.html" class="nav-link">CSDM</a>
-      </li>
+</div>
  
-      <li class="nav-item">
-        <a href="projects.html" class="nav-link">Projects</a>
-      </li>
+<!-- MAIN CONTENT -->
+<div class="content">
  
-      <li class="nav-item">
-        <a href="contact.html" class="nav-link">Contact</a>
-      </li>
+<section>
+<h1>Engineering Excellence in ServiceNow Architecture</h1>
+<p>
+Excellency is a structured knowledge platform documenting enterprise-grade
+ITOM, CMDB, and CSDM implementation patterns.
+</p>
+</section>
  
-    </ul>
-  </nav>
+<section>
+<h2>Strategic Focus</h2>
+<p>
+This platform captures architecture thinking across Discovery,
+Service Mapping, Event Management, and CMDB governance.
+</p>
+</section>
  
-  <!-- ===== MAIN CONTENT ===== -->
-  <main class="main-content">
+<section>
+<h2>Core Domains</h2>
+<p><strong>ITOM:</strong> Discovery orchestration, MID topology, correlation logic.</p>
+<p><strong>CMDB:</strong> CI governance, reconciliation, relationship modeling.</p>
+<p><strong>CSDM:</strong> Business service modeling and ownership alignment.</p>
+</section>
  
-    <header class="page-header">
-      <h1 class="page-title">
-        Engineering Excellence in ServiceNow Architecture
-      </h1>
-      <p class="page-subtitle">
-        Excellency is a structured knowledge platform documenting enterprise-grade
-        ITOM, CMDB, and CSDM implementation strategies, governance frameworks,
-        and architecture patterns.
-      </p>
-    </header>
+<section>
+<h2>Vision</h2>
+<p>
+Excellency evolves from documentation platform to consulting and
+architecture excellence brand.
+</p>
+</section>
  
-    <div class="content">
+</div>
  
-      <h2>Strategic Focus</h2>
-      <p>
-        This platform is built to document real-world ServiceNow architecture
-        decisions across IT Operations Management, Configuration Management,
-        and enterprise integrations. The emphasis is on structured thinking,
-        governance alignment, and scalable implementation.
-      </p>
+<!-- RIGHT PANEL -->
+<div class="right-panel">
+<h4>Start Exploring</h4>
+<a href="itom/discovery.html">Discovery Architecture</a>
+<a href="itom/service-mapping.html">Service Mapping Guide</a>
+<a href="cmdb/index.html">CMDB Governance</a>
+</div>
+ 
+</div>
+ 
+<script src="assets/js/app.js"></script>
+ 
+</body>
+</html>
+ 
