@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About – Excellency | Krunal Mankar</title>
+  <meta name="description" content="About Krunal Mankar — ServiceNow ITOM Technical Lead specializing in Discovery, Service Mapping, Event Management, and CSDM-aligned CMDB governance." />
+  <link rel="stylesheet" href="asset/css/style.css" />
+</head>
+
+<body>
+  <!-- Topbar (mobile) -->
+  <div class="topbar">
+    <div>Excellency</div>
+    <button class="menu-btn" aria-label="Toggle menu" onclick="toggleSidebar()">☰</button>
+  </div>
+
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar" id="sidebar" aria-label="Primary Navigation">
+      <h2>Excellency</h2>
+
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+
+      <button class="tree-toggle">ITOM</button>
+      <div class="tree-children">
+        <a href="itom/index.html">Overview</a>
+        <a href="itom/discovery.html">Discovery</a>
+        <a href="itom/service-mapping.html">Service Mapping</a>
+        <a href="itom/event-management.html">Event Management</a>
+      </div>
+
+      <a href="cmdb/index.html">CMDB</a>
+      <a href="csdm/index.html">CSDM</a>
+      <a href="projects.html">Projects</a>
+      <a href="sn-code-samples.html">SN Code Samples</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="content" id="main">
+      <p class="breadcrumb"><a href="index.html">Home</a> / About</p>
+
+      <!-- INTRO SECTION -->
+      <section>
+        <h1>About Krunal Mankar</h1>
+        <p>
+          I’m a <strong>ServiceNow ITOM Technical Lead</strong> with <strong>3.5+ years of experience</strong> delivering
+          enterprise ITOM, CMDB, and CSDM solutions across hybrid, cloud, and containerized environments. My expertise spans
+          <strong>Discovery</strong>, <strong>Service Mapping</strong>, <strong>Event Management</strong>,
+          and <strong>CSDM‑aligned CMDB Governance</strong>, where I combine architectural thinking with hands‑on development. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)
+        </p>
+        <p>
+          I have successfully achieved ~<strong>90% infrastructure visibility</strong> across cloud and container platforms,
+          and improved CMDB Health KPIs by ~<strong>40%</strong> through CSDM 5.0 governance and CI lifecycle automation. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)
+        </p>
+      </section>
+
+      <!-- SKILLS SECTION -->
+      <section>
+        <h2>What I Bring</h2>
+        <ul>
+          <li><strong>Enterprise Discovery:</strong> On‑prem, AWS, Azure, GCP, Kubernetes & OpenShift; MID architecture & correlation tuning. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+          <li><strong>Service Mapping:</strong> Pattern‑based, tag‑based, and traffic‑based service modeling. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+          <li><strong>Event Management:</strong> Event rules, alert correlation, noise reduction engineering. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+          <li><strong>CMDB & CSDM Governance:</strong> CSDM 4.0/5.0 alignment, IRE strategy, normalization, lifecycle controls, attestation & certification. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+          <li><strong>Integrations:</strong> REST/SOAP, Flow Designer, Script Includes, Service Graph Connectors (SCCM, Intune, Dynatrace). [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+          <li><strong>AI & Automation:</strong> Now Assist, agentic AI, automated remediation workflows. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+        </ul>
+      </section>
+
+      <!-- EXPERIENCE SECTION -->
+      <section>
+        <h2>Experience</h2>
+
+        <h3>Capgemini Technology Services — ITOM Technical Lead</h3>
+        <p><em>May 2025 – Present</em></p>
+        <ul>
+          <li>Led AWS & OpenShift Discovery achieving ~90% infrastructure visibility. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+          <li>Implemented CSDM 5.0 governance improving CMDB Health by ~40%. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+          <li>Introduced AI-driven ITOM optimization using Now Assist. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+          <li>Built CI lifecycle governance: deduplication, archival, orphan remediation. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+        </ul>
+
+        <h3>Accenture India — ITOM Analyst (Senior Developer)</h3>
+        <p><em>Aug 2022 – Apr 2025</em></p>
+        <ul>
+          <li>Delivered Discovery across on‑prem, AWS, Azure & vCenter; managed MID server estates. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+          <li>Designed Service Mapping for critical applications; improved operational MTTR. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+          <li>Implemented Event Management correlation and noise reduction strategies. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+          <li>Integrated SCCM, Intune, Dynatrace, SAP Ariba, and Workday via REST/SOAP. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+        </ul>
+      </section>
+
+      <!-- CERTIFICATIONS -->
+      <section>
+        <h2>Certifications</h2>
+        <p>
+          CSA · CAD · CIS‑Discovery · CIS‑Service Mapping · CIS‑Event Management · CIS‑Data Foundation (CSDM & CMDB)
+          [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)
+        </p>
+      </section>
+
+      <!-- AWARDS -->
+      <section>
+        <h2>Awards & Recognition</h2>
+        <ul>
+          <li>Best ServiceNow System Integrator Award</li>
+          <li>ACE Award (Innovator & Skills)</li>
+          <li>Client Value Creation Award</li>
+          <li>Tech Star Award</li>
+          <li>Skilled Stakeholder Award</li>
+        </ul>
+        <!-- All above awards sourced from resume -->
+      </section>
+
+      <!-- VALUES -->
+      <section>
+        <h2>Professional Values</h2>
+        <ul>
+          <li>Active ITOM COE contributor — reusable accelerators, standardization. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+          <li>Coach & mentor — cohort learning sessions for upskilling teams. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+          <li>Strong belief in clean, governed CMDB foundations before scaling ITOM. [1](https://capgemini-my.sharepoint.com/personal/krunal_mankar_capgemini_com/_layouts/15/Doc.aspx?sourcedoc=%7B3A1B36A6-FBC2-44A2-92A1-02C829AEFDD9%7D&file=Krunal_Mankar_ServiceNow_ITOM_lead.docx&action=default&mobileredirect=true)</li>
+        </ul>
+      </section>
+
+      <!-- NAV BUTTONS -->
+      <section class="nav-buttons">
+        <a href="projects.html">View Projects</a>
+        <a href="sn-code-samples.html">SN Code Samples</a>
+      </section>
+
+    </main>
+
+    <!-- RIGHT PANEL -->
+    <aside class="right-panel">
+      <h4>Quick Links</h4>
+      <a href="itom/discovery.html">Discovery Architecture</a>
+      <a href="itom/service-mapping.html">Service Mapping Guide</a>
