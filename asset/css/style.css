@@ -1,252 +1,361 @@
-/* ===============================
-   GLOBAL RESET
-================================ */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* =========================================
+   Excellency UI — Professional Cool Theme
+   Works with existing HTML & JS as-is.
+   ========================================= */
+
+/* =========
+   RESET
+   ========= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; scroll-behavior: smooth; }
+
+/* =========
+   THEME TOKENS (Cool Slate / Indigo)
+   ========= */
+:root {
+  /* Palette */
+  --bg: #0b1220;            /* deep slate (background) */
+  --bg-elev: #0f172a;       /* elevated background */
+  --surface: #0f172a;       /* surfaces like sidebar/right panel */
+  --panel: #111a2e;         /* cards on content */
+  --text: #e5e7eb;          /* primary text */
+  --muted: #9aa3b2;         /* secondary text */
+  --border: #1f2a44;        /* strokes */
+
+  --primary: #60a5fa;       /* cool blue */
+  --primary-600: #3b82f6;
+  --primary-50: #0d1b33;    /* subtle hover bg */
+  --accent: #22d3ee;        /* cyan accent for small highlights */
+
+  /* Elevation & Shape */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .25);
+  --shadow-md: 0 6px 20px rgba(2, 6, 23, .25);
+  --radius: 10px;
+
+  /* Spacing */
+  --space-1: .25rem;
+  --space-2: .5rem;
+  --space-3: .75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+
+  /* Motion */
+  --ease: cubic-bezier(.2, .6, .2, 1);
+  --t-fast: 160ms var(--ease);
+  --t-med: 240ms var(--ease);
+
+  /* Content width */
+  --content-max: 1024px;
 }
- 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
+
+/* Light mode (optional: comment this out if you want only dark) */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #F8FAFC;
+    --bg-elev: #FFFFFF;
+    --surface: #FFFFFF;
+    --panel: #FFFFFF;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: #E2E8F0;
+
+    --primary: #2563EB;
+    --primary-600: #1D4ED8;
+    --primary-50: #EFF6FF;
+
+    --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+    --shadow-md: 0 10px 24px rgba(2, 6, 23, .08);
+  }
 }
- 
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* =========
+   BASE TYPOGRAPHY & BODY
+   ========= */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: #F8FAFC;
-  color: #1F2937;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(180deg, var(--bg) 0%, #0a1426 100%);
+  color: var(--text);
   line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
- 
-/* ===============================
-   LAYOUT GRID
-================================ */
+
+/* =========
+   LAYOUT GRID (keeps your current structure)
+   ========= */
 .layout {
   display: grid;
-  grid-template-columns: 260px 1fr 240px;
+  grid-template-columns: 260px 1fr 300px;
   min-height: 100vh;
 }
- 
-/* ===============================
-   TOP BAR (MOBILE)
-================================ */
+
+/* =========
+   TOP BAR (mobile)
+   ========= */
 .topbar {
   display: none;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
-  background: #E2E8F0;
+  padding: var(--space-4) var(--space-6);
+  background: var(--bg-elev);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
   font-weight: 600;
-  border-bottom: 1px solid #CBD5E1;
+  color: var(--text);
 }
- 
 .menu-btn {
   cursor: pointer;
   font-size: 20px;
+  color: var(--text);
+  padding: var(--space-2) var(--space-3);
+  border-radius: 8px;
+  transition: background var(--t-fast), color var(--t-fast);
 }
- 
-/* ===============================
+.menu-btn:hover { background: var(--primary-50); color: var(--primary); }
+
+/* =========
    SIDEBAR
-================================ */
+   ========= */
 .sidebar {
-  background: #FFFFFF;
-  border-right: 1px solid #E2E8F0;
-  padding: 20px 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: var(--space-4) 0;
   overflow-y: auto;
+  backdrop-filter: saturate(1.1) blur(2px);
 }
- 
 .sidebar h2 {
-  padding: 0 20px;
-  margin-bottom: 15px;
-  font-size: 16px;
-  color: #0F172A;
+  padding: 0 var(--space-6);
+  margin-bottom: var(--space-3);
+  font-size: .95rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
- 
+
+/* Primary nav links */
 .sidebar a {
   display: block;
-  padding: 8px 20px;
+  padding: .55rem var(--space-6);
   text-decoration: none;
-  color: #334155;
-  font-size: 14px;
+  color: var(--text);
+  font-size: .95rem;
   border-left: 3px solid transparent;
-  transition: 0.2s ease;
+  transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast), transform var(--t-fast);
+  position: relative;
 }
- 
 .sidebar a:hover {
-  background: #EFF6FF;
-  color: #2563EB;
-  border-left-color: #2563EB;
+  background: var(--primary-50);
+  color: var(--primary);
+  border-left-color: var(--primary);
+  transform: translateX(2px);
 }
- 
 .sidebar a.active {
-  background: #DBEAFE;
-  color: #1D4ED8;
+  background: linear-gradient(90deg, rgba(96,165,250,.15), transparent 70%);
+  color: var(--primary);
   font-weight: 600;
-  border-left-color: #1D4ED8;
+  border-left-color: var(--primary);
 }
- 
-/* ===============================
-   TREE STRUCTURE
-================================ */
+
+/* Tree/section toggle (works with your existing .tree-toggle) */
 .tree-toggle {
   cursor: pointer;
-  font-weight: 600;
-  padding: 8px 20px;
-  font-size: 14px;
-  color: #0F172A;
-}
- 
-.tree-children {
-  display: none;
-  padding-left: 10px;
-}
- 
-.tree-children a {
-  font-size: 13px;
-  padding-left: 30px;
-}
- 
-/* ===============================
-   MAIN CONTENT
-================================ */
-.content {
-  padding: 50px 40px;
-  max-width: 900px;
-  margin: 0 auto;
+  font-weight: 700;
+  padding: .6rem var(--space-6);
+  font-size: .95rem;
+  color: var(--text);
+  background: transparent;
+  border: 0;
   width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  transition: background var(--t-fast), color var(--t-fast);
 }
- 
-.content section {
-  margin-bottom: 60px;
+.tree-toggle:hover { background: var(--primary-50); color: var(--primary); }
+
+/* Sub-links (your .tree-children container) */
+.tree-children {
+  display: none; /* your JS toggles this to block — preserved */
+  padding-left: .5rem;
+  border-left: 1px dashed var(--border);
+  margin-left: var(--space-6);
 }
- 
+.tree-children a {
+  font-size: .9rem;
+  padding-left: calc(var(--space-6) - .5rem);
+  color: var(--muted);
+}
+.tree-children a:hover {
+  color: var(--primary);
+  background: transparent;
+}
+
+/* =========
+   MAIN CONTENT
+   ========= */
+.content {
+  padding: var(--space-10) var(--space-8);
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+.content section { margin-bottom: var(--space-10); }
+
+/* Headings */
 .content h1 {
-  font-size: 2.2rem;
-  margin-bottom: 20px;
-  color: #0F172A;
+  font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.2rem);
+  line-height: 1.2;
+  margin-bottom: var(--space-4);
+  color: #eaf2ff;
+  letter-spacing: .01em;
 }
- 
 .content h2 {
-  margin-top: 40px;
-  margin-bottom: 15px;
-  font-size: 1.6rem;
-  color: #0F172A;
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-3);
+  font-size: clamp(1.2rem, 1rem + .6vw, 1.6rem);
+  color: #d7e6ff;
 }
- 
+
+/* Paragraphs */
 .content p {
-  margin-bottom: 15px;
-  font-size: 1rem;
+  margin-bottom: var(--space-3);
+  color: var(--text);
 }
- 
-/* ===============================
-   BREADCRUMB
-================================ */
+
+/* Breadcrumb */
 .breadcrumb {
-  font-size: 13px;
-  margin-bottom: 20px;
-  color: #64748B;
+  font-size: .85rem;
+  margin-bottom: var(--space-4);
+  color: var(--muted);
 }
- 
-.breadcrumb a {
-  text-decoration: none;
-  color: #2563EB;
+.breadcrumb a { text-decoration: none; color: var(--primary); }
+.breadcrumb a:hover { text-decoration: underline; }
+
+/* Content “card” look for each section (subtle) */
+.content section {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-6);
 }
- 
-.breadcrumb a:hover {
-  text-decoration: underline;
+.content section:hover {
+  border-color: rgba(96,165,250,.35);
+  box-shadow: var(--shadow-md);
+  transition: box-shadow var(--t-med), border-color var(--t-fast), transform var(--t-fast);
 }
- 
-/* ===============================
+
+/* =========
    RIGHT PANEL
-================================ */
+   ========= */
 .right-panel {
-  border-left: 1px solid #E2E8F0;
-  background: #FFFFFF;
-  padding: 25px;
+  border-left: 1px solid var(--border);
+  background: var(--surface);
+  padding: var(--space-6);
 }
- 
 .right-panel h4 {
-  margin-bottom: 15px;
-  font-size: 14px;
+  margin-bottom: var(--space-3);
+  font-size: .9rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #0F172A;
+  letter-spacing: .06em;
+  color: var(--muted);
 }
- 
 .right-panel a {
   display: block;
-  font-size: 14px;
-  margin-bottom: 10px;
-  color: #2563EB;
+  font-size: .95rem;
+  margin-bottom: .65rem;
+  color: var(--primary);
   text-decoration: none;
+  transition: color var(--t-fast), transform var(--t-fast);
 }
- 
 .right-panel a:hover {
-  text-decoration: underline;
+  color: var(--accent);
+  transform: translateX(2px);
 }
- 
-/* ===============================
-   NAV BUTTONS
-================================ */
+
+/* =========
+   NAV BUTTONS (prev/next)
+   ========= */
 .nav-buttons {
   display: flex;
   justify-content: space-between;
-  margin-top: 40px;
+  margin-top: var(--space-8);
+  gap: var(--space-4);
 }
- 
 .nav-buttons a {
-  background: #2563EB;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 4px;
+  background: linear-gradient(180deg, var(--primary) 0%, var(--primary-600) 100%);
+  color: #fff;
+  padding: .65rem 1rem;
+  border-radius: var(--radius);
   text-decoration: none;
-  font-size: 14px;
-  transition: 0.2s ease;
+  font-size: .95rem;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--t-fast), box-shadow var(--t-fast), opacity var(--t-fast);
 }
- 
 .nav-buttons a:hover {
-  background: #1D4ED8;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(59,130,246,.35);
+  opacity: .98;
 }
- 
-/* ===============================
-   RESPONSIVE DESIGN
-================================ */
+
+/* =========
+   FOCUS STATES (keyboard a11y)
+   ========= */
+.sidebar a:focus-visible,
+.tree-toggle:focus-visible,
+.menu-btn:focus-visible,
+.nav-buttons a:focus-visible {
+  outline: 3px solid rgba(96,165,250,.75);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* =========
+   RESPONSIVE
+   ========= */
 @media (max-width: 1200px) {
-  .layout {
-    grid-template-columns: 260px 1fr;
-  }
- 
-  .right-panel {
-    display: none;
-  }
+  .layout { grid-template-columns: 260px 1fr; }
+  .right-panel { display: none; }
 }
- 
+
 @media (max-width: 900px) {
-  .layout {
-    grid-template-columns: 1fr;
-  }
- 
-  .topbar {
-    display: flex;
-  }
- 
+  .layout { grid-template-columns: 1fr; }
+  .topbar { display: flex; position: sticky; top: 0; z-index: 50; }
   .sidebar {
     position: fixed;
     width: 260px;
-    height: 100%;
+    height: 100vh;
     left: -260px;
     top: 0;
-    transition: 0.3s ease;
+    transition: left var(--t-med), box-shadow var(--t-fast);
     z-index: 1000;
-    background: white;
+    background: var(--surface);
   }
- 
   .sidebar.active {
     left: 0;
+    box-shadow: 0 20px 60px rgba(2, 6, 23, .45);
   }
- 
-  .content {
-    padding: 20px;
-  }
+  .content { padding: var(--space-6) var(--space-5); }
 }
+
+/* =========
+   UTILITY (optional: smooth expand when your JS flips display)
+   ========= */
+/* If your JS sets display:block, we also make it feel smoother */
+.tree-children[style*="display: block"] {
+  animation: fadeSlideIn var(--t-med);
+}
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(-2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+``
