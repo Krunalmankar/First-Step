@@ -7,334 +7,189 @@
 /* ==========================================
    ROOT VARIABLES – UNIFORM BRAND SYSTEM
 ========================================== */
-:root {
-  --brand-primary: #1E3A8A;
-  --brand-accent: #2563EB;
-  --brand-soft: rgba(37, 99, 235, 0.06);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Excellency by Krunal Mankar - ServiceNow ITOM, CMDB, and CSDM Architecture Knowledge Platform">
+  <title>Excellency | ServiceNow Architecture</title>
  
-  --bg-primary: #F9FAFB;
-  --bg-secondary: #FFFFFF;
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Sans+Pro:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
  
-  --text-primary: #111827;
-  --text-secondary: #6B7280;
+   <link rel="stylesheet" href="styles.css">
+</head>
+<body>
  
-  --border-color: #E5E7EB;
+<div class="site-container">
  
-  --font-display: 'IBM Plex Sans', -apple-system, sans-serif;
-  --font-body: 'Source Sans Pro', -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  <!-- ================= HEADER ================= -->
+  
+  <header class="site-header">
+    <a href="index.html" class="site-logo">Excellency</a>
+    <span class="site-tagline">by Krunal Mankar</span>
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+  </header>
  
-  --sidebar-width: 280px;
-  --right-panel-width: 260px;
-  --header-height: 64px;
  
-  --transition: all 0.25s ease;
-}
+  <!-- ================= SIDEBAR ================= -->
+  <nav class="sidebar" id="sidebar">
+    <ul class="nav-tree">
  
-/* ==========================================
-   RESET
-========================================== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+      <li class="nav-item">
+        <a href="index.html" class="nav-link active">Home</a>
+      </li>
  
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-}
+      <li class="nav-item">
+        <a href="about.html" class="nav-link active">About</a>
+      </li>
+
+       <!-- Platform -->
+      <li class="nav-item">
+        <div class="nav-module" onclick="toggleModule(this)">
+          Platform <span class="nav-expand-icon">▶</span>
+        </div>
+        <ul class="nav-sublist">
+          <li><a href="Platform/index.html" class="nav-sublink">Overview</a></li>
+        </ul>
+      </li>
+      
+      <!-- ITOM -->
+      <li class="nav-item">
+        <div class="nav-module" onclick="toggleModule(this)">
+          ITOM <span class="nav-expand-icon">▶</span>
+        </div>
+        <ul class="nav-sublist">
+          <li><a href="itom/index.html" class="nav-sublink">Overview</a></li>
+          <li><a href="itom/discovery.html" class="nav-sublink">Discovery </a></li>
+          <li><a href="itom/service-mapping.html" class="nav-sublink">Service Mapping</a></li>
+          <li><a href="itom/event-management.html" class="nav-sublink">Event Management</a></li>
+        </ul>
+      </li>
  
-body {
-  font-family: var(--font-body);
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-}
+      <!-- CMDB -->
+      <li class="nav-item">
+        <div class="nav-module" onclick="toggleModule(this)">
+          CMDB <span class="nav-expand-icon">▶</span>
+        </div>
+        <ul class="nav-sublist">
+          <li><a href="cmdb/index.html" class="nav-sublink">Overview</a></li>
+        </ul>
+      </li>
  
-/* ==========================================
-   LAYOUT GRID
-========================================== */
-.site-container {
-  display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr var(--right-panel-width);
-  grid-template-rows: var(--header-height) 1fr;
-  grid-template-areas:
-    "header header header"
-    "sidebar main right-panel";
-  min-height: 100vh;
-}
+      <!-- CSDM -->
+      <li class="nav-item">
+        <div class="nav-module" onclick="toggleModule(this)">
+          CSDM <span class="nav-expand-icon">▶</span>
+        </div>
+        <ul class="nav-sublist">
+          <li><a href="csdm/index.html" class="nav-sublink">Overview</a></li>
+        </ul>
+      </li>
+
+     <!-- Integration -->
+          <li class="nav-item">
+            <div class="nav-module" onclick="toggleModule(this)">
+              Integration <span class="nav-expand-icon">▶</span>
+            </div>
+            <ul class="nav-sublist">
+              <li><a href="Integration/index.html" class="nav-sublink">Overview</a></li>
+            </ul>
+          </li>
+      
+      <li class="nav-item">
+        <a href="projects.html" class="nav-link">Projects</a>
+      </li>
  
-/* ==========================================
-   HEADER
-========================================== */
-.site-header {
-  grid-area: header;
-  background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
+      <li class="nav-item">
+        <a href="contact.html" class="nav-link">Contact</a>
+      </li>
  
-.site-logo {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 700;
-  background: linear-gradient(90deg, var(--brand-primary), var(--brand-accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: -0.5px;
-}
+    </ul>
+  </nav>
  
-.site-tagline {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-}
  
-.mobile-menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: var(--brand-primary);
-}
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="main-content">
  
-/* ==========================================
-   SIDEBAR
-========================================== */
-.sidebar {
-  grid-area: sidebar;
-  background: var(--bg-secondary);
-  border-right: 1px solid var(--border-color);
-  padding: 1.6rem 0;
-  overflow-y: auto;
-  position: sticky;
-  top: var(--header-height);
-  height: calc(100vh - var(--header-height));
-}
+    <header class="page-header">
+      <h1 class="page-title">
+        Engineering Excellence in ServiceNow Architecture
+      </h1>
+      <p class="page-subtitle">
+        A structured documentation platform covering enterprise-grade
+        ITOM, CMDB, CSDM, and integration architecture patterns.
+      </p>
+    </header>
  
-.nav-tree {
-  list-style: none;
-}
+    <div class="content">
  
-.nav-link {
-  display: block;
-  padding: 0.7rem 1.5rem;
-  text-decoration: none;
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  border-left: 3px solid transparent;
-  transition: var(--transition);
-}
+      <h2>Platform Vision</h2>
+      <p>
+        Excellency is designed as a long-term architecture knowledge system.
+        It documents real-world implementation strategies, governance frameworks,
+        and scalable design patterns across complex ServiceNow environments.
+      </p>
  
-.nav-link:hover {
-  background: var(--brand-soft);
-  color: var(--brand-primary);
-}
+      <h2>Core Domains</h2>
  
-.nav-link.active {
-  background: var(--brand-soft);
-  color: var(--brand-primary);
-  border-left-color: var(--brand-accent);
-  font-weight: 600;
-}
+      <p>
+        <strong>IT Operations Management (ITOM):</strong>
+        Discovery orchestration, MID Server architecture, Service Mapping topology,
+        and Event Management correlation strategies.
+      </p>
  
-.nav-module {
-  padding: 0.9rem 1.5rem 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--brand-primary);
-  cursor: pointer;
-}
+      <p>
+        <strong>Configuration Management Database (CMDB):</strong>
+        CI modeling standards, reconciliation governance, relationship integrity,
+        and lifecycle management.
+      </p>
  
-.nav-sublist {
-  list-style: none;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-}
+      <p>
+        <strong>Common Service Data Model (CSDM):</strong>
+        Business service alignment, application services, ownership structure,
+        and architectural layering.
+      </p>
  
-.nav-sublist.expanded {
-  max-height: 500px;
-}
+      <h2>Purpose</h2>
+      <p>
+        The goal is not content volume, but architectural clarity.
+        Each article focuses on design decisions, trade-offs,
+        scalability considerations, and governance impact.
+      </p>
  
-.nav-sublink {
-  display: block;
-  padding: 0.5rem 2.5rem;
-  font-size: 0.85rem;
-  text-decoration: none;
-  color: var(--text-secondary);
-  border-left: 3px solid transparent;
-  transition: var(--transition);
-}
+    </div>
  
-.nav-sublink:hover {
-  background: var(--brand-soft);
-  color: var(--brand-primary);
-}
+  </main>
  
-.nav-sublink.active {
-  background: var(--brand-soft);
-  color: var(--brand-primary);
-  border-left-color: var(--brand-accent);
-  font-weight: 600;
-}
  
-/* ==========================================
-   MAIN CONTENT
-========================================== */
-.main-content {
-  grid-area: main;
-  padding: 3rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
+  <!-- ================= RIGHT PANEL ================= -->
+  <aside class="right-panel">
+    <h3>Quick Access</h3>
+    <ul class="related-links">
+      <li class="related-link">
+        <a href="itom/discovery.html">Discovery Architecture</a>
+      </li>
+      <li class="related-link">
+        <a href="itom/service-mapping.html">Service Mapping</a>
+      </li>
+      <li class="related-link">
+        <a href="cmdb/index.html">CMDB Overview</a>
+      </li>
+      <li class="related-link">
+        <a href="about.html">About the Author</a>
+      </li>
+    </ul>
+  </aside>
  
-.page-header {
-  margin-bottom: 2rem;
-}
+</div>
  
-.page-title {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
+<!-- External JS -->
+<script src="script.js"></script>
  
-.page-subtitle {
-  font-size: 1rem;
-  color: var(--text-secondary);
-}
- 
-/* SECTION HIGHLIGHT BLOCK */
-.section-highlight {
-  background: var(--brand-soft);
-  padding: 2rem;
-  border-radius: 10px;
-  margin-bottom: 3rem;
-  border: 1px solid rgba(37, 99, 235, 0.15);
-}
- 
-/* HEADING ACCENT */
-.content h2 {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  margin: 2rem 0 1rem;
-  padding-left: 14px;
-  border-left: 4px solid var(--brand-accent);
-}
-.content p {
-  margin-bottom: 1.2rem;
-  color: var(--text-secondary);
-  font-size: 1rem;
-}
- 
-.content code {
-  background: #EEF2FF;
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
-  font-family: var(--font-mono);
-  font-size: 0.9em;
-  color: var(--brand-primary);
-}
- 
-/* ==========================================
-   RIGHT PANEL
-========================================== */
-.right-panel {
-  grid-area: right-panel;
-  background: var(--bg-secondary);
-  border-left: 1px solid var(--border-color);
-  padding: 2rem;
-  position: sticky;
-  top: var(--header-height);
-  height: calc(100vh - var(--header-height));
-}
- 
-.right-panel h3 {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 1rem;
-  color: var(--brand-primary);
-}
- 
-.related-links {
-  list-style: none;
-}
- 
-.related-link a {
-  display: block;
-  padding: 0.6rem;
-  text-decoration: none;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  border-radius: 6px;
-  transition: var(--transition);
-}
- 
-.related-link a:hover {
-  background: var(--brand-soft);
-  color: var(--brand-primary);
-}
- 
-/* ==========================================
-   RESPONSIVE
-========================================== */
-@media (max-width: 1200px) {
-  .site-container {
-    grid-template-columns: var(--sidebar-width) 1fr;
-    grid-template-areas:
-      "header header"
-      "sidebar main";
-  }
- 
-  .right-panel {
-    display: none;
-  }
-}
- 
-@media (max-width: 768px) {
-  .site-container {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "header"
-      "main";
-  }
- 
-  .mobile-menu-toggle {
-    display: block;
-  }
- 
-  .sidebar {
-    position: fixed;
-    top: var(--header-height);
-    left: -100%;
-    width: var(--sidebar-width);
-    height: calc(100vh - var(--header-height));
-    transition: left 0.3s ease;
-    z-index: 90;
-  }
- 
-  .sidebar.mobile-active {
-    left: 0;
-  }
- 
-  .main-content {
-    padding: 1.5rem;
-  }
- 
-  .page-title {
-    font-size: 2rem;
-  }
-}
+</body>
+</html>
  
