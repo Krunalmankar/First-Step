@@ -19,11 +19,22 @@
  
   <!-- ================= HEADER ================= -->
   
-  <header class="site-header">
-    <a href="index.html" class="site-logo">Excellency</a>
-    <span class="site-tagline">by Krunal Mankar</span>
-    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
-  </header>
+ <header class="site-header">
+ 
+  <!-- LEFT: Search -->
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search documentation..." />
+    <div id="searchResults" class="search-results"></div>
+  </div>
+ 
+  <!-- RIGHT: Logo -->
+  <a href="index.html" class="site-logo">Excellency</a>
+ 
+  <!-- Mobile Toggle -->
+  <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+ 
+</header>
+ 
  
  
   <!-- ================= SIDEBAR ================= -->
@@ -180,6 +191,8 @@
  
 <!-- External JS -->
 <script src="asset/js/app.js"></script>
+<script src="assets/js/search.js"></script>
+ 
  
 </body>
 </html>
