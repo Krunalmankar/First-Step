@@ -19,11 +19,30 @@
 
   <!-- ================= HEADER ================= -->
   <header class="site-header">
-    <a href="index.html" class="site-logo">Excellency</a>
-    <span class="site-tagline">by Krunal Mankar</span>
-    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
-  </header>
-
+ 
+  <!-- LEFT: Logo -->
+  <div class="header-left">
+    <a href="../index.html" class="site-logo">Excellency</a>
+  </div>
+ 
+  <!-- CENTER: Search -->
+  <div class="header-center">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search documentation..." />
+      <div id="searchResults" class="search-results"></div>
+    </div>
+  </div>
+ 
+  <!-- RIGHT: Author -->
+  <div class="header-right">
+    <span class="author-name">by Krunal Mankar</span>
+  </div>
+ 
+  <!-- Mobile Toggle -->
+  <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+ 
+</header>
+ 
   <!-- ================= SIDEBAR ================= -->
   <nav class="sidebar" id="sidebar">
     <ul class="nav-tree">
