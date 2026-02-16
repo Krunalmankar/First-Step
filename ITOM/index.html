@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+  <title>ServiceNow ITOM Overview | Architecture & Core Components | Excellency</title>
+  <meta name="description" content="Comprehensive overview of ServiceNow IT Operations Management (ITOM), including Discovery, Service Mapping, Event Management, AIOps, and operational benefits.">
+ 
+  <link rel="stylesheet" href="../../asset/css/style.css">
+</head>
+ 
+<body>
+ 
+<div class="site-container">
+ 
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <a href="../../index.html" class="site-logo">Excellency</a>
+    <span class="site-tagline">ServiceNow Architecture</span>
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+  </header>
+ 
+ 
+  <!-- ================= SIDEBAR ================= -->
+  <nav class="sidebar" id="sidebar">
+    <ul class="nav-tree">
+ 
+      <li><a href="../../index.html" class="nav-link">Home</a></li>
+      <li><a href="../../about.html" class="nav-link">About</a></li>
+ 
+      <li class="nav-module expanded" onclick="toggleModule(this)">
+        ITOM <span class="nav-expand-icon">▶</span>
+      </li>
+      <ul class="nav-sublist expanded">
+        <li><a href="../index.html" class="nav-sublink active">Overview</a></li>
+        <li><a href="../discovery/index.html" class="nav-sublink">Discovery</a></li>
+        <li><a href="../service-mapping/index.html" class="nav-sublink">Service Mapping</a></li>
+        <li><a href="../event-management/index.html" class="nav-sublink">Event Management</a></li>
+      </ul>
+ 
+      <li><a href="../../cmdb/index.html" class="nav-link">CMDB</a></li>
+      <li><a href="../../csdm/index.html" class="nav-link">CSDM</a></li>
+      <li><a href="../../projects.html" class="nav-link">Projects</a></li>
+      <li><a href="../../contact.html" class="nav-link">Contact</a></li>
+ 
+    </ul>
+  </nav>
+ 
+ 
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="main-content">
+ 
+    <!-- ===== BREADCRUMB ===== -->
+    <nav class="breadcrumb">
+      <a href="../../index.html" class="breadcrumb-link">Home</a>
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current">ITOM Overview</span>
+    </nav>
+ 
+    <!-- ===== PAGE HEADER ===== -->
+    <header class="page-header">
+      <h1 class="page-title">ServiceNow IT Operations Management (ITOM) Overview</h1>
+      <p class="page-subtitle">
+        Enterprise-grade visibility, service health monitoring, and AI-driven operational automation.
+      </p>
+    </header>
+ 
+    <div class="content">
+ 
+      <!-- ===== INTRO SECTION ===== -->
+      <div class="section-highlight">
+        <h2>What is ServiceNow ITOM?</h2>
+        <p>
+          ServiceNow IT Operations Management (ITOM) is a comprehensive suite that enhances IT visibility,
+          service health, and operational efficiency through intelligent automation. It enables organizations
+          to shift from reactive firefighting to proactive service assurance by combining infrastructure discovery,
+          service dependency mapping, event correlation, and AI-driven analytics.
+        </p>
+      </div>
+ 
+      <h2>Core Components and Functional Capabilities</h2>
+ 
+      <h3>Discovery</h3>
+      <p>
+        Discovery creates a comprehensive and continuously updated inventory of IT infrastructure across
+        cloud and on-premises environments. It identifies servers, network devices, applications,
+        databases, and cloud resources, populating the CMDB with authoritative configuration data.
+      </p>
+ 
+      <h3>Service Mapping</h3>
+      <p>
+        Service Mapping visualizes relationships between business services and their underlying
+        infrastructure components. It enables impact analysis by mapping dependencies between
+        applications, servers, databases, and network layers.
+      </p>
+ 
+      <h3>Event Management</h3>
+      <p>
+        Event Management ingests events from monitoring tools and infrastructure sources.
+        Using correlation rules and AI-driven logic, it filters noise and identifies actionable alerts,
+        reducing alert fatigue and improving response precision.
+      </p>
+ 
+      <h3>Cloud Provisioning & Governance</h3>
+      <p>
+        ITOM supports automation and governance of cloud environments, enabling cost optimization,
+        lifecycle management, and standardized provisioning across multi-cloud architectures.
+      </p>
+ 
+      <h3>Operational Intelligence / AIOps</h3>
+      <p>
+        Through machine learning and advanced analytics, ITOM analyzes log data, metrics,
+        and performance trends to detect anomalies and predict potential service degradation.
+      </p>
+ 
+      <h3>Certificate Management</h3>
+      <p>
+        ITOM discovers and manages TLS/SSL certificates across the infrastructure,
+        preventing outages caused by certificate expiration and ensuring compliance.
+      </p>
+ 
+      <h2>Architectural Benefits</h2>
+ 
+      <h3>Increased Visibility</h3>
+      <p>
+        ITOM provides a unified, end-to-end view of the IT landscape,
+        eliminating blind spots across hybrid infrastructure environments.
+      </p>
+ 
+      <h3>Reduced MTTR</h3>
+      <p>
+        By correlating events and mapping service dependencies,
+        ITOM enables rapid root cause identification and accelerates resolution time.
+      </p>
+ 
+      <h3>Improved Productivity</h3>
+      <p>
+        Automation reduces manual operational tasks,
+        allowing engineering teams to focus on strategic initiatives.
+      </p>
+ 
+      <h3>Proactive Operations</h3>
+      <p>
+        ITOM shifts operations from a reactive break-fix model
+        to predictive, prevention-based service management.
+      </p>
+ 
+      <h2>Integration with ITSM</h2>
+      <p>
+        ITOM integrates directly with ServiceNow IT Service Management (ITSM),
+        transforming infrastructure events into actionable incidents.
+        This ensures alignment between operational monitoring and service delivery workflows,
+        improving overall service reliability and customer satisfaction.
+      </p>
+ 
+      <!-- ===== NAVIGATION ===== -->
+      <div class="nav-buttons" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="../../index.html" style="text-decoration:none; color:var(--brand-primary);">
+          ← Back to Home
+        </a>
+        <a href="../discovery/index.html" style="text-decoration:none; color:var(--brand-primary);">
+          Explore Discovery →
+        </a>
+      </div>
+ 
+    </div>
+ 
+  </main>
+ 
+ 
+  <!-- ================= RIGHT PANEL ================= -->
+  <aside class="right-panel">
+    <h3>ITOM Sections</h3>
+    <ul class="related-links">
+      <li class="related-link">
+        <a href="../discovery/index.html">Discovery</a>
+      </li>
+      <li class="related-link">
+        <a href="../service-mapping/index.html">Service Mapping</a>
+      </li>
+      <li class="related-link">
+        <a href="../event-management/index.html">Event Management</a>
+      </li>
+    </ul>
+  </aside>
+ 
+</div>
+ 
+<script src="../../asset/js/app.js"></script>
+<script src="../../asset/js/search.js"></script>
+ 
+</body>
+</html>
+ 
