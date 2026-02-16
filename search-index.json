@@ -1,0 +1,13 @@
+[
+  {
+    "title": "ServiceNow ITOM Overview",
+    "url": "itom/index.html",
+    "content": "ServiceNow IT Operations Management overview including Discovery, Service Mapping and Event Management."
+  },
+  {
+    "title": "Discovery Architecture",
+    "url": "itom/discovery/overview.html",
+    "content": "Credential governance, MID server architecture and IP range segmentation."
+  }
+]
+ 
