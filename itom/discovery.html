@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+  <title>ServiceNow Discovery Architecture Overview | Excellency</title>
+  <meta name="description" content="Comprehensive guide to ServiceNow Discovery architecture including MID Server strategy, credential governance, IP segmentation and CMDB population.">
+ 
+  <link rel="stylesheet" href="../../asset/css/style.css">
+</head>
+ 
+<body>
+ 
+<div class="site-container">
+ 
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+ 
+    <div class="header-left">
+      <a href="../../index.html" class="site-logo">Excellency</a>
+    </div>
+ 
+    <div class="header-center">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search documentation..." />
+        <div id="searchResults" class="search-results"></div>
+      </div>
+    </div>
+ 
+    <div class="header-right">
+      <span class="author-name">by Krunal Mankar</span>
+    </div>
+ 
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+ 
+  </header>
+ 
+ 
+  <!-- ================= SIDEBAR ================= -->
+  <nav class="sidebar" id="sidebar">
+    <ul class="nav-tree">
+ 
+      <li><a href="../../index.html" class="nav-link">Home</a></li>
+      <li><a href="../../about.html" class="nav-link">About</a></li>
+ 
+      <li class="nav-module expanded" onclick="toggleModule(this)">
+        ITOM <span class="nav-expand-icon">▶</span>
+      </li>
+      <ul class="nav-sublist expanded">
+        <li><a href="../index.html" class="nav-sublink">Overview</a></li>
+        <li><a href="index.html" class="nav-sublink active">Discovery</a></li>
+        <li><a href="../service-mapping/index.html" class="nav-sublink">Service Mapping</a></li>
+        <li><a href="../event-management/index.html" class="nav-sublink">Event Management</a></li>
+      </ul>
+ 
+      <li><a href="../../cmdb/index.html" class="nav-link">CMDB</a></li>
+      <li><a href="../../csdm/index.html" class="nav-link">CSDM</a></li>
+      <li><a href="../../projects.html" class="nav-link">Projects</a></li>
+      <li><a href="../../contact.html" class="nav-link">Contact</a></li>
+ 
+    </ul>
+  </nav>
+ 
+ 
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="main-content">
+ 
+    <nav class="breadcrumb">
+      <a href="../../index.html" class="breadcrumb-link">Home</a>
+      <span class="breadcrumb-separator">/</span>
+      <a href="../index.html" class="breadcrumb-link">ITOM</a>
+      <span class="breadcrumb-separator">/</span>
+      <a href="index.html" class="breadcrumb-link">Discovery</a>
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current">Architecture Overview</span>
+    </nav>
+ 
+    <header class="page-header">
+      <h1 class="page-title">ServiceNow Discovery Architecture Overview</h1>
+      <p class="page-subtitle">
+        Foundational design principles for scalable, secure and enterprise-grade Discovery implementation.
+      </p>
+    </header>
+ 
+    <div class="content">
+ 
+      <div class="section-highlight">
+        <h2>What is Discovery Architecture?</h2>
+        <p>
+          Discovery architecture defines how ServiceNow identifies, classifies, and maps infrastructure components
+          across hybrid environments. A well-designed architecture ensures accuracy in the CMDB, optimal performance,
+          and minimal operational overhead.
+        </p>
+      </div>
+ 
+      <h2>MID Server Strategy</h2>
+      <p>
+        MID Servers act as secure communication bridges between the ServiceNow instance and the target infrastructure.
+        Proper placement is critical. They should be deployed close to data centers, segmented by network boundaries,
+        and scaled based on discovery volume and concurrency.
+      </p>
+ 
+      <h3>Key Considerations</h3>
+      <ul>
+        <li>Network latency and firewall access</li>
+        <li>Credential security</li>
+        <li>Horizontal scalability</li>
+        <li>Load balancing for large enterprises</li>
+      </ul>
+ 
+      <h2>Credential Governance Model</h2>
+      <p>
+        Discovery depends heavily on credentials. Implement a structured credential governance model that includes:
+      </p>
+ 
+      <ul>
+        <li>Least privilege access</li>
+        <li>Credential rotation policies</li>
+        <li>Vault integration</li>
+        <li>Separation of environment credentials</li>
+      </ul>
+ 
+      <h2>IP Range Segmentation</h2>
+      <p>
+        Instead of scanning entire network blocks blindly, IP ranges should be logically segmented based on:
+      </p>
+ 
+      <ul>
+        <li>Environment (Prod / Non-Prod)</li>
+        <li>Geographical region</li>
+        <li>Business unit ownership</li>
+        <li>Infrastructure type</li>
+      </ul>
+ 
+      <h2>CMDB Population & Data Integrity</h2>
+      <p>
+        Discovery feeds data into the CMDB. Reconciliation rules, identification rules, and data source governance
+        must be aligned to prevent duplicate CI creation and maintain authoritative records.
+      </p>
+ 
+      <h2>Performance Optimization</h2>
+      <p>
+        Performance can be optimized by adjusting concurrency parameters such as 
+        <code>glide.discovery.max_threads</code>, optimizing schedules, and distributing workloads across MID Servers.
+      </p>
+ 
+      <h2>Conclusion</h2>
+      <p>
+        Discovery architecture is not just technical configuration—it is governance, scalability planning,
+        and operational design combined. When architected correctly, it becomes the backbone of IT visibility.
+      </p>
+ 
+      <div class="nav-buttons" style="display:flex; justify-content:space-between; margin-top:40px;">
+        <a href="../index.html" style="text-decoration:none; color:var(--secondary-blue);">
+          ← ITOM Overview
+        </a>
+         <!--<a href="credential-governance.html" style="text-decoration:none; color:var(--secondary-blue);">
+          Next: Credential Governance →
+        </a> -->
+      </div>
+ 
+    </div>
+ 
+  </main>
+ 
+ 
+  <!-- ================= RIGHT PANEL ================= -->
+  <aside class="right-panel">
+    <h3>Discovery Articles</h3>
+    <ul class="related-links">
+      <li class="related-link">
+        <a href="architecture-overview.html">Architecture Overview</a>
+      </li>
+      <li class="related-link">
+        <a href="credential-governance.html">Credential Governance</a>
+      </li>
+      <li class="related-link">
+        <a href="mid-server-strategy.html">MID Server Strategy</a>
+      </li>
+    </ul>
+  </aside>
+ -->
+</div>
+ 
+<script src="../../asset/js/app.js"></script>
+<script src="../../asset/js/search.js"></script>
+ 
+</body>
+</html>
+ 
