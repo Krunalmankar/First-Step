@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SimpleMoney · The Yield Curve</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* SimpleMoney tokens (Ledger theme), from the design system's tokens.json */
+:root {
+  --paper:#F3F2EC; --paper-edge:#DEDDD3; --page:#FBFAF6; --page-rim:#E7E6DD; --rule:#D6DCE6; --margin:#E8A598;
+  --ink:#1B2233; --ink-soft:#5B6274; --ink-faint:#8E93A0; --pen:#2340A0; --on-pen:#F3F2EC;
+  --marker:#F5C52E; --on-marker:#1B2233; --gain:#13734F; --loss:#C4432C; --night-panel:#0F1424;
+  --font-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --font-text:"Figtree","Helvetica Neue",Arial,sans-serif;
+  --font-mono:"IBM Plex Mono",Menlo,monospace;
+  --radius-tag:6px; --radius-chip:10px; --radius-tile:14px; --radius-pill:9999px;
+  --page-lift:0 36px 70px -26px rgba(27,34,51,.28),0 2px 6px rgba(27,34,51,.08);
+  --button-lift:0 14px 28px -10px rgba(35,64,160,.50);
+}
+html,body { margin:0; background:var(--paper); }
+#stage { position:relative; width:1920px; height:1080px; overflow:hidden; color:var(--ink); font-family:var(--font-text);
+  background:radial-gradient(ellipse 78% 72% at 50% 44%, var(--paper) 52%, var(--paper-edge) 100%); }
+.grid { position:absolute; inset:0; opacity:.6;
+  background-image:linear-gradient(var(--rule) 2px,transparent 2px),linear-gradient(90deg,var(--rule) 2px,transparent 2px);
+  background-size:60px 60px; background-position:-2px 18px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 65% at 50% 50%,#000 30%,transparent 100%); }
+.layer, .scene { position:absolute; inset:0; }
+.p { position:absolute; }
+.c { text-align:center; }
+svg.full { position:absolute; left:0; top:0; overflow:visible; }
+
+/* explainer frame */
+.header { position:absolute; top:84px; left:0; right:0; display:flex; align-items:center; justify-content:center; gap:24px; }
+.header .title { font-family:var(--font-display); font-weight:800; font-size:64px; line-height:1; letter-spacing:-.02em; color:var(--ink); }
+.header .rule { width:3px; height:44px; background:var(--ink-faint); opacity:.5; }
+.header .kick { color:var(--pen); }
+.header .count { color:var(--ink-faint); }
+.card { position:absolute; left:370px; top:192px; width:1180px; height:492px; border-radius:var(--radius-tile); box-shadow:var(--page-lift); overflow:hidden;
+  background:repeating-linear-gradient(to bottom, var(--page) 0, var(--page) 58px, var(--rule) 58px, var(--rule) 60px); }
+.card::before { content:""; position:absolute; top:0; bottom:0; left:120px; width:3px; background:var(--margin); }
+.caption { position:absolute; left:96px; right:96px; top:718px; text-align:center; font-family:var(--font-display); font-weight:800; font-size:72px; line-height:1.1; letter-spacing:-.01em; white-space:nowrap; }
+.caption .w { display:inline-block; }
+.dots { position:absolute; top:962px; left:0; right:0; display:flex; justify-content:center; align-items:center; gap:12px; }
+.dots i { width:12px; height:12px; border-radius:var(--radius-pill); background:var(--pen); }
+.dots i.on { width:34px; }
+.dots i.todo { background:var(--ink-faint); opacity:.45; }
+.nav { position:absolute; left:0; right:0; bottom:0; height:62px; background:var(--pen); }
+.nav .tab { position:absolute; top:0; height:62px; width:320px; display:flex; align-items:center; justify-content:center; font-family:var(--font-text); font-weight:600; font-size:26px; color:var(--on-pen); }
+.nav .tab.on { color:var(--pen); font-weight:700; }
+.nav .cut { position:absolute; top:0; height:62px; width:320px; background:var(--paper); border-top:3px solid var(--pen); box-sizing:border-box; }
+
+/* type */
+.mono { font-family:var(--font-mono); font-weight:500; font-size:26px; letter-spacing:.16em; text-transform:uppercase; }
+.micro { font-family:var(--font-mono); font-weight:500; font-size:18px; letter-spacing:.12em; text-transform:uppercase; line-height:1.2; }
+.label { font-family:var(--font-text); font-weight:700; font-size:52px; line-height:1.2; letter-spacing:-.01em; color:var(--pen); }
+.statement { font-family:var(--font-text); font-weight:700; font-size:80px; line-height:1.15; letter-spacing:-.01em; color:var(--ink); }
+.body { font-family:var(--font-text); font-weight:600; font-size:56px; line-height:1.35; color:var(--ink); }
+.text { font-family:var(--font-text); font-weight:600; font-size:30px; line-height:1.3; color:var(--ink); }
+.sub { font-family:var(--font-text); font-weight:600; font-size:30px; color:var(--ink-soft); }
+.disp { font-family:var(--font-display); font-weight:800; letter-spacing:-.02em; line-height:1; }
+.fig { font-family:var(--font-mono); font-weight:600; font-size:52px; line-height:1; font-variant-numeric:tabular-nums; letter-spacing:-.01em; }
+.section-word { font-family:var(--font-display); font-weight:800; font-size:180px; line-height:1; letter-spacing:-.02em; color:var(--ink); }
+.pen { color:var(--pen); } .soft { color:var(--ink-soft); } .faint { color:var(--ink-faint); } .gain { color:var(--gain); } .loss { color:var(--loss); }
+
+.chip { display:inline-flex; align-items:center; gap:10px; padding:14px 20px; border-radius:var(--radius-chip); font-family:var(--font-text); font-weight:600; font-size:26px; line-height:1; white-space:nowrap; }
+.chip-pen { background:var(--pen); color:var(--on-pen); }
+.chip-marker { background:var(--marker); color:var(--on-marker); }
+.chip-out { background:var(--page); color:var(--ink); box-shadow:inset 0 0 0 2px var(--page-rim); }
+.chip-gain { background:var(--page); color:var(--gain); box-shadow:inset 0 0 0 3px var(--gain); }
+.chip-loss { background:var(--page); color:var(--loss); box-shadow:inset 0 0 0 3px var(--loss); }
+.tag { display:inline-block; padding:6px 10px; border-radius:var(--radius-tag); font-family:var(--font-mono); font-weight:500; font-size:17px; letter-spacing:.12em; text-transform:uppercase; line-height:1.1; white-space:nowrap; background:var(--page); }
+.tag-ink { color:var(--ink); border:2px solid var(--ink); }
+.tag-pen { color:var(--pen); border:2px solid var(--pen); }
+.tag-loss { color:var(--loss); border:2px solid var(--loss); }
+.tag-gain { color:var(--gain); border:2px solid var(--gain); }
+.tag-assumed { color:var(--ink-soft); border:2px dashed var(--ink-soft); }
+.tag-asof { color:var(--pen); border:2px solid var(--pen); }
+.tile { display:inline-flex; align-items:center; justify-content:center; flex:none; width:64px; height:64px; border-radius:var(--radius-tile); box-shadow:inset 0 0 0 3px var(--pen); color:var(--pen); font-family:var(--font-mono); font-weight:600; font-size:30px; }
+.stat { position:absolute; box-sizing:border-box; display:flex; flex-direction:column; align-items:center; gap:12px; padding:22px 18px 20px; border-radius:var(--radius-tile); background:var(--page); box-shadow:var(--page-lift); }
+.box { position:absolute; box-sizing:border-box; border-radius:var(--radius-tile); background:var(--page); box-shadow:var(--page-lift); }
+
+.mark { position:relative; display:inline-block; padding:0 .12em; z-index:0; }
+.mark .swipe { position:absolute; left:-.02em; right:-.02em; top:.16em; bottom:.06em; background:var(--marker); border-radius:.14em .4em .28em .2em; z-index:-1; transform-origin:0 50%; transform:scaleX(0); }
+.strike { position:relative; display:inline-block; }
+.strike .line { position:absolute; left:-4%; right:-4%; top:52%; height:6px; border-radius:3px; background:var(--loss); transform-origin:0 50%; transform:scaleX(0); }
+
+.svgtext { font-family:var(--font-mono); font-weight:500; font-size:16px; letter-spacing:.1em; fill:var(--ink-soft); }
+.svglab { font-family:var(--font-mono); font-weight:600; font-size:18px; letter-spacing:.06em; }
+.ln { fill:none; stroke:var(--ink); stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
+.btn { display:inline-flex; align-items:center; padding:26px 42px; border-radius:var(--radius-pill); font-family:var(--font-display); font-weight:800; font-size:44px; color:var(--ink); background:var(--page); box-shadow:inset 0 0 0 3px var(--page-rim); }
+.btn-primary { background:var(--pen); color:var(--on-pen); box-shadow:var(--button-lift); }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="grid"></div>
+  <div class="layer" id="frame">
+    <div class="card" id="card"></div>
+    <div class="header" id="header"><span class="title" id="hTitle"></span><span class="rule"></span><span class="mono kick" id="hKick"></span><span class="rule"></span><span class="mono count" id="hCount"></span></div>
+    <div class="caption" id="caption"></div>
+    <div class="dots" id="dots"></div>
+    <div class="nav" id="nav"><div class="cut" id="navCut"></div></div>
+  </div>
+  <div class="layer" id="scenes"></div>
+</div>
+<script src="data.js"></script>
+<script>
+// ---------------------------------------------------------------------------
+// Timeline: every time below is in seconds of the ORIGINAL narration track.
+// The disclaimer card plays first, so the voice is delayed by OFF seconds.
+// ---------------------------------------------------------------------------
+const OFF = 4.0;
+const END_CARD = 10.0;
+const VOICE_LEN = 708.67;
+const DURATION = OFF + VOICE_LEN + END_CARD;
+const DATA = window.YC_DATA;
+
+const BEAT_IN = 0.45, BEAT_OUT = 0.30, WORD_STEP = 0.14;
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const bez = (p1x, p1y, p2x, p2y) => x => { let t = x; for (let i = 0; i < 8; i++) { const cx = 3*p1x*t*(1-t)**2 + 3*p2x*t*t*(1-t) + t**3 - x; const d = 3*p1x*(1-t)**2 + 6*(p2x-p1x)*t*(1-t) + 3*(1-p2x)*t*t; if (Math.abs(d) < 1e-6) break; t = clamp(t - cx/d); } return 3*p1y*t*(1-t)**2 + 3*p2y*t*t*(1-t) + t**3; };
+const settle = bez(0.22, 1, 0.36, 1), push = bez(0.65, 0, 0.35, 1);
+const COLORS = { ink:'#1B2233', soft:'#5B6274', faint:'#8E93A0', pen:'#2340A0', loss:'#C4432C', gain:'#13734F' };
+const hex = h => [1,3,5].map(i => parseInt(h.slice(i, i+2), 16));
+const mix = (a, b, k) => { const A = hex(a), B = hex(b); return `rgb(${A.map((v, i) => Math.round(v + (B[i]-v)*k)).join(',')})`; };
+const $ = id => document.getElementById(id);
+const fmtNum = (v, dec, plus) => (v < 0 ? '−' : (plus && v > 0 ? '+' : '')) + Math.abs(v).toFixed(dec);
+
+const NAV = ['Basics', 'Inversion', 'History', 'The twist', 'Today', "What's next"];
+const SECS = [null,
+  ['What is a yield curve', 'More time, more yield'],
+  ['The flip', 'Short above long'],
+  ['Why it inverts', 'Rates and expectations'],
+  ['Expectations', 'What markets expect'],
+  ['The track record', 'Seven warnings'],
+  ['The big mistake', 'A light, not a clock'],
+  ['The twist', '2022 to 2024'],
+  ['Un-inversion', 'After the flip'],
+  ['October 2026', 'Where we are now'],
+  ['The 2026 dashboard', 'Five gauges'],
+  ['Putting it together', 'The reading'],
+  ['The 2027 scenario', 'Hypothetical'],
+  ['Five red alerts', 'What to watch'],
+  ['Is 2027 the year?', 'Nobody knows the month'],
+];
+
+// ---------------------------------------------------------------------------
+// Scene helpers
+// ---------------------------------------------------------------------------
+const SC = [];
+// kind 'board' = full paper board; 'frame' = inside the explainer frame (header, ledger card, caption, nav)
+function scene(t0, t1, kind, opt, build, update) { SC.push({ t0, t1, kind, ...opt, build, update }); }
+const at = (t) => `data-in="${t}"`;
+// absolutely positioned block; o.c centres on x with width w
+function P(x, y, html, o = {}) {
+  const w = o.w ? `width:${o.w}px;` : '';
+  const left = o.c ? x - (o.w || 0) / 2 : x;
+  return `<div class="p ${o.c ? 'c ' : ''}${o.cls || ''}" style="left:${left}px;top:${y}px;${w}${o.style || ''}" ${o.in != null ? at(o.in) : ''}${o.out != null ? ` data-out="${o.out}"` : ''}>${html}</div>`;
+}
+const mark = (txt, t) => `<span class="mark"><span class="swipe" data-swipe="${t}"></span>${txt}</span>`;
+const strike = (txt, t) => `<span class="strike">${txt}<span class="line" data-strike="${t}"></span></span>`;
+const count = (from, to, dec, t, dur, plus, pre = '', suf = '') => `<span data-count="${from},${to},${dec},${t},${dur},${plus ? 1 : 0}" data-pre="${pre}" data-suf="${suf}">${pre}${fmtNum(to, dec, plus)}${suf}</span>`;
+const svg = (inner) => `<svg class="full" width="1920" height="1080" viewBox="0 0 1920 1080" aria-hidden="true">${inner}</svg>`;
+let UID = 0;
+
+// chart frame: returns X/Y mappers and the axes markup
+function plot(c) {
+  const X = t => c.x + (t - c.tx[0]) / (c.tx[1] - c.tx[0]) * c.w;
+  const Y = v => c.y + c.h - (v - c.vy[0]) / (c.vy[1] - c.vy[0]) * c.h;
+  let s = `<g ${at(c.in)}>`;
+  (c.rec || []).forEach(([a, b]) => { const x0 = Math.max(X(a), c.x), x1 = Math.min(X(b), c.x + c.w); if (x1 > x0) s += `<rect x="${x0}" y="${c.y}" width="${Math.max(x1 - x0, 3)}" height="${c.h}" fill="#1B2233" opacity=".07"/>`; });
+  (c.yt || []).forEach(([v, l]) => { s += `<line x1="${c.x}" x2="${c.x + c.w}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--rule)" stroke-width="2"/><text x="${c.x - 14}" y="${Y(v) + 6}" text-anchor="end" class="svgtext">${l}</text>`; });
+  (c.xt || []).forEach(([t, l]) => { s += `<text x="${X(t)}" y="${c.y + c.h + 32}" text-anchor="middle" class="svgtext">${l}</text>`; });
+  if (c.zero) s += `<line x1="${c.x}" x2="${c.x + c.w}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--ink-faint)" stroke-width="2.5"/>`;
+  s += '</g>';
+  return { X, Y, s, c };
+}
+// a data series, revealed left to right; below zero it turns into the loss colour with a soft fill
+function series(P_, data, o = {}) {
+  const { X, Y, c } = P_;
+  const pts = data.filter(p => p[0] >= c.tx[0] && p[0] <= c.tx[1]);
+  const d = pts.map((p, i) => `${i ? 'L' : 'M'}${X(p[0]).toFixed(1)} ${Y(Math.max(c.vy[0], Math.min(c.vy[1], p[1]))).toFixed(1)}`).join('');
+  const id = ++UID, col = o.color || 'var(--pen)', w = o.w || 5;
+  let s = `<clipPath id="rv${id}"><rect x="${c.x - 10}" y="0" width="0" height="1080" data-reveal="${o.t},${o.dur || 1.6},${c.w + 20}"/></clipPath>`;
+  s += `<g clip-path="url(#rv${id})" ${o.in != null ? at(o.in) : ''}>`;
+  if (o.loss) {
+    const z = Y(0);
+    const area = `M${X(pts[0][0])} ${z}` + pts.map(p => `L${X(p[0]).toFixed(1)} ${Math.max(z, Y(Math.max(c.vy[0], p[1]))).toFixed(1)}`).join('') + `L${X(pts[pts.length - 1][0])} ${z}Z`;
+    s += `<clipPath id="bz${id}"><rect x="0" y="${z}" width="1920" height="1080"/></clipPath>`;
+    s += `<path d="${area}" fill="var(--loss)" opacity=".16"/>`;
+    s += `<path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linejoin="round" ${o.dash ? `stroke-dasharray="${o.dash}"` : ''}/>`;
+    s += `<path d="${d}" fill="none" stroke="var(--loss)" stroke-width="${w}" stroke-linejoin="round" clip-path="url(#bz${id})"/>`;
+  } else {
+    s += `<path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round" ${o.dash ? `stroke-dasharray="${o.dash}"` : ''} ${o.op ? `opacity="${o.op}"` : ''}/>`;
+  }
+  return s + '</g>';
+}
+const valAt = (data, t) => { let best = data[0]; for (const p of data) { if (Math.abs(p[0] - t) < Math.abs(best[0] - t)) best = p; } return best[1]; };
+const vline = (x, y0, y1, col, t) => `<line x1="${x}" x2="${x}" y1="${y0}" y2="${y1}" stroke="${col}" stroke-width="2.5" stroke-dasharray="6 6" ${at(t)}/>`;
+const bracket = (x0, x1, y, col, t) => `<path d="M${x0} ${y - 12} L${x0} ${y} L${x1} ${y} L${x1} ${y - 12}" fill="none" stroke="${col}" stroke-width="3" ${at(t)}/>`;
+// line-art gauge: track, filled arc in pen up to v (0..1), needle that swings in
+function gauge(cx, cy, r, v, t, opt = {}) {
+  const a0 = Math.PI, arc = (k) => { const a = a0 - Math.PI * k; return [cx + r * Math.cos(a), cy - r * Math.sin(a)]; };
+  const [sx, sy] = arc(0), [ex, ey] = arc(1), [vx, vy] = arc(v);
+  const sw = opt.sw || Math.max(6, r * 0.14);
+  return `<g ${at(t)}>
+    <path d="M${sx} ${sy} A${r} ${r} 0 0 1 ${ex} ${ey}" fill="none" stroke="var(--rule)" stroke-width="${sw}" stroke-linecap="round"/>
+    <path d="M${sx} ${sy} A${r} ${r} 0 0 1 ${vx} ${vy}" fill="none" stroke="${opt.col || 'var(--pen)'}" stroke-width="${sw}" stroke-linecap="round" data-arc="${t + 0.2},0.9"/>
+    <g data-rot="${t + 0.2},0.9,-90,${-90 + 180 * v},${cx},${cy}"><line x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy - r * 0.82}" stroke="var(--ink)" stroke-width="${Math.max(4, r * 0.06)}" stroke-linecap="round"/></g>
+    <circle cx="${cx}" cy="${cy}" r="${Math.max(7, r * 0.09)}" fill="var(--page)" stroke="var(--ink)" stroke-width="4"/></g>`;
+}
+// the five dashboard gauges as a row inside the card
+const GAUGES = [
+  ['Yield curve', 0.22, 'No inversion', 'chip-gain'],
+  ['Jobs', 0.58, 'Weakening', 'chip-marker'],
+  ['Inflation', 0.66, 'Stubborn', 'chip-marker'],
+  ['Credit', 0.46, 'Watch', 'chip-marker'],
+  ['Growth', 0.25, 'Expanding', 'chip-gain'],
+];
+function gaugeRow(t, active, y = 262, empty = false) {
+  let g = '', h = '';
+  GAUGES.forEach(([name, v, st, cls], i) => {
+    const cx = 640 + i * 190, on = i === active;
+    g += `<g opacity="${active == null || on ? 1 : 0.4}">${gauge(cx, y, 44, empty ? 0 : v, t + i * 0.08, { sw: 9 })}</g>`;
+    h += P(cx, y + 18, `<div style="opacity:${active == null || on ? 1 : 0.45}"><div class="micro" style="color:var(--ink);font-weight:600">${name}</div>${empty ? '' : `<div class="micro ${cls === 'chip-gain' ? 'gain' : 'soft'}" style="margin-top:6px">${st}</div>`}</div>`, { c: 1, w: 180, in: t + i * 0.08 });
+  });
+  return svg(g) + h;
+}
+// icons, line art at 4px
+const ICON = {
+  bank: (x, y, s = 1) => `<g transform="translate(${x} ${y}) scale(${s})" class="ln"><path class="ln" d="M-70 -30 L0 -70 L70 -30 Z"/><path class="ln" d="M-60 -20 V40 M-30 -20 V40 M0 -20 V40 M30 -20 V40 M60 -20 V40 M-76 52 H76"/></g>`,
+  house: (x, y) => `<g transform="translate(${x} ${y})"><path class="ln" d="M-34 -4 L0 -36 L34 -4 M-24 -12 V30 H24 V-12 M-8 30 V8 H8 V30"/></g>`,
+  cardi: (x, y) => `<g transform="translate(${x} ${y})"><rect class="ln" x="-36" y="-24" width="72" height="50" rx="8"/><path class="ln" d="M-36 -8 H36 M-22 12 H0"/></g>`,
+  factory: (x, y) => `<g transform="translate(${x} ${y})"><path class="ln" d="M-36 30 V-6 L-14 8 V-6 L8 8 V-6 L30 8 V-34 H36 V30 Z"/></g>`,
+  clock: (x, y, r) => `<g transform="translate(${x} ${y})"><circle class="ln" r="${r}"/><path class="ln" d="M0 0 V${-r * 0.6} M0 0 L${r * 0.45} ${r * 0.2}"/></g>`,
+  check: (x, y, s = 1, t) => `<path d="M${x - 22 * s} ${y} L${x - 6 * s} ${y + 16 * s} L${x + 24 * s} ${y - 18 * s}" fill="none" stroke="var(--gain)" stroke-width="${7 * s}" stroke-linecap="round" stroke-linejoin="round" ${t != null ? at(t) : ''}/>`,
+  cross: (x, y, r, t) => `<g><line x1="${x - r}" y1="${y - r}" x2="${x + r}" y2="${y + r}" stroke="var(--loss)" stroke-width="10" stroke-linecap="round" data-draw="${t},0.25"/><line x1="${x + r}" y1="${y - r}" x2="${x - r}" y2="${y + r}" stroke="var(--loss)" stroke-width="10" stroke-linecap="round" data-draw="${t + 0.18},0.25"/></g>`,
+  warn: (x, y) => `<g transform="translate(${x} ${y})"><path d="M0 -20 L20 16 H-20 Z" fill="var(--marker)" stroke="var(--ink)" stroke-width="3.5" stroke-linejoin="round"/><path d="M0 -6 V4" stroke="var(--ink)" stroke-width="3.5" stroke-linecap="round"/><circle cy="10" r="2.2" fill="var(--ink)"/></g>`,
+};
+const REC = [[1980.0, 1980.5], [1981.5, 1982.87], [1990.5, 1991.2], [2001.2, 2001.87], [2007.95, 2009.5], [2020.12, 2020.3]];
+// card content box (right of the margin line)
+const CX = 1022, CL = 520, CR = 1520, CT = 214, CB = 664;
+
+// ---------------------------------------------------------------------------
+// 0 · Disclaimer (before the voice starts)
+// ---------------------------------------------------------------------------
+scene(-OFF, 0, 'board', {}, () =>
+  P(960, 360, `<div class="mono pen">Before we start</div>`, { c: 1, w: 1600, in: -3.8 }) +
+  P(960, 420, `<div class="statement">This is education, not advice.</div>`, { c: 1, w: 1600, in: -3.6 }) +
+  P(960, 560, `<div class="sub" style="line-height:1.45">Numbers are examples. Rates and data are as of October 2026 and will change.<br>Talk to a SEBI-registered adviser before you invest.</div>`, { c: 1, w: 1300, in: -3.35 }));
+
+// ---------------------------------------------------------------------------
+// Cold open
+// ---------------------------------------------------------------------------
+scene(0, 12.75, 'board', {}, () => {
+  const yrs = [['2000', 2.4, 560], ['2006', 4.9, 960], ['2019', 5.9, 1360]];
+  return yrs.map(([y, t, x]) => P(x, 400, `<div class="disp" style="font-size:160px">${y}</div>`, { c: 1, w: 400, in: t })).join('') +
+    svg(yrs.map(([, , x]) => `<line x1="${x - 110}" x2="${x + 110}" y1="580" y2="580" stroke="var(--pen)" stroke-width="8" stroke-linecap="round" data-draw="9.0,0.4"/>`).join('')) +
+    yrs.map(([, , x], i) => P(x, 610, `<span class="tag tag-ink">Curve inverted</span>`, { c: 1, w: 300, in: 9.4 + i * 0.25 })).join('');
+});
+scene(12.75, 28.0, 'board', {}, () => {
+  const p = plot({ x: 200, y: 420, w: 1520, h: 380, tx: [1995, 2021.5], vy: [-1.2, 3], zero: true, rec: REC.filter(r => r[0] > 1995), in: 13.0,
+    yt: [[0, '0']], xt: [[1995, '1995'], [2000, '2000'], [2005, '2005'], [2010, '2010'], [2015, '2015'], [2020, '2020']] });
+  const yrs = [[2000.1, '2000'], [2005.95, '2006'], [2019.6, '2019']];
+  return P(960, 130, '', {}) +
+    yrs.map(([t, y]) => P(p.X(t), 200, `<div class="disp" style="font-size:96px">${y}</div><div style="margin-top:12px"><span class="tag tag-ink">Inverted</span></div>`, { c: 1, w: 300, in: 12.9 })).join('') +
+    `<div class="p" style="left:0;top:0;width:1920px;height:1080px" data-dim="22.4,0.6,0.25">` +
+    svg(p.s + series(p, DATA.full, { t: 13.2, dur: 4.2, loss: true, w: 5 }) + yrs.map(([t]) => vline(p.X(t), 330, 800, 'var(--ink-faint)', 16.5)).join('')) +
+    P(200, 850, `<span class="micro soft">U.S. Treasury spread · 10-year minus 2-year · shaded = recessions</span>`, { in: 13.5 }) + `</div>` +
+    P(960, 560, `<div style="display:flex;gap:56px;justify-content:center"><span class="statement" style="font-size:64px" data-in="23.6"><span class="micro soft" style="display:block;margin-bottom:8px">Not</span>${strike('Stock market', 24.1)}</span><span class="statement" style="font-size:64px" data-in="24.6"><span class="micro soft" style="display:block;margin-bottom:8px">Not</span>${strike('Unemployment', 25.1)}</span><span class="statement" style="font-size:64px" data-in="26.6"><span class="micro soft" style="display:block;margin-bottom:8px">Not</span>${strike('GDP', 27.0)}</span></div>`, { c: 1, w: 1700 });
+});
+scene(28.0, 37.25, 'board', {}, () =>
+  svg(`<path d="M560 420 C 760 300, 1000 270, 1360 262" fill="none" stroke="var(--pen)" stroke-width="10" stroke-linecap="round" data-draw="28.4,2.2"/><circle cx="1360" cy="262" r="12" fill="var(--pen)" ${at(30.4)}/>`) +
+  P(960, 470, `<div class="section-word">The yield curve</div>`, { c: 1, w: 1700, in: 32.3 }) +
+  P(960, 680, `<div class="mono pen">The recession warning that came before</div>`, { c: 1, w: 1700, in: 32.8 }));
+scene(37.25, 53.5, 'board', {}, () => {
+  const p = plot({ x: 200, y: 300, w: 1520, h: 520, tx: [1977.5, 2027], vy: [-2.5, 3], zero: true, rec: REC, in: 37.4,
+    yt: [[-2, '−2'], [-1, '−1'], [0, '0'], [1, '+1'], [2, '+2'], [3, '+3']], xt: [[1980, '1980'], [1990, '1990'], [2000, '2000'], [2010, '2010'], [2020, '2020']] });
+  const checks = [[1980.0, '1980'], [1981.5, '1981'], [1990.5, '1990'], [2001.2, '2001'], [2007.95, '2007'], [2020.12, '2020']];
+  return P(960, 110, `<div class="label">The yield curve</div><div class="micro soft" style="margin-top:10px">10-year minus 2-year Treasury spread · percentage points</div>`, { c: 1, w: 1400, in: 37.5 }) +
+    svg(p.s + series(p, DATA.full, { t: 37.6, dur: 3.2, loss: true, w: 4 }) +
+      `<rect x="${p.X(2022.5)}" y="${p.Y(0) + 4}" width="${p.X(2024.7) - p.X(2022.5)}" height="${p.Y(-1.25) - p.Y(0)}" fill="none" stroke="var(--ink)" stroke-width="3" rx="6" ${at(42)}/>` +
+      `<rect x="${p.X(2024.75)}" y="${p.Y(3)}" width="${p.X(2027) - p.X(2024.75)}" height="${p.c.h}" fill="none" stroke="var(--pen)" stroke-width="3" stroke-dasharray="8 8" rx="6" ${at(48)}/>`) +
+    checks.map(([t, y], i) => P(p.X(t), 262 - (i % 2) * 34, `<span class="tag tag-gain">${y} ✓</span>`, { c: 1, w: 120, in: 39 + i * 0.5 })).join('') +
+    P(1720, 130, `<div class="fig gain" style="font-size:44px">6 / 6</div><div class="micro soft" style="margin-top:6px">Recessions preceded<br>by an inversion</div>`, { w: 300, style: 'text-align:right;margin-left:-300px', in: 39.2 }) +
+    P(p.X(2023.6), p.Y(-1.25) + 14, `<div class="disp" style="font-size:44px">2022–24</div><div class="micro soft" style="margin-top:6px">Longest inversion on record</div>`, { c: 1, w: 420, in: 42.5 }) +
+    P(p.X(2025.9), 360, `<div class="disp pen" style="font-size:96px">?</div>`, { c: 1, w: 120, in: 48.4 }) +
+    P(p.X(2025.9), 262, `<span class="tag tag-pen">No recession · yet</span>`, { c: 1, w: 260, in: 48.2, style: 'margin-left:-60px' });
+});
+scene(53.5, 58.0, 'board', {}, () =>
+  P(960, 380, `<div class="section-word" style="font-size:150px">October 2026</div>`, { c: 1, w: 1700, in: 53.7 }) +
+  P(960, 560, `<div class="mono pen">What is the curve saying now?</div>`, { c: 1, w: 1700, in: 54.2 }));
+scene(58.0, 63.75, 'board', {}, () =>
+  P(960, 300, `<div class="label">Five warning lights</div>`, { c: 1, w: 1200, in: 58.2 }) +
+  ['Yield curve', 'Jobs', 'Inflation', 'Credit', 'Growth'].map((n, i) => P(560 + i * 200, 460, `<div style="width:96px;height:96px;margin:0 auto;border-radius:50%;background:var(--page);box-shadow:inset 0 0 0 4px var(--ink),var(--page-lift)"></div><div class="micro" style="margin-top:22px;color:var(--ink)">${n}</div>`, { c: 1, w: 200, in: 58.8 + i * 0.35 })).join(''));
+
+// ---------------------------------------------------------------------------
+// 01 · What is a yield curve
+// ---------------------------------------------------------------------------
+const sectionCard = (t0, t1, word, def) => scene(t0, t1, 'board', {}, () =>
+  P(960, 360, `<div class="section-word">${word}</div>`, { c: 1, w: 1700, in: t0 + 0.15 }) +
+  P(960, 590, `<div class="mono pen" style="line-height:1.5">${def}</div>`, { c: 1, w: 1500, in: t0 + 0.5 }));
+
+sectionCard(63.75, 66.5, 'Yields', 'The interest a government bond pays, from 3 months to 30 years');
+scene(66.5, 74.0, 'frame', { nav: 0, sec: 1, cap: [[66.8, 'A *bond* is a loan']] }, () =>
+  svg(`<path d="M690 430 H850" class="ln" stroke="var(--pen)" data-draw="67.6,0.5"/><path d="M836 418 L852 430 L836 442" class="ln" ${at(68)}/>
+       <path d="M1350 430 H1192" class="ln" data-draw="69.6,0.5"/><path d="M1206 418 L1190 430 L1206 442" class="ln" ${at(70)}/>`) +
+  P(610, 395, `<div class="text" style="font-size:36px;font-weight:700">Investors</div><div class="micro gain" style="margin-top:8px">Lend money</div>`, { c: 1, w: 220, in: 66.9 }) +
+  `<div class="box" style="left:862px;top:340px;width:320px;height:180px;box-shadow:inset 0 0 0 4px var(--ink),var(--page-lift)" ${at(68.3)}><div class="micro soft c" style="margin-top:26px">U.S. Treasury</div><div class="disp c" style="font-size:72px;margin-top:10px">Bond</div><div class="micro soft c" style="margin-top:12px;font-size:15px">Pays interest · repays at maturity</div></div>` +
+  P(1440, 395, `<div class="text" style="font-size:36px;font-weight:700">Government</div><div class="micro soft" style="margin-top:8px">Borrows</div>`, { c: 1, w: 260, in: 69.4 }));
+const MATS = ['3-month', '2-year', '5-year', '10-year', '30-year'];
+const Y2017 = [0.53, 1.22, 1.94, 2.45, 3.04], Y2023 = [5.44, 4.94, 4.19, 3.86, 3.87], Y2026 = [4.21, 4.79, 5.05, 5.27, 5.62];
+scene(74.0, 91.75, 'frame', { nav: 0, sec: 1, cap: [[74.3, 'Five loans, five *yields*'], [85.4, 'More *time*, more yield']] }, () => {
+  const lock = [0.04, 0.1, 0.25, 0.5, 1];
+  const ins = [74.5, 75.0, 75.5, 77.6, 78.1];
+  let s = '';
+  MATS.forEach((m, i) => {
+    const x = 548 + i * 196, dim = i > 0 && i < 4;
+    s += `<div class="stat" style="left:${x}px;top:330px;width:176px" ${at(ins[i])}><div data-dimto="86.0,${dim ? 0.4 : 1}" style="display:flex;flex-direction:column;align-items:center;gap:12px;width:100%"><span class="micro soft" style="font-size:14px">U.S. Treasury</span><span class="text" style="font-weight:700;font-size:32px">${m}</span>
+      <span style="display:block;width:120px;height:8px;border-radius:4px;background:var(--page-rim)"><span style="display:block;height:8px;width:${lock[i] * 120}px;border-radius:4px;background:var(--pen)"></span></span><span class="micro faint" style="font-size:13px">Time locked up</span>
+      <span class="fig" style="font-size:34px" ${at(80.8 + i * 0.2)}>${i === 4 ? mark(Y2017[i].toFixed(2) + '%', 86.4) : Y2017[i].toFixed(2) + '%'}</span></div></div>`;
+  });
+  return s + svg(`<path d="M610 312 C 820 250, 1220 250, 1428 312" fill="none" stroke="var(--pen)" stroke-width="5" stroke-linecap="round" data-draw="85.3,0.9"/><path d="M1414 296 L1430 314 L1406 318" class="ln" stroke="var(--pen)" ${at(86.1)}/>`) +
+    P(CX, 226, `<span class="mono pen">More time → more yield</span>`, { c: 1, w: 900, in: 85.6 });
+});
+function curveChart(t) {
+  return plot({ x: 640, y: 262, w: 800, h: 340, tx: [0, 4], vy: [0, 6], in: t,
+    yt: [[0, '0%'], [2, '2%'], [4, '4%'], [6, '6%']], xt: [[0, '3M'], [1, '2Y'], [2, '5Y'], [3, '10Y'], [4, '30Y']] });
+}
+scene(91.75, 113.75, 'frame', { nav: 0, sec: 1, secAt: [[100.25, 2, 1]], cap: [[92.1, 'A normal curve slopes *up*'], [104, 'Short end up, long end *down*'], [107.5, 'Then it !flipped!']] }, () => {
+  const p = curveChart(91.9);
+  let dots = '';
+  for (let i = 0; i < 5; i++) dots += `<circle r="9" fill="var(--pen)" data-morph="${i}" ${at(92.3 + i * 0.3)}/><text class="svglab" text-anchor="middle" data-morphlab="${i}" ${at(92.3 + i * 0.3)} fill="var(--ink)"></text>`;
+  return svg(p.s + `<path id="ycLine" fill="none" stroke="var(--pen)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>` + dots +
+    `<g ${at(104)}><path d="M${p.X(0) - 34} ${p.Y(1.3)} V${p.Y(3.4)} M${p.X(0) - 46} ${p.Y(3.0)} L${p.X(0) - 34} ${p.Y(3.4)} L${p.X(0) - 22} ${p.Y(3.0)}" class="ln" stroke="var(--pen)"/>
+      <path d="M${p.X(4) + 34} ${p.Y(5)} V${p.Y(3.6)} M${p.X(4) + 22} ${p.Y(4.0)} L${p.X(4) + 34} ${p.Y(3.6)} L${p.X(4) + 46} ${p.Y(4.0)}" class="ln" stroke="var(--pen)"/></g>`) +
+    P(CL, 226, `<span class="mono pen" data-out="106.6">Normal yield curve · Jan 3, 2017</span>`, { in: 92.0 }) +
+    P(CL, 226, `<span class="mono loss">Inverted yield curve · Jul 3, 2023</span>`, { in: 108.6 }) +
+    P(CR, 652, `<span class="micro faint">U.S. Treasury yields · Fed H.15 via FRED</span>`, { w: 600, style: 'margin-left:-600px;text-align:right', in: 92.5 });
+}, (u, root) => {
+  // morph Jan 2017 → Jul 2023 between 106 and 109
+  const k = push(clamp((u - 106) / 3)), X = i => 640 + i * 200, Y = v => 262 + 340 - v / 6 * 340;
+  const vals = Y2017.map((v, i) => v + (Y2023[i] - v) * k);
+  const line = root.querySelector('#ycLine');
+  const reveal = push(clamp((u - 94.0) / 1.4));
+  const pts = vals.map((v, i) => [X(i), Y(v)]);
+  let d = `M${pts[0][0]} ${pts[0][1]}`; for (let i = 1; i < 5; i++) { const [x0, y0] = pts[i - 1], [x1, y1] = pts[i]; d += ` C${x0 + 70} ${y0}, ${x1 - 70} ${y1}, ${x1} ${y1}`; }
+  line.setAttribute('d', d);
+  line.style.clipPath = `inset(0 ${(1 - reveal) * 100}% 0 0)`;
+  const col = mix(COLORS.pen, COLORS.loss, k);
+  line.setAttribute('stroke', col);
+  root.querySelectorAll('[data-morph]').forEach(c => { const i = +c.dataset.morph; c.setAttribute('cx', pts[i][0]); c.setAttribute('cy', pts[i][1]); c.setAttribute('fill', col); });
+  root.querySelectorAll('[data-morphlab]').forEach(c => { const i = +c.dataset.morphlab; c.setAttribute('x', pts[i][0]); c.setAttribute('y', pts[i][1] - 22); c.textContent = vals[i].toFixed(2) + '%'; });
+});
+
+// ---------------------------------------------------------------------------
+// 02 · The flip
+// ---------------------------------------------------------------------------
+scene(113.75, 135.25, 'frame', { nav: 1, sec: 2, cap: [[114.0, 'The *spread* tells the story'], [123.0, 'Below zero means *inverted*'], [130.8, 'Deepest since *1981*']] }, () => {
+  const p = plot({ x: 580, y: 290, w: 420, h: 300, tx: [0, 4], vy: [0, 7], in: 113.9, yt: [[0, '0%'], [2, '2%'], [4, '4%'], [6, '6%']], xt: [[0, '3M'], [1, '2Y'], [2, '5Y'], [3, '10Y'], [4, '30Y']] });
+  const pts = Y2023.map((v, i) => [p.X(i), p.Y(v)]);
+  let d = `M${pts[0][0]} ${pts[0][1]}`; for (let i = 1; i < 5; i++) d += ` L${pts[i][0]} ${pts[i][1]}`;
+  return svg(p.s + `<path d="${d}" fill="none" stroke="var(--loss)" stroke-width="6" stroke-linejoin="round" ${at(114)}/>` + pts.map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="8" fill="var(--loss)" ${at(114)}/><text x="${x}" y="${y - 18}" text-anchor="middle" class="svglab" fill="var(--ink)" ${at(114)}>${Y2023[i].toFixed(2)}%</text>`).join('')) +
+    P(CL, 226, `<span class="mono loss">Inverted · Jul 3, 2023</span>`, { in: 114 }) +
+    P(1110, 250, `<div class="mono pen">The spread</div><div class="disp" style="font-size:72px;margin-top:14px">10Y − 2Y</div>`, { in: 116.0 }) +
+    P(1110, 368, `<div class="fig soft" style="font-size:32px">3.86% − 4.94%</div>`, { in: 117.2 }) +
+    P(1110, 420, `<span class="tag tag-ink">Below zero = inverted</span>`, { in: 123.0 }) +
+    P(1110, 468, `<div class="micro soft">Jul 2023</div><div class="disp" style="font-size:110px;margin-top:6px">${mark(count(0, -1.08, 2, 125.8, 0.9), 126.75)}</div>`, { in: 125.6 }) +
+    P(1250, 600, `<span class="chip chip-out" style="transform:rotate(-3deg);display:inline-flex">Deepest since 1981</span>`, { in: 130.8 });
+});
+
+// ---------------------------------------------------------------------------
+// 03 · Why it inverts
+// ---------------------------------------------------------------------------
+sectionCard(135.25, 138.5, 'Inversion', 'When short-term yields rise above long-term yields');
+scene(138.5, 141.75, 'frame', { nav: 1, sec: 3, cap: [[138.8, 'Prices rising too *fast*']] }, () =>
+  svg(gauge(CX, 470, 150, 0.86, 138.7, { sw: 22 })) +
+  P(CX, 510, `<div class="text" style="font-size:44px;font-weight:700">Inflation</div><div class="micro soft" style="margin-top:8px">Prices rising too fast</div>`, { c: 1, w: 500, in: 139.0 }));
+scene(141.75, 157.5, 'frame', { nav: 1, sec: 3, cap: [[142.0, 'The central bank *raises* rates'], [147.2, 'Short-term yields *rise*'], [152.4, 'Borrowing gets *expensive*']] }, () =>
+  svg(ICON.bank(640, 420, 1) + `<path d="M740 430 H840" class="ln" stroke="var(--pen)" data-draw="146.8,0.4"/><path d="M826 418 L842 430 L826 442" class="ln" stroke="var(--pen)" ${at(147.1)}/>` +
+    ICON.house(990, 440) + ICON.cardi(1170, 440) + ICON.factory(1350, 440)) +
+  P(640, 492, `<div class="text" style="font-weight:700">Central bank</div><div class="micro soft" style="margin-top:6px">Raises interest rates</div>`, { c: 1, w: 300, in: 142.0 }) +
+  [0, 1, 2].map(i => P(560, 232 + i * 40, `<span class="tag tag-pen">▲ Rate hike</span>`, { in: 143.8 + i * 0.9 })).join('') +
+  P(1170, 260, `<span class="label" style="font-size:44px">Short-term yields ▲</span>`, { c: 1, w: 600, in: 147.2 }) +
+  [['Mortgages', 990], ['Credit cards', 1170], ['Business loans', 1350]].map(([n, x], i) => P(x, 488, `<div class="micro" style="color:var(--ink)">${n}</div><div style="margin-top:8px"><span class="tag tag-ink">Cost ▲</span></div>`, { c: 1, w: 200, in: 152.4 + i * 0.3 })).join(''));
+scene(157.5, 164.0, 'frame', { nav: 1, sec: 3, cap: [[157.7, 'Everything *tightens*'], [160.0, 'Investors think *ahead*']] }, () => {
+  let dots = ''; for (let i = 0; i < 60; i++) { const a = i * 2.399, r = 8 + Math.sqrt(i) * 9; dots += `<circle cx="${1240 + r * Math.cos(a)}" cy="${470 + r * Math.sin(a) * 0.8}" r="5" fill="var(--ink)" opacity="${0.5 + (i % 3) * 0.2}"/>`; }
+  return svg(ICON.house(600, 420) + ICON.cardi(720, 420) + ICON.factory(840, 420) + `<path d="M520 360 V500 M520 360 H540 M520 500 H540 M920 360 V500 M920 360 H900 M920 500 H900" class="ln" stroke="var(--ink-faint)"/>` +
+    `<g ${at(159.6)}><path d="M960 430 H1110" class="ln" stroke="var(--pen)"/><path d="M1096 418 L1112 430 L1096 442" class="ln" stroke="var(--pen)"/>${dots}</g>` +
+    `<g ${at(160.6)}><rect x="1300" y="236" width="210" height="120" rx="18" fill="var(--page)" stroke="var(--ink)" stroke-width="4"/><circle cx="1290" cy="384" r="10" class="ln"/><circle cx="1266" cy="410" r="6" class="ln"/>
+      <path d="M1322 270 C 1350 256, 1370 290, 1400 276 L1416 300 C1440 320, 1460 312, 1488 330" fill="none" stroke="var(--pen)" stroke-width="4" stroke-linecap="round"/></g>`) +
+    P(720, 500, `<div class="label" style="font-size:40px">Everything tightens</div>`, { c: 1, w: 500, in: 157.7 }) +
+    P(1240, 560, `<div class="text" style="font-weight:700">Investors</div><div class="micro soft" style="margin-top:6px">Think ahead</div>`, { c: 1, w: 260, in: 159.8 }) +
+    P(1405, 318, `<span class="micro pen" style="font-size:14px">Economy slows</span>`, { c: 1, w: 200, in: 160.8 });
+});
+scene(164.0, 173.25, 'frame', { nav: 1, sec: 3, cap: [[164.3, 'Investors buy *long* bonds'], [167.6, 'Prices up, yields *down*']] }, () =>
+  svg(`<path d="M${CX} 520 L${CX - 34} 572 H${CX + 34} Z" class="ln" fill="var(--page)" ${at(164.2)}/>
+    <g ${at(164.2)}><g data-rot="166.0,1.0,0,-9,${CX},516"><line x1="${CX - 330}" y1="516" x2="${CX + 330}" y2="516" stroke="var(--ink)" stroke-width="10" stroke-linecap="round"/>
+      <rect x="${CX - 330}" y="436" width="200" height="74" rx="12" fill="var(--page)" stroke="var(--pen)" stroke-width="4"/>
+      <rect x="${CX + 130}" y="436" width="200" height="74" rx="12" fill="var(--page)" stroke="var(--ink)" stroke-width="4"/>
+      <text x="${CX - 230}" y="482" text-anchor="middle" class="svglab" fill="var(--pen)">BOND PRICE ▲</text><text x="${CX + 230}" y="482" text-anchor="middle" class="svglab" fill="var(--ink)">YIELD ▼</text></g></g>`) +
+  P(CX, 250, `<div class="label" style="font-size:44px">Long-term bonds</div><div class="micro soft" style="margin-top:10px">Demand ▲ → price ▲ → yield ▼</div>`, { c: 1, w: 800, in: 164.4 }));
+scene(173.25, 181.25, 'frame', { nav: 1, sec: 3, cap: [[173.5, 'Short rates *up*, long rates down']] }, () =>
+  svg(`<path d="M560 590 C 900 560, 1180 420, 1480 270" fill="none" stroke="var(--pen)" stroke-width="7" stroke-linecap="round" data-draw="173.6,2.4"/>
+       <path d="M560 400 C 900 420, 1180 470, 1480 500" fill="none" stroke="var(--ink)" stroke-width="7" stroke-linecap="round" data-draw="173.6,2.4"/>
+       <circle cx="1068" cy="440" r="12" fill="var(--page)" stroke="var(--ink)" stroke-width="4" ${at(176.2)}/>`) +
+  P(1490, 248, `<span class="micro pen">2-year</span>`, { in: 176.0 }) + P(1490, 490, `<span class="micro">10-year</span>`, { in: 176.0 }) +
+  P(1068, 372, `<span class="tag tag-loss">Inverted</span>`, { c: 1, w: 200, in: 176.4 }) +
+  P(CL, 226, `<span class="micro faint">Illustration</span>`, { in: 173.6 }));
+
+// ---------------------------------------------------------------------------
+// 04 · Expectations
+// ---------------------------------------------------------------------------
+scene(181.25, 186.5, 'frame', { nav: 1, sec: 4, cap: [[181.5, 'Not a crystal *ball*']] }, () =>
+  svg(`<g ${at(181.4)}><circle cx="${CX}" cy="380" r="110" fill="var(--page)" stroke="var(--ink)" stroke-width="5"/><path d="M${CX - 70} 300 A 90 90 0 0 1 ${CX - 10} 280" class="ln" stroke="var(--ink-faint)"/><path d="M${CX - 80} 490 H${CX + 80} L${CX + 110} 540 H${CX - 110} Z" class="ln" fill="var(--page)"/></g>` + ICON.cross(CX, 400, 110, 182.4)) +
+  P(CX, 576, `<div class="label" style="font-size:44px">Not a crystal ball</div>`, { c: 1, w: 700, in: 182.8 }));
+scene(186.5, 193.25, 'frame', { nav: 1, sec: 4, cap: [[186.8, 'One combined *bet*']] }, () => {
+  let d = ''; for (let i = 0; i < 160; i++) { const sx = 540 + ((i * 97) % 980), sy = 240 + ((i * 53) % 400), tx = 600 + i * 5.6, ty = 330 + (i / 160) ** 0.6 * 60 + ((i * 37) % 9) - 4; d += `<circle r="4" fill="var(--ink)" data-fly="${sx},${sy},${tx},${ty},${187 + (i % 20) * 0.04}"/>`; }
+  return svg(d) + P(CX, 226, `<div class="label" style="font-size:44px">Millions of investors</div><div class="mono pen" style="margin-top:8px;font-size:22px">One combined bet</div>`, { c: 1, w: 800, in: 186.7 }) +
+    P(CX, 500, `<div class="body" style="font-size:52px">“Today's rates can't last forever.”</div>`, { c: 1, w: 1000, in: 190.2 });
+});
+scene(193.25, 198.0, 'frame', { nav: 1, sec: 4, cap: [[193.5, 'What the curve *expects*']] }, () =>
+  [['Growth', 'Slower', 193.5], ['Inflation', 'Lower', 194.6], ['Rate cuts', 'Ahead', 195.5]].map(([a, b, t], i) =>
+    `<div class="box" style="left:${560 + i * 320}px;top:300px;width:290px;height:260px" ${at(t)}><svg width="290" height="110" style="display:block"><path d="M115 30 L145 54 L175 30 M115 58 L145 82 L175 58" class="ln" stroke="var(--pen)" stroke-width="6"/></svg><div class="text c" style="font-size:40px;font-weight:700">${a}</div><div class="micro pen c" style="margin-top:10px">${b}</div></div>`).join(''));
+
+// ---------------------------------------------------------------------------
+// 05 · The track record
+// ---------------------------------------------------------------------------
+sectionCard(198.0, 201.5, 'History', 'Seven inversions since 1978. Six recessions followed. One has not, yet.');
+const spreadAxes = (tx, vy, yt, xt, t) => plot({ x: 610, y: 262, w: 870, h: 340, tx, vy, zero: true, rec: REC, in: t, yt, xt });
+scene(201.5, 216.5, 'frame', { nav: 2, sec: 5, cap: [[201.8, 'Every recession since *1980*'], [207.0, 'Each came after an *inversion*']] }, () => {
+  const p = spreadAxes([1977.5, 2027], [-2.5, 3], [[-2, '−2'], [0, '0'], [2, '+2']], [[1980, '1980'], [1990, '1990'], [2000, '2000'], [2010, '2010'], [2020, '2020']], 201.6);
+  const inv = [1978.6, 1980.7, 1988.95, 2000.1, 2005.95, 2019.6, 2022.5];
+  return svg(p.s + series(p, DATA.full, { t: 202.0, dur: 4.0, loss: true, w: 4 }) + inv.map((t, i) => `<path d="M${p.X(t) - 9} ${p.Y(0) - 30} H${p.X(t) + 9} L${p.X(t)} ${p.Y(0) - 14} Z" fill="var(--pen)" ${at(207 + i * 0.3)}/>`).join('')) +
+    P(CL, 226, `<span class="mono pen">10-year minus 2-year Treasury spread</span>`, { in: 201.7 }) +
+    P(CR, 652, `<span class="micro faint">Shaded = U.S. recessions (NBER) · Fed H.15 via FRED</span>`, { w: 700, style: 'margin-left:-700px;text-align:right', in: 202 });
+});
+function zoomScene(t0, t1, cap, tx, vy, yt, xt, dataK, notes, extra = () => '') {
+  scene(t0, t1, 'frame', { nav: 2, sec: 5, cap }, () => {
+    const p = spreadAxes(tx, vy, yt, xt, t0 + 0.1);
+    return svg(p.s + series(p, DATA[dataK], { t: t0 + 0.3, dur: 2.0, loss: true, w: 5 }) + notes.svg(p)) + notes.html(p) + extra(p) +
+      P(CL, 226, `<span class="mono pen">10Y − 2Y spread · ${xt[0][1]}–${xt[xt.length - 1][1]}</span>`, { in: t0 + 0.2 });
+  });
+}
+const yearT = Array.from({ length: 50 }, (_, i) => 1977 + i);
+zoomScene(216.5, 242.5, [[216.8, 'The *dot-com* boom'], [224.0, 'Inverted in *February 2000*'], [228.0, 'Recession *13 months* later'], [233.0, 'A warning: *unsustainable*']],
+  [1996.6, 2003.4], [-0.9, 2.6], [[-0.5, '−0.5'], [0, '0'], [1, '+1'], [2, '+2']], yearT.filter(y => y >= 1997 && y <= 2003).map(y => [y, String(y)]), 's9603', {
+    svg: p => vline(p.X(2000.1), 262, 602, 'var(--pen)', 224) + bracket(p.X(2000.1), p.X(2001.2), p.Y(-0.75), 'var(--ink)', 228),
+    html: p => P(p.X(1999.6), p.Y(0.6) - 50, `<span class="tag tag-ink">Dot-com boom</span>`, { c: 1, w: 220, in: 219.3 }) +
+      P(p.X(2000.1), 252, `<span class="tag tag-pen">Curve inverts · Feb 2000</span>`, { c: 1, w: 340, in: 224.1 }) +
+      P(p.X(2001.55), 284, `<span class="micro soft" style="font-size:14px">Recession<br>Mar 2001</span>`, { c: 1, w: 140, in: 221.0 }) +
+      P(p.X(2000.65), p.Y(-0.75) + 6, `<span class="micro" style="color:var(--ink)">13 months</span>`, { c: 1, w: 200, in: 228.2 }) +
+      P(CR, 650, `<span class="micro" style="font-size:16px">${mark('A warning the environment was unsustainable', 234.0)}</span>`, { w: 560, style: 'margin-left:-560px;text-align:right;color:var(--on-marker)', in: 233.2 }),
+  });
+zoomScene(242.5, 271.5, [[242.8, 'The *housing* boom'], [248.8, '*17* straight Fed hikes'], [252.0, 'Inverted in *December 2005*'], [255.5, 'Recession *24 months* later'], [263.8, 'A warning: the system was *dangerous*']],
+  [2003.8, 2010.1], [-0.6, 3.0], [[0, '0'], [1, '+1'], [2, '+2'], [3, '+3']], yearT.filter(y => y >= 2004 && y <= 2010).map(y => [y, String(y)]), 's0410', {
+    svg: p => vline(p.X(2005.95), 262, 602, 'var(--pen)', 252) + bracket(p.X(2005.95), p.X(2007.95), p.Y(-0.4), 'var(--ink)', 255.5) + bracket(p.X(2004.5), p.X(2006.5), 300, 'var(--pen)', 248.8) + vline(p.X(2008.7), 262, 602, 'var(--ink)', 260),
+    html: p => P(p.X(2005.55), p.Y(0.35) - 60, `<span class="tag tag-ink">Housing boom</span>`, { c: 1, w: 220, in: 243.2 }) +
+      P(p.X(2005.5), 270, `<span class="micro pen">17 straight Fed hikes</span>`, { c: 1, w: 320, in: 249.0 }) +
+      P(p.X(2005.95), 330, `<span class="tag tag-pen">Curve inverts · Dec 2005</span>`, { c: 1, w: 340, in: 252.1 }) +
+      P(p.X(2006.95), p.Y(-0.4) + 6, `<span class="micro" style="color:var(--ink)">24 months</span>`, { c: 1, w: 200, in: 255.7 }) +
+      P(p.X(2008.75), 252, `<span class="micro soft" style="font-size:14px">Recession<br>Dec 2007</span>`, { c: 1, w: 140, in: 246.0, style: 'margin-left:-60px' }) +
+      P(p.X(2008.7), 552, `<span class="tag tag-ink">Lehman collapses · Sep 2008</span>`, { c: 1, w: 380, in: 260.1 }) +
+      P(CR, 650, `<span class="micro" style="font-size:16px;color:var(--on-marker)">${mark('A warning the system was becoming dangerous', 264.8)}</span>`, { w: 560, style: 'margin-left:-560px;text-align:right', in: 264.0 }),
+  });
+scene(271.5, 300.0, 'frame', { nav: 2, sec: 5, cap: [[271.8, 'Unemployment at a *50-year low*'], [278.8, 'Both spreads *inverted*'], [286.8, 'Then came *COVID*'], [290.0, 'A warning of *vulnerability*']] }, () => {
+  const p = spreadAxes([2017.2, 2021.1], [-0.7, 2.0], [[-0.5, '−0.5'], [0, '0'], [1, '+1'], [2, '+2']], [[2018, '2018'], [2019, '2019'], [2020, '2020'], [2021, '2021']], 271.6);
+  return svg(p.s + series(p, DATA.s1821_3m, { t: 278.0, dur: 1.6, color: 'var(--ink-faint)', w: 3, dash: '7 6' }) + series(p, DATA.s1821, { t: 271.9, dur: 2.0, loss: true, w: 5 }) +
+      vline(p.X(2019.2), 262, 602, 'var(--ink-faint)', 279) + vline(p.X(2019.6), 262, 602, 'var(--pen)', 282)) +
+    P(CL, 226, `<span class="mono pen">10Y − 2Y spread</span> <span class="micro faint" style="margin-left:14px">- - 10Y − 3M</span>`, { in: 271.7 }) +
+    P(p.X(2019.6), p.Y(0) + 34, `<span class="tag tag-ink">Unemployment 3.5% · 50-year low</span>`, { c: 1, w: 440, in: 273.2 }) +
+    P(p.X(2019.2), 268, `<span class="tag tag-ink">10Y−3M inverts · Mar 2019</span>`, { c: 1, w: 360, in: 279.2, style: 'margin-left:-120px' }) +
+    P(p.X(2019.6), 318, `<span class="tag tag-pen">10Y−2Y inverts · Aug 2019</span>`, { c: 1, w: 360, in: 282.2, style: 'margin-left:40px' }) +
+    P(p.X(2020.2), 520, `<span class="tag tag-ink">COVID shock</span>`, { c: 1, w: 200, in: 287.0, style: 'margin-left:80px' }) +
+    P(CR, 650, `<span class="micro" style="font-size:16px;color:var(--on-marker)">${mark('Not a pandemic forecast: a warning of vulnerability', 290.8)}</span>`, { w: 640, style: 'margin-left:-640px;text-align:right', in: 290.1 });
+});
+scene(300.0, 314.5, 'frame', { nav: 2, sec: 5, cap: [[300.3, 'Every warning, side by *side*'], [308.8, '*6 to 24* months later']] }, () => {
+  const rows = [['Aug 1978', 'Jan 1980', 17], ['Sep 1980', 'Jul 1981', 10], ['Dec 1988', 'Jul 1990', 19], ['Feb 2000', 'Mar 2001', 13], ['Dec 2005', 'Dec 2007', 24], ['Aug 2019', 'Feb 2020', 6], ['Jul 2022', 'None yet', 51]];
+  let s = P(560, 228, `<span class="micro pen">Curve inverted</span>`, { in: 300.2 }) + P(790, 228, `<span class="micro pen">Recession began</span>`, { in: 300.2 }) + P(1020, 228, `<span class="micro pen">Lead time</span>`, { in: 300.2 });
+  rows.forEach(([a, b, m], i) => {
+    const y = 268 + i * 54, last = i === 6, t = 300.8 + i * 0.45;
+    s += P(560, y, `<span class="text ${last ? 'pen' : ''}" style="font-size:28px">${a}</span>`, { in: t }) + P(790, y, `<span class="text ${last ? 'pen' : ''}" style="font-size:28px">${b}</span>`, { in: t }) +
+      `<div class="p" style="left:1020px;top:${y + 8}px;height:24px;width:${m * 7}px;border-radius:6px;${last ? 'border:3px dashed var(--pen);box-sizing:border-box' : 'background:var(--pen)'};transform-origin:0 50%" data-grow="${t + 0.1},0.6,x"></div>` +
+      P(1032 + m * 7, y + 6, `<span class="fig" style="font-size:22px">${m}${last ? '+' : ''} mo</span>`, { in: t + 0.6 });
+  });
+  return s + svg(`<path d="M${1020 + 6 * 7} 640 V650 H${1020 + 24 * 7} V640" fill="none" stroke="var(--ink)" stroke-width="3" ${at(309)}/>`) + P(1020 + 15 * 7, 656, `<span class="micro" style="color:var(--ink)">6–24 months</span>`, { c: 1, w: 260, in: 309.1 });
+});
+
+// ---------------------------------------------------------------------------
+// 06 · The big mistake
+// ---------------------------------------------------------------------------
+sectionCard(314.5, 318.0, 'Timing', 'An inversion is a warning, not a date');
+scene(318.0, 327.25, 'frame', { nav: 2, sec: 6, cap: [[318.3, 'Not recession *tomorrow*'], [323.8, 'A lag of *6 to 24* months']] }, () =>
+  P(CX, 270, `<div class="statement" style="font-size:60px">Inversion = ${strike('recession tomorrow', 319.8)}</div>`, { c: 1, w: 1000, in: 318.3 }) +
+  P(CX, 380, `<div class="body soft" style="font-size:44px">${strike('Recession next Tuesday?', 321.6)}</div>`, { c: 1, w: 1000, in: 321.0 }) +
+  P(CX, 500, `<div style="display:flex;gap:16px;justify-content:center"><span class="chip chip-pen">Lag: 6–24 months</span><span class="chip chip-out">+ other shocks</span></div>`, { c: 1, w: 900, in: 323.9 }));
+scene(327.25, 332.25, 'frame', { nav: 2, sec: 6, cap: [[327.5, 'A warning *light*, not a clock']] }, () =>
+  svg(`<circle cx="790" cy="370" r="80" fill="var(--marker)" stroke="var(--ink)" stroke-width="5" ${at(327.4)}/>` + ICON.check(790, 590, 1.2, 328.4) + `<g ${at(328.6)}>${ICON.clock(1250, 370, 80)}</g>` + ICON.cross(1250, 590, 26, 329.4)) +
+  P(790, 470, `<div class="text" style="font-size:38px;font-weight:700">Warning light</div>`, { c: 1, w: 400, in: 327.6 }) +
+  P(1250, 470, `<div class="text" style="font-size:38px;font-weight:700">Countdown clock</div>`, { c: 1, w: 400, in: 328.8 }));
+
+// ---------------------------------------------------------------------------
+// 07 · The twist
+// ---------------------------------------------------------------------------
+sectionCard(332.25, 335.5, 'Twist', 'The longest inversion on record, and no recession');
+const FF = [[2021.3, 0.25], [2022.21, 0.5], [2022.34, 1.0], [2022.46, 1.75], [2022.57, 2.5], [2022.72, 3.25], [2022.84, 4.0], [2022.96, 4.5], [2023.09, 4.75], [2023.25, 5.0], [2023.34, 5.25], [2023.57, 5.5], [2024.72, 5.0], [2024.86, 4.75], [2024.96, 4.5], [2025.3, 4.5]];
+const steps = (arr) => { const o = []; arr.forEach((p, i) => { if (i) o.push([p[0], arr[i - 1][1]]); o.push(p); }); return o; };
+scene(335.5, 361.0, 'frame', { nav: 3, sec: 7, cap: [[335.8, 'The fastest hikes in *40 years*'], [344.8, '*26 months* inverted'], [349.8, 'Everyone expected a *recession*'], [353.8, 'It never *came*']] }, () => {
+  const top = plot({ x: 610, y: 238, w: 870, h: 130, tx: [2021.3, 2025.3], vy: [0, 6], in: 335.6, yt: [[0, '0'], [3, '3%']] });
+  const bot = plot({ x: 610, y: 410, w: 870, h: 200, tx: [2021.3, 2025.3], vy: [-1.3, 1.6], zero: true, in: 341.5, yt: [[-1, '−1'], [0, '0'], [1, '+1']], xt: [[2022, '2022'], [2023, '2023'], [2024, '2024'], [2025, '2025']] });
+  return svg(top.s + series(top, steps(FF), { t: 336.0, dur: 3.0, w: 5 }) + bot.s + series(bot, DATA.s2125, { t: 342.0, dur: 3.0, loss: true, w: 4 }) + bracket(bot.X(2022.5), bot.X(2024.68), bot.Y(-1.25), 'var(--ink)', 345.2)) +
+    P(CL, 214 + 6, `<span class="micro pen">Fed funds rate, upper bound</span>`, { in: 335.6 }) + P(CL, 380, `<span class="micro pen">10Y − 2Y spread</span>`, { in: 341.5 }) +
+    P(top.X(2021.3) + 6, top.Y(0.25) - 34, `<span class="fig" style="font-size:22px">0.25%</span>`, { in: 336.2 }) +
+    P(top.X(2023.6), top.Y(5.5) - 36, `<span class="fig" style="font-size:22px">5.50%</span>`, { in: 338.6 }) +
+    P(top.X(2024.9), top.Y(2.2), `<span class="tag tag-pen">Fastest hikes in 40 years</span>`, { c: 1, w: 360, in: 339.4 }) +
+    P(bot.X(2022.5) - 14, bot.Y(-1.25) - 24, `<span class="micro" style="color:var(--ink)">26 months inverted</span>`, { w: 300, style: 'margin-left:-300px;text-align:right', in: 345.4 }) +
+    P(bot.X(2024.3), bot.Y(0.9), `<span class="tag tag-ink">Longest on record</span>`, { c: 1, w: 280, in: 347.0 }) +
+    P(780, 300, `<span class="chip chip-out" style="transform:rotate(-3deg);display:inline-flex;box-shadow:var(--page-lift),inset 0 0 0 2px var(--page-rim)">Recession ahead?</span>`, { in: 349.9, out: 353.4 }) +
+    P(1080, 360, `<span class="chip chip-out" style="transform:rotate(2deg);display:inline-flex;box-shadow:var(--page-lift),inset 0 0 0 2px var(--page-rim)">“Hard landing” fears grow</span>`, { in: 350.7, out: 353.4 }) +
+    P(860, 440, `<span class="chip chip-out" style="transform:rotate(-1deg);display:inline-flex;box-shadow:var(--page-lift),inset 0 0 0 2px var(--page-rim)">Recession odds: high</span>`, { in: 351.5, out: 353.4 }) +
+    P(bot.X(2023.9), 652, `<span class="tag tag-gain">2023 and 2024 · no recession</span>`, { c: 1, w: 420, in: 353.9 }) +
+    P(CX, 380, `<span class="disp gain" style="display:inline-block;font-size:110px;padding:10px 34px;border:8px solid var(--gain);border-radius:18px;background:var(--page);transform:rotate(-4deg)">No recession</span>`, { c: 1, w: 900, in: 357.4 });
+});
+scene(361.0, 364.75, 'frame', { nav: 3, sec: 7, cap: [] }, () =>
+  P(CX, 330, `<div class="statement" style="font-size:72px">Was the yield curve <span class="pen">wrong?</span></div>`, { c: 1, w: 1000, in: 361.2 }));
+
+// ---------------------------------------------------------------------------
+// 08 · Un-inversion
+// ---------------------------------------------------------------------------
+scene(364.75, 371.5, 'board', {}, () =>
+  P(960, 380, `<div class="section-word">Maybe not.</div>`, { c: 1, w: 1700, in: 365.0 }) +
+  P(960, 590, `<div class="mono pen">Inversion isn't the end of the story</div>`, { c: 1, w: 1500, in: 365.6 }));
+scene(371.5, 376.75, 'frame', { nav: 3, sec: 8, cap: [[371.8, 'Trouble came after it turned *positive*']] }, () => {
+  const wins = [[1999.4, 2001.9, '2000 → 2001', 2000.95], [2005.4, 2008.3, '2006 → 2007', 2007.45], [2018.7, 2020.6, '2019 → 2020', 2019.78]];
+  let s = '', h = P(CX, 222, `<span class="micro pen">Historically, trouble arrived after the curve turned positive again</span>`, { c: 1, w: 1000, in: 371.6 });
+  wins.forEach(([a, b, lab, up], i) => {
+    const x = 545 + i * 330, p = plot({ x: x + 14, y: 330, w: 280, h: 230, tx: [a, b], vy: [-0.9, 2.0], zero: true, rec: REC, in: 371.8 + i * 0.3 });
+    s += `<rect x="${x}" y="262" width="308" height="330" rx="14" fill="var(--page)" stroke="var(--page-rim)" stroke-width="3" ${at(371.8 + i * 0.3)}/>` + p.s + series(p, DATA.full, { t: 372.0 + i * 0.3, dur: 1.2, loss: true, w: 3 }) +
+      `<circle cx="${p.X(up)}" cy="${p.Y(0)}" r="9" fill="var(--pen)" ${at(373.6 + i * 0.3)}/>`;
+    h += P(x + 154, 276, `<span class="text" style="font-weight:700">${lab}</span>`, { c: 1, w: 300, in: 371.8 + i * 0.3 }) + P(p.X(up), p.Y(0) + 18, `<span class="tag tag-pen" style="font-size:13px">Turns positive</span>`, { c: 1, w: 180, in: 373.7 + i * 0.3 });
+  });
+  return svg(s) + h;
+});
+scene(376.75, 391.75, 'frame', { nav: 3, sec: 8, cap: [[377.0, 'An *example*'], [385.8, 'Short rates fall *faster*'], [388.4, 'The curve turns *positive*']] }, () => {
+  const p = plot({ x: 640, y: 262, w: 700, h: 280, tx: [0, 1], vy: [3.0, 5.5], in: 376.9, yt: [[3, '3.0%'], [3.5, '3.5%'], [4, '4.0%'], [4.5, '4.5%'], [5, '5.0%'], [5.5, '5.5%']] });
+  return svg(p.s + `<line id="ex2y" x1="${p.X(0)}" x2="${p.X(1)}" y1="${p.Y(5)}" y2="${p.Y(5)}" stroke="var(--pen)" stroke-width="6" stroke-linecap="round" data-draw="377.3,0.8"/>
+      <line x1="${p.X(0)}" x2="${p.X(1)}" y1="${p.Y(4)}" y2="${p.Y(4)}" stroke="var(--ink)" stroke-width="6" stroke-linecap="round" data-draw="377.5,0.8"/>`) +
+    P(1360, p.Y(5) - 14, `<span class="micro pen" id="ex2yl">2-year 5.0%</span>`, { in: 378.0 }) + P(1360, p.Y(4) - 14, `<span class="micro">10-year 4.0%</span>`, { in: 378.0 }) +
+    P(CL, 226, `<span class="tag tag-assumed">Example</span>`, { in: 377.0 }) +
+    `<div class="box" style="left:780px;top:570px;width:480px;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 26px" ${at(378.6)}><span class="fig" style="font-size:26px">10Y − 2Y =</span><span class="disp" style="font-size:54px" data-ex="1">−1.0</span><span class="micro" data-ex="2">Inverted</span></div>`;
+}, (u, root) => {
+  const k = push(clamp((u - 386) / 1.6)), y5 = 262 + 280 - (5 - 3) / 2.5 * 280, y35 = 262 + 280 - (3.5 - 3) / 2.5 * 280, y = y5 + (y35 - y5) * k;
+  const l = root.querySelector('#ex2y'); l.setAttribute('y1', y); l.setAttribute('y2', y);
+  const lab = root.querySelector('#ex2yl'); lab.parentElement.style.top = (y - 14) + 'px'; lab.textContent = `2-year ${(5 - 1.5 * k).toFixed(1)}%`;
+  const v = 4 - (5 - 1.5 * k);
+  root.querySelector('[data-ex="1"]').textContent = fmtNum(Math.round(v * 10) / 10 || 0, 1, true);
+  root.querySelector('[data-ex="2"]').textContent = v > 0 ? 'Positive again' : 'Inverted';
+  root.querySelector('[data-ex="2"]').style.color = v > 0 ? 'var(--gain)' : 'var(--ink)';
+});
+scene(391.75, 398.0, 'frame', { nav: 3, sec: 8, cap: [[392.0, 'Un-inversion isn\'t *all clear*']] }, () =>
+  P(CX, 250, `<div class="label" style="font-size:56px">Why would they cut?</div>`, { c: 1, w: 1000, in: 391.9 }) +
+  svg(`<path d="M${CX - 24} 350 L${CX} 372 L${CX + 24} 350 M${CX - 24} 376 L${CX} 398 L${CX + 24} 376" class="ln" stroke="var(--pen)" stroke-width="6" ${at(392.6)}/>`) +
+  P(CX, 420, `<div class="statement" style="font-size:56px">Because the economy is weakening</div>`, { c: 1, w: 1040, in: 392.9 }) +
+  P(CX, 530, `<span class="tag tag-ink" style="font-size:20px">Un-inversion ≠ all clear</span>`, { c: 1, w: 500, in: 394.0 }));
+
+// ---------------------------------------------------------------------------
+// 09 · October 2026
+// ---------------------------------------------------------------------------
+scene(398.0, 402.75, 'board', {}, () =>
+  P(960, 380, `<div class="section-word">October 2026</div>`, { c: 1, w: 1700, in: 398.2 }) +
+  P(960, 590, `<div class="mono pen">Where are we now?</div>`, { c: 1, w: 1500, in: 398.8 }));
+scene(402.75, 422.25, 'frame', { nav: 4, sec: 9, cap: [[403.0, 'Not *inverted*'], [406.8, "Today's Treasury *yields*"], [413.4, 'Both spreads *positive*']] }, () =>
+  P(CX, 228, `<span class="chip chip-gain">✓ Not inverted</span>`, { c: 1, w: 400, in: 403.0 }) +
+  [['10-year', '5.27', 406.9], ['2-year', '4.79', 408.6], ['3-month', '4.21', 410.4]].map(([n, v, t], i) => `<div class="stat" style="left:${590 + i * 300}px;top:300px;width:270px" ${at(t)}><span class="micro soft">${n} Treasury</span><span class="fig" style="font-size:56px">${i === 0 ? mark(v + '%', 411.6) : v + '%'}</span></div>`).join('') +
+  P(CX, 430, `<span class="tag tag-asof">As of Oct 6, 2026 · Fed H.15 via FRED</span>`, { c: 1, w: 600, in: 411.2 }) +
+  `<div class="box" style="left:600px;top:500px;width:400px;height:96px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;box-shadow:inset 0 0 0 3px var(--gain),var(--page-lift)" ${at(413.5)}><span class="disp" style="font-size:44px">10Y − 2Y</span><span class="disp gain" style="font-size:56px">${count(0.40, 0.48, 2, 414.6, 1.4, true)}</span></div>` +
+  `<div class="box" style="left:1040px;top:500px;width:400px;height:96px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;box-shadow:inset 0 0 0 3px var(--gain),var(--page-lift)" ${at(417.8)}><span class="disp" style="font-size:44px">10Y − 3M</span><span class="disp gain" style="font-size:56px">${count(0, 1.06, 2, 418.2, 0.9, true)}</span></div>` +
+  P(CX, 616, `<span class="tag tag-gain">Both positive ✓</span>`, { c: 1, w: 300, in: 419.8 }));
+scene(422.25, 433.0, 'frame', { nav: 4, sec: 9, cap: [[422.5, 'Long yields *climbing*'], [424.0, 'The Fed *hiked* in September'], [426.8, 'Inflation still too *high*']] }, () => {
+  const p = plot({ x: 640, y: 262, w: 840, h: 330, tx: [2025.0, 2026.85], vy: [3.0, 5.5], in: 422.4, yt: [[3, '3.0%'], [3.5, '3.5%'], [4, '4.0%'], [4.5, '4.5%'], [5, '5.0%'], [5.5, '5.5%']], xt: [[2025, 'Jan 2025'], [2025.5, 'Jul 2025'], [2026, 'Jan 2026'], [2026.5, 'Jul 2026']] });
+  const band = [[2025.0, 2025.71, 4.25, 4.5], [2025.71, 2025.83, 4.0, 4.25], [2025.83, 2025.94, 3.75, 4.0], [2025.94, 2026.71, 3.5, 3.75], [2026.71, 2026.85, 3.75, 4.0]];
+  return svg(p.s + `<g ${at(422.6)}>${band.map(([a, b, lo, hi]) => `<rect x="${p.X(a)}" y="${p.Y(hi)}" width="${p.X(b) - p.X(a)}" height="${p.Y(lo) - p.Y(hi)}" fill="var(--ink)" opacity=".1"/>`).join('')}</g>` +
+      series(p, DATA.y2_2526, { t: 422.8, dur: 1.8, color: 'var(--ink-soft)', w: 3 }) + series(p, DATA.y10_2526, { t: 422.8, dur: 1.8, w: 5 }) + vline(p.X(2026.71), 262, 592, 'var(--ink)', 424)) +
+    P(CL, 226, `<span class="micro pen">— 10-year</span><span class="micro soft" style="margin-left:22px">— 2-year</span><span class="micro faint" style="margin-left:22px">▮ Fed funds target</span>`, { in: 422.4 }) +
+    P(p.X(2026.71), 268, `<span class="tag tag-ink">Fed hikes · Sep 16 · 3.75–4.00%</span>`, { c: 1, w: 420, in: 424.1, style: 'margin-left:-150px' }) +
+    P(p.X(2025.35), 268, `<span class="tag tag-loss">Inflation still too high</span>`, { c: 1, w: 320, in: 426.9 });
+});
+scene(433.0, 440.5, 'frame', { nav: 4, sec: 9, cap: [[433.3, 'The 10-year at *5.31%*'], [436.8, 'Highest since *2002*']] }, () => {
+  const p = plot({ x: 640, y: 262, w: 840, h: 330, tx: [2001, 2026.85], vy: [0, 7], in: 433.2, yt: [[0, '0%'], [2, '2%'], [4, '4%'], [6, '6%']], xt: [[2005, '2005'], [2010, '2010'], [2015, '2015'], [2020, '2020'], [2025, '2025']] });
+  return svg(p.s + series(p, DATA.y10_0226, { t: 433.4, dur: 1.6, w: 4 }) + `<line x1="${p.X(2002.4)}" x2="${p.X(2026.76)}" y1="${p.Y(5.31)}" y2="${p.Y(5.31)}" stroke="var(--ink)" stroke-width="2.5" stroke-dasharray="6 6" data-draw="435.0,0.8"/><circle cx="${p.X(2002.4)}" cy="${p.Y(5.31)}" r="8" fill="var(--ink)" ${at(435.6)}/><circle cx="${p.X(2026.76)}" cy="${p.Y(5.31)}" r="9" fill="var(--pen)" ${at(435.0)}/>`) +
+    P(CL, 226, `<span class="micro pen">10-year Treasury yield</span>`, { in: 433.2 }) +
+    P(p.X(2002.4), p.Y(5.31) - 52, `<span class="tag tag-ink">Last time: May 2002</span>`, { c: 1, w: 300, in: 435.7, style: 'margin-left:110px' }) +
+    P(p.X(2026.76), p.Y(5.31) - 66, `<span class="fig" style="font-size:32px">${mark('5.31%', 435.9)}</span><div class="micro soft" style="margin-top:4px">Oct 5, 2026</div>`, { c: 1, w: 220, in: 435.2, style: 'margin-left:-60px' }) +
+    P(CX + 60, 520, `<span class="label" style="font-size:44px">Highest since 2002</span>`, { c: 1, w: 600, in: 436.9 });
+});
+scene(440.5, 445.75, 'frame', { nav: 4, sec: 9, cap: [[440.8, 'Classic recession signal: *off*'], [443.0, '*But…*']] }, () => {
+  const p = plot({ x: 640, y: 262, w: 640, h: 330, tx: [0, 4], vy: [0, 6], in: 440.6, yt: [[0, '0%'], [2, '2%'], [4, '4%'], [6, '6%']], xt: [[0, '3M'], [1, '2Y'], [2, '5Y'], [3, '10Y'], [4, '30Y']] });
+  const line = (vals, col, w, t) => `<path d="${vals.map((v, i) => `${i ? 'L' : 'M'}${p.X(i)} ${p.Y(v)}`).join('')}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round" data-draw="${t},0.8"/>` + vals.map((v, i) => `<circle cx="${p.X(i)}" cy="${p.Y(v)}" r="${w + 2}" fill="${col}" ${at(t + 0.6)}/>`).join('');
+  return svg(p.s + line(Y2017, 'var(--ink-faint)', 3, 440.7) + line(Y2023, 'var(--ink-faint)', 3, 440.9) + line(Y2026, 'var(--pen)', 6, 441.3)) +
+    P(1300, p.Y(5.62) - 14, `<span class="micro pen">Oct 2026 · upward, but high</span>`, { in: 442.0 }) +
+    P(1300, p.Y(3.87) - 10, `<span class="micro faint">Jul 2023 · inverted</span>`, { in: 441.4 }) +
+    P(1300, p.Y(3.04) - 10, `<span class="micro faint">Jan 2017 · normal</span>`, { in: 441.2 }) +
+    P(CL, 226, `<span class="tag tag-gain">Classic recession signal: off</span>`, { in: 440.9 }) +
+    P(1100, 226, `<span class="disp pen" style="font-size:48px">But…</span>`, { in: 443.1 });
+});
+
+// ---------------------------------------------------------------------------
+// 10 · The 2026 dashboard
+// ---------------------------------------------------------------------------
+scene(445.75, 449.5, 'frame', { nav: 4, sec: 10, cap: [[446.0, 'Five warning *lights*']] }, () =>
+  P(CX, 240, `<div class="label" style="font-size:48px">The 2026 recession dashboard</div>`, { c: 1, w: 1000, in: 445.9 }) + gaugeRow(446.4, null, 440, true));
+sectionCard(449.5, 452.0, 'Dashboard', 'Five gauges: curve, jobs, inflation, credit, growth');
+function gaugeScene(t0, t1, idx, cap, build) {
+  scene(t0, t1, 'frame', { nav: 4, sec: 10, cap }, () => gaugeRow(idx === 0 ? t0 - 0.2 : t0 - 2, idx) +
+    `<div class="p" style="left:520px;top:352px;width:1000px;height:2px;background:var(--page-rim)" ${at(t0)}></div>` +
+    P(CL, 366, `<span class="micro pen">Gauge ${idx + 1} · ${GAUGES[idx][0]}</span>`, { in: t0 + 0.1 }) + build());
+}
+gaugeScene(452.0, 466.25, 0, [[452.3, 'Gauge 1: *no inversion*'], [458.8, 'Watch the speed toward *zero*']], () => {
+  const p = plot({ x: 620, y: 410, w: 640, h: 200, tx: [2022.5, 2026.85], vy: [-2, 1.5], zero: true, in: 452.2, yt: [[-2, '−2'], [-1, '−1'], [0, '0'], [1, '+1']], xt: [[2023, '2023'], [2024, '2024'], [2025, '2025'], [2026, '2026']] });
+  return svg(p.s + series(p, DATA.full, { t: 452.6, dur: 1.8, color: 'var(--ink-faint)', w: 3, dash: '6 5' }) + series(p, DATA.s3m2226, { t: 452.6, dur: 1.8, loss: true, w: 4 })) +
+    P(1300, 400, `<div class="micro pen">10Y − 3M</div><div class="disp gain" style="font-size:64px;margin-top:6px">${count(0, 1.06, 2, 453.5, 0.9, true)}</div>`, { in: 453.2 }) +
+    P(1300, 520, `<div class="micro soft">10Y − 2Y</div><div class="disp gain" style="font-size:64px;margin-top:6px">${count(0, 0.48, 2, 454.2, 0.9, true)}</div>`, { in: 453.9 }) +
+    P(p.X(2024.6), 392, `<span class="tag tag-pen">Watch the speed toward zero</span>`, { c: 1, w: 400, in: 458.9 });
+});
+gaugeScene(466.25, 486.5, 1, [[466.5, 'Gauge 2: jobs *weakening*'], [469.0, '*4 of 12* months negative']], () => {
+  const jobs = [['Oct', -140], ['Nov', 41], ['Dec', -17], ['Jan', 160], ['Feb', -156], ['Mar', 214], ['Apr', 148], ['May', 63], ['Jun', 31], ['Jul', -10], ['Aug', 133], ['Sep', 29]];
+  const z = 520, k = 0.5;
+  let s = '';
+  jobs.forEach(([m, v], i) => {
+    const x = 930 + i * 48, h = Math.abs(v) * k;
+    s += `<div class="p" style="left:${x}px;top:${v > 0 ? z - h : z}px;width:32px;height:${h}px;border-radius:${v > 0 ? '6px 6px 0 0' : '0 0 6px 6px'};background:${v < 0 ? 'var(--loss)' : 'var(--pen)'};transform-origin:50% ${v > 0 ? '100%' : '0%'}" data-grow="${466.8 + i * 0.12},0.5,y"></div>` +
+      P(x + 16, v > 0 ? z - h - 24 : z + h + 4, `<span class="fig" style="font-size:15px">${v > 0 ? '+' : '−'}${Math.abs(v)}K</span>`, { c: 1, w: 70, in: 467.3 + i * 0.12 }) +
+      P(x + 16, 636, `<span class="micro faint" style="font-size:13px">${m}</span>`, { c: 1, w: 60, in: 466.8 });
+  });
+  return `<div class="p" style="left:920px;top:${z}px;width:590px;height:2px;background:var(--ink-faint)" ${at(466.6)}></div>` + s +
+    P(560, 420, `<div class="disp" style="font-size:110px">${mark('4.2%', 468.0)}</div><div class="micro soft" style="margin-top:14px">Unemployment rate · Sep 2026</div><div class="micro faint" style="margin-top:8px">Alert zone: 4.5–5%</div>`, { in: 466.6 }) +
+    P(1218, 662, `<span class="micro faint" style="font-size:13px">Monthly job gains, thousands · BLS via FRED</span>`, { c: 1, w: 560, in: 466.7 }) +
+    P(CR, 366, `<span class="tag tag-loss">4 of 12 months negative</span>`, { w: 360, style: 'margin-left:-360px;text-align:right', in: 469.1 });
+});
+gaugeScene(486.5, 501.0, 2, [[486.8, 'Gauge 3: inflation *stubborn*'], [497.6, 'Prices paid still *rising*']], () => {
+  const p = plot({ x: 620, y: 410, w: 560, h: 200, tx: [2024, 2026.6], vy: [1.8, 4.4], in: 486.7, yt: [[2, '2%'], [3, '3%'], [4, '4%']], xt: [[2024, '2024'], [2025, '2025'], [2026, '2026']] });
+  return svg(p.s + `<line x1="${p.c.x}" x2="${p.X(2026.6)}" y1="${p.Y(2)}" y2="${p.Y(2)}" stroke="var(--gain)" stroke-width="3" stroke-dasharray="8 6" ${at(487.4)}/>` +
+      series(p, DATA.pce, { t: 487.0, dur: 1.8, color: 'var(--ink-faint)', w: 3 }) + series(p, DATA.cpi, { t: 487.0, dur: 1.8, w: 5 })) +
+    P(p.X(2024.05), p.Y(2) + 6, `<span class="micro gain" style="font-size:14px">Fed target 2%</span>`, { in: 487.5 }) +
+    P(1200, p.Y(3.7) - 14, `<span class="micro pen" style="font-weight:600">CPI 3.7%</span>`, { in: 488.6 }) +
+    P(1200, p.Y(3.0) - 10, `<span class="micro soft">Core PCE 3.0%</span>`, { in: 488.9 }) +
+    P(1340, 470, `<div class="micro soft">ISM prices paid · Sep 2026</div><div style="margin-top:12px"><span class="tag tag-loss">Manufacturing 77.9</span></div><div style="margin-top:10px"><span class="tag tag-loss">Services 74.0</span></div>`, { in: 497.7 });
+});
+gaugeScene(501.0, 517.8, 3, [[501.3, 'Gauge 4: credit, *watch*'], [503.8, 'Far from *crisis* levels'], [511.8, 'No crisis signal — *yet*']], () => {
+  const X = v => 560 + v / 12 * 920, segs = [[0, 4.5, 'Calm', 'var(--gain)'], [4.5, 6.5, 'Watch', 'var(--marker)'], [6.5, 9, 'Stress', 'var(--ink-faint)'], [9, 12, 'Crisis', 'var(--loss)']];
+  return P(CL + 20, 400, `<div class="text" style="font-weight:700;font-size:28px">High-yield (junk) bond spread</div><div class="micro soft" style="margin-top:6px;font-size:15px">Extra yield risky companies pay over Treasuries · percentage points · rounded</div>`, { in: 501.2 }) +
+    segs.map(([a, b, n, col], i) => `<div class="p" style="left:${X(a) + 2}px;top:530px;width:${X(b) - X(a) - 4}px;height:48px;border-radius:8px;box-shadow:inset 0 0 0 3px ${col};background:var(--page);display:flex;align-items:center;justify-content:center" ${at(501.6 + i * 0.15)}><span class="micro" style="color:${i === 1 ? 'var(--ink)' : col}">${n}</span></div>`).join('') +
+    [0, 3, 6, 9, 12].map(v => P(X(v), 586, `<span class="micro faint" style="font-size:14px">${v}</span>`, { c: 1, w: 40, in: 501.8 })).join('') +
+    P(X(3), 466, `<div class="disp" style="font-size:40px">Today ≈ 3</div><div class="disp" style="font-size:24px;line-height:1">▼</div>`, { c: 1, w: 260, in: 502.6 }) +
+    P(X(3) + 160, 478, `<span class="micro pen">→ Creeping higher</span>`, { in: 511.6 }) +
+    P(1250, 620, `<span class="label" style="font-size:30px" data-out="511.3">Still far from crisis levels</span>`, { c: 1, w: 600, in: 503.9 }) +
+    P(1250, 620, `<span class="label" style="font-size:30px">No crisis signal — yet</span>`, { c: 1, w: 600, in: 511.9 }) +
+    P(CR, 366, `<span class="micro faint" style="font-size:14px">Based on the ICE BofA US high yield spread, rounded</span>`, { w: 600, style: 'margin-left:-600px;text-align:right', in: 501.4 });
+});
+gaugeScene(517.8, 527.5, 4, [[518.0, 'Gauge 5: growth *expanding*']], () => {
+  const ism = [['Manufacturing', 54.5], ['Services', 54.9]], gdp = [["Q4 '25", 0.2], ["Q1 '26", 2.5], ["Q2 '26", 2.2], ["Q3 '26 est.", 3.6]];
+  const bx = v => 640 + (v - 40) * 18;
+  let s = P(CL + 20, 402, `<span class="micro" style="color:var(--ink)">ISM purchasing managers' index</span>`, { in: 518.0 });
+  ism.forEach(([n, v], i) => {
+    const y = 450 + i * 80;
+    s += P(CL + 20, y, `<span class="micro soft">${n}</span>`, { in: 518.1 }) +
+      `<div class="p" style="left:${bx(50)}px;top:${y + 26}px;width:${bx(v) - bx(50)}px;height:32px;border-radius:0 6px 6px 0;background:var(--gain);transform-origin:0 50%" data-grow="${518.4 + i * 0.2},0.7,x"></div>` +
+      P(bx(v) + 10, y + 26, `<span class="fig" style="font-size:28px">${v}</span>`, { in: 518.9 + i * 0.2 });
+  });
+  s += `<div class="p" style="left:${bx(50)}px;top:440px;width:3px;height:160px;background:var(--ink)" ${at(518.2)}></div>` + P(bx(50), 610, `<span class="micro faint" style="font-size:13px">50 = growth line</span>`, { c: 1, w: 200, in: 518.2 });
+  s += P(1180, 402, `<span class="micro" style="color:var(--ink)">Real GDP growth, annualized</span>`, { in: 518.0 });
+  gdp.forEach(([q, v], i) => {
+    const x = 1190 + i * 82, h = v * 44, est = i === 3;
+    s += `<div class="p" style="left:${x}px;top:${610 - h}px;width:56px;height:${h}px;border-radius:6px 6px 0 0;${est ? 'border:3px dashed var(--gain);box-sizing:border-box' : 'background:var(--gain)'};transform-origin:50% 100%" data-grow="${518.6 + i * 0.2},0.7,y"></div>` +
+      P(x + 28, 610 - h - 26, `<span class="fig" style="font-size:18px">+${v}%</span>`, { c: 1, w: 80, in: 519.2 + i * 0.2 }) + P(x + 28, 618, `<span class="micro faint" style="font-size:12px">${q}</span>`, { c: 1, w: 90, in: 518.6 });
+  });
+  return s;
+});
+scene(527.5, 530.5, 'frame', { nav: 4, sec: 10, cap: [] }, () =>
+  P(CX, 380, `<div class="statement" style="font-size:72px">Not a <span class="gain">recession</span> economy</div>`, { c: 1, w: 1040, in: 527.6 }));
+
+// ---------------------------------------------------------------------------
+// 11 · Putting it together
+// ---------------------------------------------------------------------------
+sectionCard(530.5, 533.5, 'Together', 'Five gauges, one reading');
+scene(533.5, 543.25, 'frame', { nav: 4, sec: 11, cap: [[533.8, 'Not recession *tomorrow*'], [536.8, 'Not *all clear* either']] }, () =>
+  gaugeRow(533.6, null, 300) +
+  P(780, 470, `<div class="micro pen">Not</div><div class="body" style="font-size:44px;margin-top:6px">${strike('Recession tomorrow', 535.0)}</div>`, { c: 1, w: 520, in: 534.2 }) +
+  P(1270, 470, `<div class="micro pen">Not</div><div class="body" style="font-size:48px;margin-top:6px">${strike('All clear', 538.0)}</div>`, { c: 1, w: 500, in: 537.2 }));
+scene(543.25, 560.0, 'frame', { nav: 4, sec: 11, cap: [[543.5, 'A more *fragile* phase']] }, () => {
+  const items = [['w', 'Hiring slowing', 0, 0], ['w', 'Inflation stubborn', 1, 0], ['w', 'Rates rising', 0, 1], ['w', 'Borrowing costs: 20+ year high', 1, 1], ['c', 'Growth solid', 0, 2], ['c', 'Credit calm', 1, 2]];
+  return P(CX, 232, `<div class="label" style="font-size:48px">A more fragile phase</div>`, { c: 1, w: 1000, in: 543.4 }) +
+    items.map(([k, n, col, row], i) => { const x = 560 + col * 480, y = 350 + row * 90, t = 545.0 + i * 1.1; return svg(`<g ${at(t)}>${k === 'w' ? ICON.warn(x + 20, y + 20) : ICON.check(x + 20, y + 20, 0.9)}</g>`) + P(x + 56, y + 2, `<span class="text ${k === 'c' ? 'gain' : ''}" style="font-size:32px;font-weight:700">${n}</span>`, { in: t }); }).join('');
+});
+
+// ---------------------------------------------------------------------------
+// 12 · The 2027 scenario (hypothetical)
+// ---------------------------------------------------------------------------
+const DOMINOES = ['Inflation stays *high*', "The Fed *can't* cut", 'Long yields stay *high*', 'Borrowing gets *expensive*', 'Businesses *pull back*', 'Hiring *weakens*', 'Consumers spend *less*', 'Defaults *rise*', 'Spreads *widen*', 'Unemployment *climbs*', 'GDP turns !negative!'];
+const domT = i => 561.0 + i * 2.15;
+scene(560.0, 592.0, 'frame', { nav: 5, sec: 12, cap: [...DOMINOES.map((c, i) => [domT(i) - 0.2, c]), [585.4, 'One domino at a *time*']] }, () => {
+  let g = '', h = P(CX, 226, `<span class="tag tag-assumed">Hypothetical · not a forecast</span>`, { c: 1, w: 500, in: 560.2 });
+  DOMINOES.forEach((_, i) => {
+    const x = 556 + i * 79, last = i === 10;
+    g += `<g data-rot="${domT(i)},0.55,0,${last ? 90 : 58},${x + 40},560"><rect x="${x}" y="420" width="40" height="140" rx="7" fill="${last ? 'var(--loss)' : 'var(--page)'}" stroke="var(--ink)" stroke-width="4"/><line x1="${x + 6}" x2="${x + 34}" y1="490" y2="490" stroke="var(--ink)" stroke-width="3"/><circle cx="${x + 20}" cy="455" r="5" fill="var(--ink)"/><circle cx="${x + 20}" cy="525" r="5" fill="var(--ink)"/></g>`;
+    h += P(x + 20, 590, `<span class="micro faint" style="font-size:14px">${String(i + 1).padStart(2, '0')}</span>`, { c: 1, w: 50, in: 560.4 });
+  });
+  return svg(`<g ${at(560.3)}><line x1="540" x2="1520" y1="562" y2="562" stroke="var(--ink-faint)" stroke-width="3"/>${g}</g>`) + h +
+    P(CX, 290, `<span class="label" style="font-size:40px">Not overnight.</span>`, { c: 1, w: 800, in: 585.4 });
+});
+
+// ---------------------------------------------------------------------------
+// 13 · Five red alerts
+// ---------------------------------------------------------------------------
+scene(592.0, 626.5, 'frame', { nav: 5, sec: 13, cap: [[592.3, 'Five red *alerts*'], [594.0, 'The *spread* hits zero'], [600.0, 'Unemployment *rises*'], [606.0, 'Job growth *stalls*'], [612.0, 'Credit spreads *explode*'], [618.0, 'High inflation, *weak jobs*']] }, () => {
+  const rows = [['10Y–3M spread falls to zero or below', '+1.06', 'Clear', 'gain'], ['Unemployment rises toward 4.5–5%', '4.2%', 'Watch', 'soft'], ['Job growth zero or negative for months', '+29K (Sep)', 'Watch', 'soft'], ['Corporate credit spreads explode', '≈3 pts', 'Calm', 'gain'], ['High inflation plus weakening jobs', 'CPI 3.7%', 'Flickering', 'soft']];
+  return P(CR - 40, 214 + 6, `<span class="micro faint">Now</span>`, { c: 1, w: 200, in: 592.2 }) +
+    rows.map(([txt, now, st, cls], i) => { const y = 250 + i * 82, t = 594.0 + i * 6; return `<div class="p" style="left:530px;top:${y}px;width:990px;height:70px;border-radius:12px;background:var(--page);box-shadow:inset 0 0 0 2px var(--page-rim);display:flex;align-items:center;gap:22px;padding:0 22px;box-sizing:border-box" ${at(t)}>
+      <span class="disp pen" style="font-size:40px;width:54px">0${i + 1}</span><span class="text" style="font-size:27px;font-weight:700;flex:1">${txt}</span>
+      <span style="text-align:right"><span class="fig" style="font-size:24px;display:block">${now}</span><span class="micro ${cls}" style="font-size:14px">${st}</span></span></div>`; }).join('');
+});
+
+// ---------------------------------------------------------------------------
+// 14 · Is 2027 the recession year?
+// ---------------------------------------------------------------------------
+scene(626.5, 633.8, 'board', {}, () =>
+  P(960, 330, `<div class="section-word" style="font-size:260px">2027?</div>`, { c: 1, w: 1700, in: 626.7 }) +
+  P(960, 640, `<div class="mono pen">Is 2027 the recession year?</div>`, { c: 1, w: 1500, in: 627.3 }));
+scene(633.8, 639.0, 'frame', { nav: 5, sec: 14, cap: [[634.0, 'Nobody knows the *month*']] }, () =>
+  ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map((m, i) =>
+    `<div class="box" style="left:${560 + (i % 6) * 160}px;top:${250 + Math.floor(i / 6) * 180}px;width:140px;height:150px;text-align:center" ${at(634.0 + i * 0.08)}><div class="micro soft" style="margin-top:20px">${m}</div><div class="disp faint" style="font-size:64px;margin-top:12px">?</div></div>`).join(''));
+scene(639.0, 648.2, 'frame', { nav: 5, sec: 14, cap: [[639.3, 'The better *question*']] }, () =>
+  P(CX, 240, `<div class="body soft" style="font-size:40px">${strike('Will there be a recession?', 640.2)}</div>`, { c: 1, w: 1000, in: 639.2 }) +
+  P(CX, 320, `<div class="statement" style="font-size:56px">Are the warning lights <span class="pen">getting worse?</span></div>`, { c: 1, w: 1040, in: 641.6 }) +
+  gaugeRow(643.4, null, 520));
+
+// ---------------------------------------------------------------------------
+// Verdict and close
+// ---------------------------------------------------------------------------
+scene(648.2, 656.0, 'frame', { nav: 5, sec: 14, secAt: [[648.2, 14, 'The verdict']], cap: [[648.5, 'Where we *stand*']] }, () => {
+  const r = [['UST 10-year', '5.27%'], ['UST 2-year', '4.79%'], ['3-month bill', '4.21%'], ['Fed funds', '3.75–4.00%'], ['Unemployment', '4.2%'], ['CPI', '3.7% y/y'], ['Junk bond spread', '≈3 pts'], ['ISM manufacturing', '54.5'], ['ISM services', '54.9']];
+  return P(CL, 226, `<span class="tag tag-asof">As of Oct 2026</span>`, { in: 648.3 }) +
+    r.map(([n, v], i) => { const col = i < 5 ? 0 : 1, row = i < 5 ? i : i - 5, x = 560 + col * 500, y = 290 + row * 66; return P(x, y, `<span class="text" style="font-size:28px">${n}</span>`, { in: 648.6 + i * 0.25 }) + P(x + 440, y, `<span class="fig" style="font-size:30px">${v}</span>`, { w: 300, style: 'margin-left:-300px;text-align:right', in: 648.6 + i * 0.25 }); }).join('');
+});
+scene(656.0, 668.0, 'frame', { nav: 5, sec: 14, secAt: [[656, 14, 'The verdict']], cap: [[656.3, 'It warned in *2000*, 2006, 2019']] }, () => {
+  const p = spreadAxes([1995, 2027], [-1.3, 3], [[-1, '−1'], [0, '0'], [1, '+1'], [2, '+2'], [3, '+3']], [[2000, '2000'], [2010, '2010'], [2020, '2020']], 656.1);
+  return svg(p.s + series(p, DATA.full, { t: 656.2, dur: 1.6, loss: true, w: 4 })) +
+    [[2000.1, '2000'], [2005.95, '2006'], [2019.6, '2019']].map(([t, y], i) => P(p.X(t), 268, `<div class="disp" style="font-size:44px">${y}</div><div style="margin-top:6px"><span class="tag tag-pen">Warned</span></div>`, { c: 1, w: 200, in: 657.0 + i * 0.8 })).join('');
+});
+scene(668.0, 686.0, 'frame', { nav: 5, sec: 14, secAt: [[668, 14, 'The verdict']], cap: [[668.3, 'Five lights to *watch*']] }, () =>
+  P(CX, 240, `<div class="label" style="font-size:44px">Today's warning lights</div>`, { c: 1, w: 900, in: 668.2 }) + gaugeRow(668.6, null, 450));
+scene(686.0, 690.5, 'frame', { nav: 5, sec: 14, secAt: [[686, 14, 'The verdict']], cap: [] }, () =>
+  P(CX, 340, `<div class="statement" style="font-size:54px">So the real question isn't whether a recession is coming…</div>`, { c: 1, w: 1000, in: 686.2 }));
+scene(690.5, 695.8, 'frame', { nav: 5, sec: 14, secAt: [[690.5, 14, 'The verdict']], cap: [] }, () =>
+  P(CX, 330, `<div class="statement" style="font-size:72px">Which warning light turns <span class="loss">red</span> first?</div>`, { c: 1, w: 1040, in: 690.7 }));
+scene(695.8, VOICE_LEN, 'frame', { nav: 5, sec: 14, secAt: [[695.8, 14, 'The verdict']], cap: [[696.1, 'Watch the *lights*, not the headlines']] }, () => {
+  const rows = [['Yield curve', 'Currently reassuring', 'gain'], ['Employment', 'Weakening', 'soft'], ['Inflation', 'Stubborn', 'soft'], ['Credit', 'Watch closely', 'soft'], ['Growth', 'Still expanding', 'gain']];
+  return P(CL, 226, `<span class="mono pen">The 2026 recession dashboard</span>`, { in: 695.9 }) + P(CR, 228, `<span class="tag tag-asof">Data as of Oct 8, 2026</span>`, { w: 400, style: 'margin-left:-400px;text-align:right', in: 696.0 }) +
+    rows.map(([n, s, cls], i) => { const y = 282 + i * 52, dot = cls === 'gain' ? 'var(--gain)' : 'var(--marker)'; return P(560, y, `<span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:${dot};box-shadow:inset 0 0 0 3px var(--ink);vertical-align:middle;margin-right:18px"></span><span class="micro" style="color:var(--ink);font-size:20px;vertical-align:middle">${n}</span>`, { in: 696.5 + i * 0.3 }) + P(900, y - 4, `<span class="text ${cls === 'gain' ? 'gain' : ''}" style="font-size:30px">${s}</span>`, { in: 696.5 + i * 0.3 }); }).join('') +
+    P(560, 566, `<div class="chip chip-marker">Overall: moderate recession risk</div>`, { in: 698.4 }) + P(1080, 548, `<div class="body" style="font-size:26px;line-height:1.4">“The economy isn't in recession. But the next few quarters could tell us a lot.”</div>`, { w: 440, in: 699.2 });
+});
+scene(VOICE_LEN, VOICE_LEN + END_CARD, 'board', {}, () => {
+  const t = VOICE_LEN;
+  return P(960, 300, `<div style="font-family:var(--font-display);font-weight:800;font-size:150px;letter-spacing:-.03em;line-height:1"><span style="color:var(--ink)" ${at(t + 0.2)}>Simple</span><span style="color:var(--pen)" ${at(t + 0.45)}>Money</span></div>`, { c: 1, w: 1600 }) +
+    P(960, 560, `<div style="display:flex;gap:28px;justify-content:center"><span class="btn" ${at(t + 1.0)}>Like</span><span class="btn" ${at(t + 1.2)}>Share</span><span class="btn btn-primary" ${at(t + 1.4)}>Subscribe</span></div>`, { c: 1, w: 1200 }) +
+    P(960, 760, `<span class="mono soft">Money, made simple</span>`, { c: 1, w: 1200, in: t + 2.0 });
+});
+
+// ---------------------------------------------------------------------------
+// Build the DOM
+// ---------------------------------------------------------------------------
+SC.sort((a, b) => a.t0 - b.t0);
+const host = $('scenes');
+SC.forEach((s, i) => {
+  const d = document.createElement('div'); d.className = 'scene'; d.style.visibility = 'hidden';
+  d.innerHTML = s.build(); host.appendChild(d); s.el = d;
+  s.ins = [...d.querySelectorAll('[data-in]')]; s.words = []; s.dynamic = [...d.querySelectorAll('[data-draw],[data-reveal],[data-count],[data-swipe],[data-strike],[data-grow],[data-rot],[data-arc],[data-fly],[data-dim],[data-dimto],[data-out]')];
+  s.dynamic.forEach(e => { if (e.dataset.draw != null || e.dataset.arc != null) { try { const L = e.getTotalLength(); e.dataset.len = L; e.style.strokeDasharray = `${L} ${L}`; e.style.strokeDashoffset = L; } catch (_) {} } });
+  s.caps = (s.cap || []).map(([t, txt]) => ({ t, words: txt.split(' ').map(w => { const tone = w.startsWith('*') ? 'pen' : w.startsWith('!') ? 'loss' : w.startsWith('_') ? 'soft' : 'ink'; return { w: w.replace(/[*!_]/g, ''), tone }; }) }));
+});
+// beat dots: every caption is one beat; counted per nav chapter
+const navBeats = NAV.map(() => []);
+SC.filter(s => s.kind === 'frame').forEach(s => s.caps.forEach(c => navBeats[s.nav].push(c.t)));
+// nav tabs
+NAV.forEach((n, i) => { const t = document.createElement('div'); t.className = 'tab'; t.style.left = i * 320 + 'px'; t.textContent = n; t.dataset.i = i; $('nav').appendChild(t); });
+
+function sceneAt(u) { for (let i = SC.length - 1; i >= 0; i--) if (u >= SC[i].t0) return i; return 0; }
+function secOf(s, u) { let sec = s.sec, title = null; (s.secAt || []).forEach(([t, n, ttl]) => { if (u >= t) { sec = n; title = typeof ttl === 'string' ? ttl : null; } }); return { sec, title }; }
+
+function render(t) {
+  const u = t - OFF;
+  const cur = sceneAt(u), S = SC[cur];
+  SC.forEach((s, i) => { s.el.style.visibility = (i === cur || (i === cur - 1 && u < s.t1 + 0.01)) ? 'visible' : 'hidden'; });
+  const out = s => 1 - clamp((u - (s.t1 - BEAT_OUT)) / BEAT_OUT);
+  [S].forEach(s => {
+    const o = out(s);
+    s.ins.forEach(e => { const k = settle(clamp((u - +e.dataset.in) / BEAT_IN)); e.style.opacity = k * o; if (!(e instanceof SVGElement) || e.tagName === 'g' || e.tagName === 'text' || e.tagName === 'circle' || e.tagName === 'path' || e.tagName === 'rect' || e.tagName === 'line') e.style.transform = `translateY(${(1 - k) * 24}px)`; });
+    s.dynamic.forEach(e => {
+      const D = e.dataset;
+      if (D.draw != null) { const [t0, d] = D.draw.split(',').map(Number); const k = push(clamp((u - t0) / d)); e.style.strokeDashoffset = D.len * (1 - k); if (D.in == null) e.style.opacity = (k > 0 ? 1 : 0) * o; }
+      if (D.arc != null) { const [t0, d] = D.arc.split(',').map(Number); const k = push(clamp((u - t0) / d)); e.style.strokeDashoffset = D.len * (1 - k); }
+      if (D.reveal != null) { const [t0, d, W] = D.reveal.split(',').map(Number); e.setAttribute('width', W * push(clamp((u - t0) / d))); }
+      if (D.count != null) { const [a, b, dec, t0, d, plus] = D.count.split(',').map(Number); const k = push(clamp((u - t0) / d)); e.textContent = D.pre + fmtNum(a + (b - a) * k, dec, plus) + D.suf; }
+      if (D.swipe != null) e.style.transform = `scaleX(${settle(clamp((u - +D.swipe) / 0.38))})`;
+      if (D.strike != null) e.style.transform = `scaleX(${push(clamp((u - +D.strike) / 0.35))})`;
+      if (D.grow != null) { const [t0, d, ax] = D.grow.split(','); const k = push(clamp((u - +t0) / +d)); e.style.transform = ax === 'x' ? `scaleX(${k})` : `scaleY(${k})`; e.style.opacity = (k > 0 ? 1 : 0) * o; }
+      if (D.rot != null) { const [t0, d, a0, a1, cx, cy] = D.rot.split(',').map(Number); const k = (a1 > 50 ? bez(0.5, 0, 0.9, 0.6) : push)(clamp((u - t0) / d)); e.setAttribute('transform', `rotate(${a0 + (a1 - a0) * k} ${cx} ${cy})`); }
+      if (D.fly != null) { const [sx, sy, tx, ty, t0] = D.fly.split(',').map(Number); const k = push(clamp((u - t0) / 1.6)); e.setAttribute('cx', sx + (tx - sx) * k); e.setAttribute('cy', sy + (ty - sy) * k); e.style.opacity = clamp((u - s.t0) / 0.4) * o; }
+      if (D.dim != null) { const [t0, d, lo] = D.dim.split(',').map(Number); e.style.opacity = (1 - (1 - lo) * settle(clamp((u - t0) / d))) * o; }
+      if (D.dimto != null) { const [t0, lo] = D.dimto.split(',').map(Number); e.style.opacity = 1 - (1 - lo) * settle(clamp((u - t0) / 0.5)); }
+      if (D.out != null) { const k = 1 - clamp((u - +D.out) / BEAT_OUT); e.style.opacity = Math.min(+e.style.opacity || 1, k); if (k <= 0) e.style.opacity = 0; }
+    });
+    if (s.update) s.update(u, s.el);
+  });
+
+  // explainer frame chrome
+  const isFrame = S.kind === 'frame';
+  const prev = SC[cur - 1], next = SC[cur + 1];
+  let fo = 1;
+  if (isFrame && (!prev || prev.kind !== 'frame')) fo = settle(clamp((u - S.t0) / BEAT_IN));
+  if (isFrame && (!next || next.kind !== 'frame')) fo *= 1 - clamp((u - (S.t1 - BEAT_OUT)) / BEAT_OUT);
+  $('frame').style.opacity = isFrame ? fo : 0;
+  if (isFrame) {
+    const { sec, title } = secOf(S, u), [ttl, kick] = SECS[sec];
+    // header swaps with a fade on a chapter change
+    const nextSec = next && next.kind === 'frame' ? secOf(next, next.t0).sec : -1;
+    let ho = 1;
+    const chStart = Math.max(S.t0, ...(S.secAt || []).map(x => x[0]).filter(x => x <= u));
+    const prevSec = prev && prev.kind === 'frame' ? secOf(prev, prev.t1 - 0.01).sec : -1;
+    if (chStart > S.t0 || prevSec !== sec) ho = settle(clamp((u - chStart) / 0.8));
+    if (nextSec !== sec && next && next.kind === 'frame') ho *= 1 - clamp((u - (S.t1 - BEAT_OUT)) / BEAT_OUT);
+    $('header').style.opacity = ho;
+    $('hTitle').textContent = title || ttl; $('hKick').textContent = title ? 'What to watch next' : kick; $('hCount').textContent = `Point ${String(sec).padStart(2, '0')} / 14`;
+    // nav cut-out slides on chapter change
+    const prevNav = prev && prev.kind === 'frame' ? prev.nav : S.nav;
+    const navK = push(clamp((u - S.t0) / 0.8));
+    const pos = prevNav + (S.nav - prevNav) * navK;
+    $('navCut').style.left = pos * 320 + 'px';
+    $('nav').querySelectorAll('.tab').forEach(tb => tb.classList.toggle('on', +tb.dataset.i === Math.round(pos)));
+    // caption: the latest caption of this scene, built word by word
+    const cap = [...S.caps].reverse().find(c => u >= c.t);
+    const nextCap = S.caps.find(c => c.t > u);
+    const capEl = $('caption');
+    if (cap) {
+      const key = S.t0 + ':' + cap.t;
+      if (capEl.dataset.key !== key) { capEl.dataset.key = key; capEl.innerHTML = cap.words.map(w => `<span class="w">${w.w}</span>`).join(' '); }
+      const fade = nextCap ? 1 - clamp((u - (nextCap.t - 0.2)) / 0.2) : 1 - clamp((u - (S.t1 - BEAT_OUT)) / BEAT_OUT);
+      [...capEl.children].forEach((sp, i) => { const t0 = cap.t + i * 0.18, k = settle(clamp((u - t0) / WORD_STEP)), c2 = settle(clamp((u - t0 - WORD_STEP) / 0.25)); sp.style.opacity = k * fade; sp.style.transform = `translateY(${(1 - k) * 16}px)`; sp.style.color = mix(COLORS.faint, COLORS[cap.words[i].tone], c2); });
+    } else { capEl.innerHTML = ''; capEl.dataset.key = ''; }
+    // beat dots
+    const beats = navBeats[S.nav];
+    const idx = beats.filter(b => b <= u).length - 1;
+    const dots = $('dots');
+    if (dots.children.length !== beats.length) dots.innerHTML = beats.map(() => '<i></i>').join('');
+    [...dots.children].forEach((d, i) => { d.className = i === idx ? 'on' : i > idx ? 'todo' : ''; });
+  }
+}
+
+window.DURATION = DURATION;
+window.OFF = OFF;
+window.render = render;
+window.ready = document.fonts.ready.then(() => { render(0); return true; });
+if (!navigator.webdriver) { const start = performance.now(); (function loop() { render(((performance.now() - start) / 1000) % DURATION); requestAnimationFrame(loop); })(); }
+</script>
+</body>
+</html>
