@@ -43,6 +43,23 @@ Figures in the script were verified as of **11 October 2026** (per the brief). F
 | Deficit ≈ $2T today → $3.1T by 2036 | CBO Monthly Budget Review / Budget and Economic Outlook | FY2026 actual; 2036 projection | Projection labelled |
 | Debt held by the public ≈ 101% of GDP (2026) → 120% (2036); passes the 1946 record (106%) in 2030 | CBO Budget and Economic Outlook | Projection | Labelled CBO PROJECTION. The script names this measure "debt held by the public", and so does the screen |
 
+## Claims added after the approved script
+
+The Rome segment in the cold open and the household-impact lines were added at the channel owner's request.
+`SCRIPT_CHANGES.md` lists each added line with its evidence. In summary:
+
+| Claim | Source | Status |
+|---|---|---|
+| Rome's silver coinage fell from about 95% silver (Augustus, c. AD 14) to about 50% (Septimius Severus, c. AD 200) and to a few percent (Gallienus, 260s) | K. Harl, *Coinage in the Roman Economy, 300 B.C. to A.D. 700* (1996); D. Walker, *The Metrology of the Roman Silver Coinage* (1976–78) | Approximate numismatic estimates, labelled so on screen. **Re-verify** |
+| Military pay and wars drove the debasement; prices rose steeply in the later 3rd century | Standard histories of the Crisis of the Third Century (AD 235–284) | Consensus history |
+| Diocletian's Edict on Maximum Prices (AD 301) failed to hold prices | Standard histories; the surviving edict inscriptions | Consensus history |
+| The Western Roman Empire fell in AD 476 | Conventional date (deposition of Romulus Augustulus) | Consensus history |
+| The US has the world's largest economy | BEA; IMF World Economic Outlook (nominal GDP) | Fact |
+| Mortgage rates move with Treasury yields | US 30-year mortgage rates track the 10-year Treasury yield plus a spread (e.g. Freddie Mac PMMS vs FRED DGS10) | Well-established |
+| $400,000, 30-year fixed: $2,398/month at 6% vs $2,661/month at 7% (+$263) | Standard amortisation formula (`data.mortgage_payment`) | Exact arithmetic; rates illustrative |
+| A weaker dollar can raise import prices | Exchange-rate pass-through literature (partial and lagged, because most US imports are invoiced in dollars) | Hedged ("can") in narration |
+| A debt-limit breach could delay Social Security, military pay and veterans' benefits | US Treasury and independent analyses during the 2011 and 2023 standoffs | Hedged ("could") in narration |
+
 ## Claim to confirm before publishing
 
 - *"So far, every time America has put its bonds up for sale, the world has shown up to buy them."* To my knowledge no US Treasury auction has failed (some have "tailed", meaning they cleared at a higher yield than expected, but every one has been fully covered). I could not check this against TreasuryDirect auction records from the sandbox. If you can't confirm it, change the line to "So far, the world has kept buying." The script line already starts with "So far", which keeps the claim modest.
@@ -54,6 +71,8 @@ These shape the context lines in three charts. They are **not** narrated figures
 - **30-year yield, annual averages 2007–2025** (`data.py: YIELD_30Y`): check against FRED DGS30, annual frequency, average aggregation. The 2025 value matters most.
 - **USD share of allocated reserves, 2000–2024** (`data.py: USD_SHARE`): check against the IMF COFER year-end values.
 - **Debt held by the public as % of GDP, 1940–2024** (`data.py: DEBT_GDP_HIST`): check against CBO's historical budget data. The projection line uses only the CBO anchor points the script cites (101% in 2026, the record crossed in 2030, 120% in 2036), joined by straight dashed segments. On screen it is labelled "simplified".
+- **Rome silver-content bars** (`data.py: ROME_SILVER`): about 95%, 50% and 5%. Check against Harl (1996) or
+  Walker (1976–78); published estimates vary by a few points.
 - **UK gilt-yield line** is a schematic of the shape only. It is labelled "schematic shape, not to scale" and has no axis values.
 
 If any value changes, edit `data.py` and run `python3 build.py --skip-tts` again. The charts pick up the new numbers automatically.

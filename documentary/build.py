@@ -167,7 +167,7 @@ def write_sheet(tl, path):
     with open(path, "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["chapter_no", "chapter_title", "sentence_no", "start", "end", "duration_s", "narration_exact",
-                    "spoken_as", "voice_direction", "emotion_preset", "emphasis", "speed", "scene_id",
+                    "spoken_as", "script_change", "voice_direction", "emotion_preset", "emphasis", "speed", "scene_id",
                     "visual_description", "asset_source_rights", "music_sfx_cue", "transition_out"])
         units = tl["units"]
         for k, u in enumerate(units):
@@ -179,6 +179,7 @@ def write_sheet(tl, path):
                 trans = "dissolve to chapter card"
             w.writerow([u["chapter"], chap[u["chapter"]], u["idx"] + 1, fmt_ts(u["start"]), fmt_ts(u["end"]),
                         round(u["end"] - u["start"], 2), u["text"], u["spoken"],
+                        "added (see SCRIPT_CHANGES.md)" if u.get("new") else "approved script",
                         ("Sub-chapter title, narrated and shown on screen. " if u["kind"] == "title" else "")
                         + VOICE_DIRECTION[u["chapter"]], u.get("emotion", ""),
                         "; ".join(re.findall(r"\*\*?([^*]+)\*\*?", u.get("marked", ""))) +
@@ -195,7 +196,7 @@ def write_description(tl, path):
             starts.setdefault(s["chapter"], s["start"])
     first_outro = next(u for u in tl["units"] if u["chapter"] == 7)
     starts[0], starts[7] = 0.0, first_outro["start"] - 0.5
-    names = {0: "Cold open: $40 trillion", 1: "The machine that never stops borrowing",
+    names = {0: "Cold open: $40 trillion, and a lesson from Rome", 1: "The machine that never stops borrowing",
              2: "The warning signs are already here", 3: "Three ways this could go terribly wrong",
              4: "So why hasn't it happened yet?", 5: "Could America fall like Rome?", 6: "Conclusion: three futures",
              7: "Your turn"}
@@ -208,7 +209,7 @@ def write_description(tl, path):
     links = "\n".join(ln.replace("*", "") for ln in links.splitlines()[1:] if ln.strip())
     text = f"""{TITLE}?
 
-America owes more than $40 trillion, and in fiscal year 2026 it spent $1.14 trillion on interest alone: more than its entire military, more than Medicare. Is this the beginning of the end, or one of the most overhyped fears in finance? We look at the evidence: three credit downgrades, the highest 30-year yields since 2007, the UK's 2022 gilt crisis, the dollar's shrinking share of world reserves, the debt limit, and what the CBO projects next.
+America owes more than $40 trillion, and in fiscal year 2026 it spent $1.14 trillion on interest alone: more than its entire military, more than Medicare. Rome once faced its own money problem and quietly watered down its silver coins. Is America heading the same way, or is this one of the most overhyped fears in finance? We look at the evidence: three credit downgrades, the highest 30-year yields since 2007, the UK's 2022 gilt crisis, the dollar's shrinking share of world reserves and the debt limit. We also show what each scenario would mean for ordinary Americans: mortgage payments, the price of imports, and the paycheck that buys less.
 
 Figures verified as of 11 October 2026. Fiscal year 2026 ran from 1 October 2025 to 30 September 2026. The three "doors" and the chain reaction are scenarios, not predictions; projections are labelled on screen.
 

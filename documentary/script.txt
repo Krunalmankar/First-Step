@@ -10,9 +10,14 @@
 #   {e=grave}                        emotion preset for this line (see expressive.py PRESETS)
 #   {q=rise}                         question that lifts at the end (yes/no, tag, elliptical)
 #   {g=0.3}                          extra silence (seconds) before this line, for a reveal
+#   {n=new}                          line added after the approved script (see SCRIPT_CHANGES.md)
+#   !tempo 1.15                      global pace: narration, pauses and animation all run 1.15x
 #   blank line                       paragraph break (slightly longer gap, pitch reset)
 #
-# Sentences are the approved script, verbatim; qa.py checks them word for word against the brief.
+# Untagged sentences are the approved script, verbatim; qa.py checks them word for word against the
+# brief and checks that every {n=new} line is documented in SCRIPT_CHANGES.md.
+
+!tempo 1.15
 
 ## 0 | Cold open | 0.94 | intrigue
 @ title40
@@ -40,6 +45,28 @@ Not into *roads*. {s=0.88} {e=pointed}
 Not into *schools*. {s=0.88} {e=pointed}
 Just *interest*. {s=0.82} {e=pointed} {g=0.15}
 [pause]
+
+@ rome_intro
+This has happened *before*. {e=intrigue} {g=0.15} {n=new}
+Nearly 1,800 years ago, the *Roman Empire* had its own money problem. {e=reflective} {n=new}
+
+@ rome_coin
+To pay its soldiers and fund its wars, Rome quietly *watered down* its money. {e=reflective} {n=new}
+Over about two and a half centuries, its silver coins went from almost pure silver to *only a few percent* silver. {e=reflective} {n=new}
+
+@ rome_edict
+Prices *soared*, and trust in the money *collapsed*. {e=tight} {n=new}
+In the year 301, Emperor Diocletian tried to *cap prices* by decree. {e=measured} {n=new}
+It *didn't work*. {e=grave} {n=new}
+
+@ rome_fall
+The Western Empire held on for almost two more centuries, until the year *476*. {e=reflective} {n=new}
+It didn't collapse in a day. It weakened *slowly*, as its costs outran its income and its money lost the *trust* of its people. {e=reflective} {n=new}
+
+@ rome_us
+America is *not* Rome. {e=decisive} {n=new}
+It borrows instead of debasing its coins, and its economy is the *largest* in the world. {e=reassuring} {n=new}
+Different tools, same question: how long will the world keep *trusting* the money? {e=intrigue} {n=new}
 
 @ question
 So is this the beginning of the *end*? {e=curious} {q=rise}
@@ -136,6 +163,11 @@ Bond prices *crash*. {e=urgent}
 Yields *shoot up*. {e=urgent}
 Suddenly *every dollar* America borrows costs more, every dollar it refinances costs more, and mortgages, car loans and business loans *all* get more expensive with it. {e=tight}
 
+@ door1_mortgage
+For families, this isn't *abstract*. {e=conversational} {n=new}
+Mortgage rates move with *Treasury yields*. {e=analytical} {n=new}
+On a 30-year mortgage of $400,000, every extra percentage point adds roughly *$260* to the monthly payment. {e=analytical} {n=new}
+
 @ door1_cbo
 And remember, interest is already America's *second-biggest* bill.
 The Congressional Budget Office projects it will reach *$2.1 trillion* a year by 2036, even *without* a panic.
@@ -166,6 +198,11 @@ Prices *rise*. {s=0.9} {e=creeping}
 Savings *shrink*. {s=0.9} {e=creeping}
 And foreign investors start asking a *dangerous* question: "Why are we holding so many dollars?" {s=0.92} {e=creeping}
 
+@ door2_imports
+A weaker dollar also makes *imports* more expensive. {e=creeping} {n=new}
+Foreign sellers want more dollars for the same goods, so phones, cars, clothes and coffee can *all* cost more. {e=creeping} {n=new}
+Your paycheck *buys less*, even if the number on it stays the same. {e=creeping} {n=new}
+
 @ door2_creep
 This one doesn't arrive with a *crash*. It *creeps in*. And by the time people notice, it's already *deep*. {s=0.9} {e=creeping}
 
@@ -192,6 +229,7 @@ Independent estimates suggest the ceiling could be hit sometime in *2027*.
 
 @ door3_panic
 If Congress and the White House *can't agree* to raise it in time, payments could be *delayed*. {e=grave}
+That could include *Social Security* checks, military pay and veterans' benefits. {e=grave} {n=new}
 And the moment the world's "safest" asset *misses a payment*, global markets could *panic*. {e=grave}
 
 Not because America is *broke*. {s=0.92} {e=grave}
@@ -291,6 +329,10 @@ The CBO projects the debt held by the public rising from about 101% of the econo
 Interest costs are on track to *nearly double*, to $2.1 trillion a year.
 *Nobody* can tell you the exact date when things break.
 But the *direction* is clear.
+
+@ wallet
+For most Americans, the danger won't arrive as a headline about *collapse*. {e=decisive} {n=new}
+It would show up quietly: in pricier *loans*, pricier *imports*, and less room in the budget for everything else. {e=reflective} {n=new}
 
 @ final
 The real question isn't whether America *can* borrow. {s=0.9}

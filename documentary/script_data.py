@@ -21,6 +21,8 @@ class Unit:
     rise: bool = False         # question that lifts at the end
     pre_gap: float = 0.0       # extra silence before the line (s)
     para_pos: int = 0          # 1 = first sentence of a paragraph, 2 = last, 0 = otherwise / single
+    new: bool = False          # added after the approved script (documented in SCRIPT_CHANGES.md)
+    base_speed: float = 1.0    # delivery speed before the global tempo
 
 
 @dataclass
@@ -35,6 +37,7 @@ class Chapter:
 class Script:
     chapters: list = field(default_factory=list)
     units: list = field(default_factory=list)
+    tempo: float = 1.0         # global pace ("!tempo 1.15"): narration speed, pauses and animation
 
 
 def load(path=HERE / "script.txt") -> Script:
@@ -53,6 +56,9 @@ def load(path=HERE / "script.txt") -> Script:
         if not line:
             blank = True
             continue
+        if line.startswith("!tempo"):
+            sc.tempo = float(line.split()[1])
+            continue
         if line.startswith("#"):
             continue
         if line.startswith("@ "):
@@ -67,9 +73,10 @@ def load(path=HERE / "script.txt") -> Script:
             kind, line = "title", line[2:]
         tags = dict(TAG.findall(line))
         marked = TAG.sub("", line).strip()
-        sc.units.append(Unit(n, kind, marked.replace("*", ""), float(tags.get("s", chap.speed)), chap.num, scene,
+        base = float(tags.get("s", chap.speed))
+        sc.units.append(Unit(n, kind, marked.replace("*", ""), base * sc.tempo, chap.num, scene,
                              blank, marked, tags.get("e", chap.emotion), tags.get("q") == "rise",
-                             float(tags.get("g", 0))))
+                             float(tags.get("g", 0)), new="n" in tags, base_speed=base))
         n += 1
         blank = False
     # paragraph position: a paragraph starts after a blank line, a scene change or a chapter change
@@ -86,5 +93,6 @@ if __name__ == "__main__":
     s = load()
     print(len(s.chapters), "chapters,", sum(u.kind != "pause" for u in s.units), "narration units,",
           sum(u.kind == "pause" for u in s.units), "pauses,", len({u.scene for u in s.units}), "scenes")
-    print(sum(len(u.text.split()) for u in s.units), "words;", sum(u.marked.count("*") // 2 for u in s.units if u.marked),
+    print("tempo", s.tempo, ";", sum(u.new for u in s.units), "added lines;",
+          sum(len(u.text.split()) for u in s.units), "words;", sum(u.marked.count("*") // 2 for u in s.units if u.marked),
           "emphasis marks; emotions:", sorted({u.emotion for u in s.units if u.kind != "pause"}))

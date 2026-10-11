@@ -10,6 +10,7 @@ while the neural vocoder still synthesises every sample (no post-processing pitc
           f0_mul    [1, F]   multiplies the pitch contour per frame (1 = unchanged; broadcastable)
           n_add     [1, F]   offsets the energy contour per frame   (0 = unchanged; broadcastable)
   outputs durations [1, S]   frames per token, as used
+          dur_pred  [1, S]   unrounded frames per token (before dur_scale), for exact timing control
           f0_pred   [1, F]   predicted pitch contour, before f0_mul
           n_pred    [1, F]   predicted energy contour, before n_add
 
@@ -64,12 +65,13 @@ def build():
     del g.node[:]
     g.node.extend(nodes)
     # expose predictions (identity copies so output names are stable)
-    for src, out in ((DUR_OUT, "durations"), (F0_T, "f0_pred"), (N_T, "n_pred")):
+    for src, out in ((DUR_OUT, "durations"), (F0_T, "f0_pred"), (N_T, "n_pred"), (DUR_IN, "dur_pred")):
         g.node.append(helper.make_node("Identity", [src], [out], name=f"prosody/{out}"))
     g.output.extend([
         helper.make_tensor_value_info("durations", TensorProto.FLOAT, [1, "sequence_length"]),
         helper.make_tensor_value_info("f0_pred", TensorProto.FLOAT, [1, "f0_frames"]),
         helper.make_tensor_value_info("n_pred", TensorProto.FLOAT, [1, "n_frames"]),
+        helper.make_tensor_value_info("dur_pred", TensorProto.FLOAT, [1, "sequence_length"]),
     ])
     onnx.save(m, str(DST))
     print("wrote", DST)

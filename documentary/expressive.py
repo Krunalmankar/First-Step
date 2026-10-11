@@ -43,7 +43,7 @@ PRESETS = {
     "warm":          (0.7, 1.28, 0.8, 2.3, 1.1, 2.4, 0.4, 1.10, 1.25),
 }
 FIELDS = ("shift", "range", "decl", "emph", "fall", "rise", "energy", "emph_dur", "beat")
-VERSION = "expr-4"   # bump to invalidate cached clips when the shaping changes
+VERSION = "expr-6"   # bump to invalidate cached clips when the shaping changes
 
 PUNCT_BEATS = {",": 1.0, ";": 1.0, ":": 1.15, "—": 1.15, "…": 1.6}   # multiplied by the preset's beat
 
@@ -97,12 +97,18 @@ def plan(marked, tokenizer, fixes, p, rise=False):
             ph = ph.replace(a, b)
         core = len(ph.rstrip(".,!?;:…\"”’"))
         parts.append([ph, strength, core])
-    phon, char_spans = "", []
+    frag, frag_spans = "", []
     for ph, strength, core in parts:
-        if phon:
-            phon += " "
-        char_spans.append((len(phon), len(phon) + core, strength))
-        phon += ph
+        if frag:
+            frag += " "
+        frag_spans.append((len(frag), len(frag) + core, strength))
+        frag += ph
+    # Speak the sentence phonemised in one piece (natural reductions: "a" -> ɐ, "to" -> tə), and project the
+    # emphasis spans found on the fragment-wise string onto it with a character alignment.
+    phon = tokenizer.phonemize(normalize(strip_markup(marked)), "en-us").strip()
+    for a, b in fixes:
+        phon = phon.replace(a, b)
+    char_spans = [(_project(frag, phon, a), _project(frag, phon, b - 1) + 1, st) for a, b, st in frag_spans]
     vocab = tokenizer.vocab
     tok_of_char, tokens = [], []
     for ch in phon:
@@ -137,6 +143,17 @@ def plan(marked, tokenizer, fixes, p, rise=False):
     ending = "?" if end_ch == "?" else "," if end_ch in ",…;:" or phon.rstrip().endswith("...") else \
         "." if end_ch in ".!" else ""
     return Plan(phon, tokens, dur, spans, last, ending, rise and ending == "?")
+
+
+def _project(src, dst, i):
+    """Map character index i of src onto dst (strings that differ only slightly)."""
+    import difflib
+    for tag, i1, i2, j1, j2 in difflib.SequenceMatcher(None, src, dst, autojunk=False).get_opcodes():
+        if i1 <= i < i2:
+            if tag == "equal":
+                return j1 + (i - i1)
+            return min(j2 - 1, j1 + int((i - i1) * (j2 - j1) / max(1, i2 - i1))) if j2 > j1 else max(0, j1 - 1)
+    return len(dst) - 1
 
 
 def _smooth(x, n):
@@ -209,20 +226,39 @@ def contours(pl, durations, f0, n_pred, p, para_pos=0, energy_extra=0.0):
     return (2.0 ** (off / 12.0)).astype(np.float32), nadd.astype(np.float32)
 
 
+def exact_frames(target):
+    """Round fractional frame counts so the running total never drifts (error diffusion), min 1 frame."""
+    out, acc, done = np.zeros(len(target), np.float32), 0.0, 0
+    for i, t in enumerate(target):
+        acc += float(t)
+        n = max(1, int(round(acc)) - done)
+        out[i] = n
+        done += n
+    return out
+
+
 def synthesise(sess, tokenizer, voice_pack, marked, speed, preset_name, fixes, para_pos=0, energy_extra=0.0,
-                rise=False):
-    """Two-pass expressive synthesis. Returns (audio float32 @24 kHz, info dict)."""
+               rise=False):
+    """Three-pass expressive synthesis. Returns (audio float32 @24 kHz, info dict).
+    1) read the model's unrounded durations; 2) fix exact frame counts (tempo + emphasis + beats, error-diffused)
+    and read the pitch/energy predicted for that timing; 3) render with the reshaped contours."""
     p = preset(preset_name)
     pl = plan(marked, tokenizer, fixes, p, rise)
     if len(pl.tokens) > 508:
         raise ValueError("sentence too long for one Kokoro window; split it in script.txt")
     style = np.asarray(voice_pack[len(pl.tokens) - 1], np.float32).reshape(1, 256)
     feeds = {"tokens": np.array([[0, *pl.tokens, 0]], np.int64), "style": style,
-             "speed": np.array([speed], np.float32), "dur_scale": pl.dur_scale[None, :]}
-    _, dur, f0, nn = sess.run(None, {**feeds, "f0_mul": np.ones((1, 1), np.float32),
-                                     "n_add": np.zeros((1, 1), np.float32)})
+             "speed": np.array([speed], np.float32)}
+    neutral = {"f0_mul": np.ones((1, 1), np.float32), "n_add": np.zeros((1, 1), np.float32)}
+    S = len(pl.tokens) + 2
+    *_, dur_pred = sess.run(None, {**feeds, **neutral, "dur_scale": np.ones((1, S), np.float32)})
+    want = exact_frames(dur_pred[0] * pl.dur_scale)
+    scale = (want / np.maximum(dur_pred[0], 1e-4) * (1 + 1e-5)).astype(np.float32)[None, :]
+    _, dur, f0, nn, _ = sess.run(None, {**feeds, **neutral, "dur_scale": scale})
+    assert np.array_equal(dur[0], want), "exact frame counts not honoured"
     f0_mul, n_add = contours(pl, dur[0], f0[0], nn[0], p, para_pos, energy_extra)
-    audio, dur2, f0b, _ = sess.run(None, {**feeds, "f0_mul": f0_mul[None, :], "n_add": n_add[None, :]})
-    assert dur2.shape == dur.shape and np.array_equal(dur2, dur), "durations changed between passes"
+    audio, dur2, *_ = sess.run(None, {**feeds, "dur_scale": scale, "f0_mul": f0_mul[None, :],
+                                      "n_add": n_add[None, :]})
+    assert np.array_equal(dur2, dur), "durations changed between passes"
     return np.asarray(audio, np.float32).ravel(), {"f0_before": f0[0], "f0_after": f0[0] * f0_mul,
                                                   "durations": dur[0], "plan": pl}

@@ -189,6 +189,16 @@ def sfx_crack(level=0.7):
     return (out * level).astype(np.float32)
 
 
+def sfx_coin(level=0.35):
+    """Small metallic 'ting': inharmonic partials with fast decay."""
+    d = 1.2
+    t = np.arange(int(d * SR)) / SR
+    parts = [(2350, 1.0, 5.0), (3960, 0.6, 7.0), (5480, 0.4, 9.0), (7120, 0.25, 12.0)]
+    sig = sum(a * np.sin(2 * np.pi * f * t) * np.exp(-k * t) for f, a, k in parts)
+    sig *= np.minimum(1, t / 0.002)
+    return (sig * level / 2.3).astype(np.float32)
+
+
 def sfx_tick(level=0.25):
     L = int(0.03 * SR)
     return (bp(rng.standard_normal(L), 2500, 7000) * np.exp(-np.arange(L) / SR * 160) * level).astype(np.float32)
@@ -205,6 +215,10 @@ WARM = [[53, 60, 64, 69], [46, 58, 62, 65], [50, 57, 62, 65], [48, 55, 60, 64]]
 CUES = {
     "title40": dict(chords=DARK, cl=8, pad=0.32, cut=900, bpm=56, pulse=0.38),
     "milestones": dict(chords=DARK, cl=8, pad=0.36, cut=1000, bpm=60, pulse=0.42),
+    "rome_intro": dict(chords=DARK, cl=10, pad=0.26, cut=800, bpm=0, pulse=0, piano=0.16),
+    "rome_edict": dict(chords=DARK, cl=8, pad=0.30, cut=900, bpm=60, pulse=0.22),
+    "rome_fall": dict(chords=DARK, cl=10, pad=0.26, cut=800, bpm=0, pulse=0, piano=0.14),
+    "rome_us": dict(chords=DARK, cl=8, pad=0.30, cut=900, bpm=56, pulse=0.26),
     "question": dict(chords=DARK, cl=8, pad=0.30, cut=900, bpm=0, pulse=0),
     "_title": dict(chords=Dm, cl=6, pad=0.42, cut=1400, bpm=0, pulse=0),
     "spend_list": dict(chords=Dm, cl=8, pad=0.32, cut=1500, bpm=84, pulse=0.10),
@@ -218,6 +232,7 @@ CUES = {
     "charging": dict(chords=DARK, cl=8, pad=0.28, cut=900, bpm=0, pulse=0),
     "_chapter3": dict(chords=DARK, cl=8, pad=0.34, cut=900, bpm=72, pulse=0.30),
     "door1_quote": dict(chords=DARK, cl=8, pad=0.30, cut=900, bpm=72, pulse=0.30),
+    "door1_mortgage": dict(chords=DARK, cl=8, pad=0.28, cut=1000, bpm=72, pulse=0.18),
     "uk_intro": dict(chords=DARK, cl=4, pad=0.30, cut=1200, bpm=104, pulse=0.30, tick=0.08),
     "uk": dict(chords=DARK, cl=4, pad=0.36, cut=1600, bpm=108, pulse=0.46, tick=0.16),
     "uk_imagine": dict(chords=DARK, cl=8, pad=0.28, cut=800, bpm=0, pulse=0),
@@ -267,8 +282,12 @@ def render_music(tl):
             cur["end"] = s["end"]
             cur["segs"].append(s)
     XF = 1.2
+    T = tl.get("tempo", 1.0)
     for r in regions:
-        p = r["p"]
+        p = dict(r["p"])
+        p["cl"] = p["cl"] / T
+        if p.get("bpm"):
+            p["bpm"] = p["bpm"] * T
         a0 = max(0.0, r["start"] - XF / 2)
         a1 = r["end"] + XF / 2
         d = a1 - a0
@@ -280,7 +299,7 @@ def render_music(tl):
         if p.get("tick"):
             x += ticks(d, p["bpm"] or 90, p["tick"])[: len(x)]
         if p.get("piano"):
-            x += piano(d, PIANO_NOTES, 60 / 40, p["piano"])[: len(x)]
+            x += piano(d, PIANO_NOTES, 60 / 40 / T, p["piano"])[: len(x)]
         if p.get("thin"):
             x += thin(d, p["thin"])
         if p.get("drone"):
@@ -347,6 +366,10 @@ def render_sfx(tl):
         if n in ("outlays",):
             for k in range(1, 5):
                 put(sfx_tick(0.18), units[s["units"][k]]["start"])
+        if n == "rome_coin":
+            put(sfx_coin(), s["start"] + 0.25)
+        if n == "rome_edict" and len(s["units"]) > 2:
+            put(sfx_hit(0.45), units[s["units"][2]]["start"] - 0.02)
         if n == "record2030":
             put(sfx_hit(0.5), units[s["units"][0]]["start"] + 0.5)
         if n == "uk":

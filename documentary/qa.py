@@ -53,7 +53,8 @@ def check_script(src_path):
         if h not in src:
             fail(f"heading not found in source: {h!r}")
         src = src.replace(h, " ", 1)
-    ours = " ".join("[pause]" if u.kind == "pause" else u.text for u in sc.units)
+    # approved sentences must match the brief exactly; lines added later are tracked separately
+    ours = " ".join("[pause]" if u.kind == "pause" else u.text for u in sc.units if not u.new)
     a, b = tokens(src), tokens(ours)
     diffs = [op for op in difflib.SequenceMatcher(None, a, b, autojunk=False).get_opcodes() if op[0] != "equal"]
     for tag, i1, i2, j1, j2 in diffs:
@@ -63,10 +64,16 @@ def check_script(src_path):
             fail(f"delivery markup leaked into on-screen text of unit {u.idx}: {u.text!r}")
         if u.kind != "pause" and u.marked.replace("*", "") != u.text:
             fail(f"emphasis markup changes the words of unit {u.idx}")
+    added = [u for u in sc.units if u.new]
+    log = (HERE / "SCRIPT_CHANGES.md").read_text() if (HERE / "SCRIPT_CHANGES.md").exists() else ""
+    for u in added:
+        if u.text not in log:
+            fail(f"added line {u.idx} is not documented in SCRIPT_CHANGES.md: {u.text!r}")
     n_sent = len(re.findall(r"[.?!](?=\s|$|\")", re.sub(r"\.\.\.", "…", ours)))
     print(f"  {len(a)} source tokens, {len(b)} narration tokens, {len(diffs)} differences; "
           f"{sum(u.kind != 'pause' for u in sc.units)} narration units (~{n_sent} sentences), "
-          f"{a.count('PAUSE')} [pause] beats in source / {b.count('PAUSE')} in timeline")
+          f"{a.count('PAUSE')} [pause] beats in source / {b.count('PAUSE')} in timeline; "
+          f"{len(added)} added lines, all documented" + ("" if ok else " (see failures)"))
 
 
 def check_timeline():

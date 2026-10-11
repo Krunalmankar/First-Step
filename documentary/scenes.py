@@ -822,23 +822,30 @@ def s_door3_panic(d, fr, c):
     header(d, "Door 3 · America defaults… on purpose", ease(c.t / 0.6))
     tag(d, "SCENARIO", 1)
     n = len(c.cues)
-    out = ease((c.start(2) - c.t) / 0.4) if n > 2 else 1
+    out = ease((c.start(3) - c.t) / 0.4) if n > 3 else 1
     k = ease(c.t / 0.6) * out
-    labels = ["Payment", "Payment", "Payment", "Payment", "Payment"]
-    for j in range(5):
-        x = W / 2 + (j - 2) * 230
-        miss = j == 4
-        a = k * (c.pa(0, "payments could be delayed", 0.5) if miss else ease((c.t - j * 0.2) / 0.5))
-        col = ACCENT if miss else BLUE
-        d.rounded_rectangle((x - 90, 380, x + 90, 560), radius=14, outline=mix(col, a), width=3)
-        text(d, (x, 440), "✓" if not miss else "✕", 64, col, a, "SemiBold", "mm")
-        text(d, (x, 520), labels[j] if not miss else "Delayed", 24, GREY if not miss else ACCENT, a, "Medium", "mm")
-    if n > 1:
-        text(d, (W / 2, 690), "The world's “safest” asset misses a payment", 44, WHITE, c.p(1, 0.6) * out, "Medium", "mm")
+    pays = [("Social Security", "Social Security"), ("Military pay", "military"), ("Veterans' benefits", "veterans"),
+            ("Contractors", None), ("Bond interest", None)]
+    unsure = c.pa(0, "payments could be delayed", 0.5)
+    for j, (lab, key) in enumerate(pays):
+        x = W / 2 + (j - 2) * 300
+        named = c.pa(1, key, 0.4) if (key and n > 1) else 0
+        missed = c.p(2, 0.5) if (j == 4 and n > 2) else 0
+        col = ACCENT if (named or missed) else BLUE
+        a = k * ease((c.t - j * 0.15) / 0.5)
+        d.rounded_rectangle((x - 130, 360, x + 130, 560), radius=14, outline=mix(col, a), width=3)
+        mark = "×" if missed else ("?" if unsure > 0.5 else "✓")
+        text(d, (x, 430), mark, 60, col, a, "SemiBold", "mm")
+        for i, ln in enumerate(wrap(lab, 26, 230, "Medium")):
+            text(d, (x, 500 + i * 30), ln, 26, WHITE, a, "Medium", "mm")
+        if named and not missed:
+            text(d, (x, 600), "delayed?", 24, ACCENT, a * named, "Medium", "mm")
     if n > 2:
-        text(d, (W / 2, 470), "Not because America is broke.", 58, GREY, c.p(2, 0.5), "SemiBold", "mm", True)
+        text(d, (W / 2, 700), "The world's “safest” asset misses a payment", 44, WHITE, c.p(2, 0.6) * out, "Medium", "mm")
     if n > 3:
-        text(d, (W / 2, 590), "Because it chose to stumble.", 58, ACCENT, c.p(3, 0.5), "SemiBold", "mm", True)
+        text(d, (W / 2, 470), "Not because America is broke.", 58, GREY, c.p(3, 0.5), "SemiBold", "mm", True)
+    if n > 4:
+        text(d, (W / 2, 590), "Because it chose to stumble.", 58, ACCENT, c.p(4, 0.5), "SemiBold", "mm", True)
 
 
 @scene("crisis_collapse")
@@ -1265,3 +1272,239 @@ def s_outro(d, fr, c):
                 text(d, (x, 520 + i * 54), ln, 44, WHITE, a, "SemiBold", "mm", True, base=PANEL)
     if n > 4:
         text(d, (W / 2, 780), "That story is even scarier.", 40, GREY, c.p(4, 0.6), "Medium", "mm")
+
+
+# ======================================================================= cold open: the Roman mirror
+SILVER, BRONZE = (214, 218, 225), (146, 104, 70)
+
+
+def draw_coin(d, cx, cy, R, metal, a, label=""):
+    """Original coin drawing: rim, beaded border, laurel wreath, value in the centre."""
+    if a <= 0.01:
+        return
+    rim = tuple(int(c * 0.62) for c in metal)
+    d.ellipse((cx - R, cy - R, cx + R, cy + R), fill=mix(metal, a), outline=mix(rim, a), width=5)
+    for i in range(84):
+        ang = 2 * math.pi * i / 84
+        r = R - 17
+        dot(d, (cx + r * math.cos(ang), cy + r * math.sin(ang)), 3.4, rim, a)
+    d.ellipse((cx - R + 34, cy - R + 34, cx + R - 34, cy + R - 34), outline=mix(rim, a), width=2)
+    for side in (-1, 1):                                    # laurel: leaves along two arcs
+        for j in range(11):
+            ang = math.pi / 2 + side * (0.35 + j * 0.2)
+            r = R - 58
+            x, y = cx + r * math.cos(ang), cy + r * math.sin(ang)
+            lx, ly = 13 * math.cos(ang + side * 1.1), 13 * math.sin(ang + side * 1.1)
+            d.polygon([(x - lx, y - ly), (x + ly * 0.45, y - lx * 0.45), (x + lx, y + ly),
+                       (x - ly * 0.45, y + lx * 0.45)], fill=mix(rim, a))
+    if label:
+        text(d, (cx, cy - 6), label, int(R * 0.42), rim, a, "Bold", "mm", True, base=metal)
+        text(d, (cx, cy + R * 0.32), "SILVER", int(R * 0.12), rim, a, "SemiBold", "mm", spacing=6, base=metal)
+
+
+@scene("rome_intro")
+def s_rome_intro(d, fr, c):
+    n = len(c.cues)
+    out = ease((c.start(1) - c.t) / 0.4) if n > 1 else 1
+    if out > 0.98:
+        word_reveal(d, (W / 2, H / 2), "This has happened before.", 76, c.since(0), 1.0, WHITE, "SemiBold",
+                    display=True)
+    else:
+        text(d, (W / 2, H / 2), "This has happened before.", 76, WHITE, out, "SemiBold", "mm", True)
+    if n > 1:
+        a = c.p(1, 1.2)
+        tint_layer(fr, columns_drawing(), WHITE, 0.5 * a, (W / 2, 600), 0.74 + 0.02 * c.p(1, 8.0))
+        text(d, (W / 2, 190), "ROME · THIRD CENTURY AD", 30, ACCENT, a, "SemiBold", "mm", spacing=10)
+        text(d, (W / 2, 1000), "Original illustration", 18, DIM, a, "Regular", "mm")
+
+
+@scene("rome_coin")
+def s_rome_coin(d, fr, c):
+    n = len(c.cues)
+    a = ease(c.t / 0.7)
+    deb = ease((c.t - c.at(1, "went from")) / 4.0) if n > 1 else 0.0       # debasement progress
+    metal = tuple(int(lerp(SILVER[i], BRONZE[i], deb)) for i in range(3))
+    pct = round(lerp(95, 5, deb))
+    draw_coin(d, 520, 560, 250, metal, a, f"~{pct}%")
+    text(d, (520, 870), "Rome's main silver coin", 28, GREY, a, "Medium", "mm")
+    if n > 0:
+        text(d, (1000, 210), "To pay soldiers and fund wars, Rome watered down its money", 30, WHITE,
+             c.pa(0, "watered", 0.6), "Medium", "la")
+    x0, base, hmax = 1080, 820, 470
+    keys = ["almost pure", "went from", "only a few"]
+    for k, (when, who, v) in enumerate(D.ROME_SILVER):
+        x = x0 + k * 250
+        g = c.pa(1, keys[k], 0.9) if n > 1 else 0
+        if g <= 0:
+            continue
+        h = hmax * v / 100 * g
+        col = tuple(int(lerp(SILVER[i], BRONZE[i], k / 2)) for i in range(3))
+        d.rectangle((x - 70, base - h, x + 70, base), fill=mix(col, g))
+        text(d, (x, base - h - 36), f"~{v}%", 44, WHITE, g, "Bold", "mm", True)
+        text(d, (x, base + 36), when, 26, WHITE, g, "SemiBold", "mm")
+        text(d, (x, base + 70), who, 22, GREY, g, "Regular", "mm")
+    hline(d, x0 - 110, x0 + 610, base, DIM, a, 2)
+    source(d, D.SRC_ROME, a)
+
+
+@scene("rome_edict")
+def s_rome_edict(d, fr, c):
+    n = len(c.cues)
+    a = ease(c.t / 0.6)
+    p = ease_out(c.since(0) / 2.4)
+    pts = [(170 + i * 7, 760 - (i / 100) ** 2.6 * 430 - 6 * math.sin(i * 0.5)) for i in range(101)]
+    polyline(d, partial(pts, p), ACCENT, a, 5)
+    hline(d, 160, 880, 772, DIM, a, 2)
+    text(d, (170, 300), "Prices", 34, WHITE, a, "SemiBold", "la")
+    text(d, (170, 344), "schematic, not to scale", 20, GREY, a, "Regular", "la")
+    text(d, (250, 430), "trust in the money ↓", 30, ACCENT, c.pa(0, "trust", 0.6), "Medium", "la")
+    if n > 1:
+        b = c.p(1, 0.7) * (1 - 0.45 * (c.p(2, 0.5) if n > 2 else 0))
+        x0, y0, x1, y1 = 1050, 280, 1700, 740
+        d.rounded_rectangle((x0, y0, x1, y1), radius=16, fill=mix(PANEL, b), outline=mix(LINE, b), width=2)
+        text(d, (x0 + 40, y0 + 70), "301 AD", 64, WHITE, b, "Bold", "lm", True, base=PANEL)
+        text(d, (x0 + 40, y0 + 140), "EDICT ON MAXIMUM PRICES", 26, ACCENT, b, "SemiBold", "lm", spacing=3, base=PANEL)
+        text(d, (x0 + 40, y0 + 186), "Emperor Diocletian caps prices by decree", 26, GREY, b, "Regular", "lm",
+             base=PANEL)
+        for i in range(5):                                  # decorative rows (not legible text)
+            w = [520, 470, 540, 380, 450][i]
+            d.rounded_rectangle((x0 + 40, y0 + 250 + i * 34, x0 + 40 + w, y0 + 262 + i * 34), radius=6,
+                                fill=mix(LINE, b, base=PANEL))
+    if n > 2:
+        text(d, (1375, 820), "It didn't work.", 60, ACCENT, c.p(2, 0.5), "Bold", "mm", True)
+
+
+@scene("rome_fall")
+def s_rome_fall(d, fr, c):
+    n = len(c.cues)
+    a = ease(c.t / 0.8)
+    tint_layer(fr, columns_drawing(), GREY, 0.22 * a, (W / 2, 560), 0.8)
+    x0, x1, y = 260, 1660, 560
+    hline(d, x0 - 40, x0 - 40 + (x1 - x0 + 80) * ease_out(c.t / 1.6), y, LINE, 1, 3)
+
+    def X(year):
+        return x0 + (year - 265) / (476 - 265) * (x1 - x0)
+
+    ev = [(265, "c. 265 AD", "coins ~5% silver", ease((c.t - 0.3) / 0.6), GREY),
+          (301, "301 AD", "price edict fails", ease((c.t - 0.7) / 0.6), GREY),
+          (476, "476 AD", "Western Empire falls", c.pa(0, "476", 0.6), ACCENT)]
+    for k, (yr, when, what, ak, col) in enumerate(ev):
+        x = X(yr)
+        dot(d, (x, y), 11 if yr == 476 else 9, col if yr == 476 else WHITE, ak)
+        up = k == 1
+        text(d, (x, y - 70 if not up else y + 60), when, 34, WHITE, ak, "SemiBold", "mm")
+        text(d, (x, y - 30 if not up else y + 100), what, 24, col if yr == 476 else GREY, ak, "Regular", "mm")
+    if n > 0:
+        text(d, (X(380), y - 150), "almost two more centuries", 28, GREY, c.pa(0, "two more", 0.8), "Medium", "mm")
+    if n > 1:
+        b = c.p(1, 0.8)
+        text(d, (W / 2, 800), "It weakened slowly.", 58, WHITE, b, "SemiBold", "mm", True)
+        text(d, (W / 2, 870), "costs outran income · the money lost people's trust", 30, GREY,
+             c.pa(1, "as its costs", 0.8), "Regular", "mm")
+
+
+@scene("rome_us")
+def s_rome_us(d, fr, c):
+    n = len(c.cues)
+    lift = ease((c.t - c.start(1)) / 0.6) if n > 1 else 0
+    text(d, (W / 2, lerp(H / 2, 190, lift)), "America is not Rome.", lerp(80, 50, lift), WHITE, c.p(0, 0.6),
+         "SemiBold", "mm", True)
+    if n > 1:
+        rows = [("Debased its coins", "Borrows by selling Treasury bonds", "debasing"),
+                ("An ancient empire", "The world's largest economy", "largest")]
+        xl, xr = W / 2 - 400, W / 2 + 400
+        h = c.p(1, 0.6)
+        text(d, (xl, 300), "ROME", 30, GREY, h, "SemiBold", "mm", spacing=8)
+        text(d, (xr, 300), "AMERICA", 30, BLUE, h, "SemiBold", "mm", spacing=8)
+        hline(d, W / 2 - 700, W / 2 + 700, 335, LINE, h, 2)
+        for j, (rome, us, key) in enumerate(rows):
+            g = c.pa(1, key, 0.6) if j else c.pa(1, "borrows", 0.6)
+            y = 410 + j * 110
+            text(d, (xl, y), rome, 36, WHITE, g, "Medium", "mm")
+            text(d, (xr, y), us, 36, WHITE, g, "Medium", "mm")
+    if n > 2:
+        text(d, (W / 2, 720), "Different tools. Same question:", 40, GREY, c.p(2, 0.6), "Medium", "mm")
+        word_reveal(d, (W / 2, 800), "How long will the world keep trusting the money?", 50,
+                    c.t - c.at(2, "how long"), 1.6, WHITE, "SemiBold", display=True, highlight=("trusting",))
+
+
+# ======================================================================= household impact
+@scene("door1_mortgage")
+def s_door1_mortgage(d, fr, c):
+    header(d, "Door 1 · What it means at home", ease(c.t / 0.6))
+    tag(d, "ILLUSTRATION", ease(c.t / 0.6), color=BLUE)
+    n = len(c.cues)
+    text(d, (W / 2, 200), "For families, this isn't abstract.", 46, GREY, c.p(0, 0.6), "Medium", "mm")
+    if n > 1:
+        a = c.p(1, 0.6)
+        text(d, (W / 2 - 230, 320), "Treasury yields ↑", 42, WHITE, a, "SemiBold", "mm")
+        arrow(d, (W / 2 - 20, 320), (W / 2 + 60, 320), BLUE, c.p(1, 0.6, 0.3), 4, 16)
+        text(d, (W / 2 + 270, 320), "Mortgage rates ↑", 42, ACCENT, c.p(1, 0.6, 0.5), "SemiBold", "mm")
+    if n > 2:
+        p_, r1, r2 = D.MORTGAGE
+        m1, m2 = D.mortgage_payment(p_, r1), D.mortgage_payment(p_, r2)
+        b = c.p(2, 0.7)
+        x0, y0, x1, y1 = 520, 420, 1400, 880
+        d.rounded_rectangle((x0, y0, x1, y1), radius=18, fill=mix(PANEL, b), outline=mix(LINE, b), width=2)
+        text(d, (x0 + 50, y0 + 60), f"30-year mortgage · ${p_:,.0f}", 34, WHITE, b, "SemiBold", "lm", base=PANEL)
+        for j, (r, m) in enumerate([(r1, m1), (r2, m2)]):
+            g = c.pa(2, "every extra", 0.6) if j else b
+            text(d, (x0 + 50, y0 + 150 + j * 80), f"At {r * 100:.0f}%", 34, GREY, g, "Medium", "lm", base=PANEL)
+            text(d, (x1 - 50, y0 + 150 + j * 80), f"${m:,.0f} a month", 40, WHITE, g, "SemiBold", "rm", True,
+                 base=PANEL)
+        k = c.pa(2, "roughly", 0.6)
+        hline(d, x0 + 50, x1 - 50, y0 + 300, LINE, k, 2)
+        text(d, (x0 + 50, y0 + 370), f"+${m2 - m1:,.0f} a month", 60, ACCENT, k, "Bold", "lm", True, base=PANEL)
+        text(d, (x1 - 50, y0 + 370), f"≈ ${12 * (m2 - m1):,.0f} a year", 32, GREY, k, "Regular", "rm", base=PANEL)
+    source(d, "Standard fixed-rate amortisation; illustrative rates of 6% and 7%", ease(c.t))
+
+
+@scene("door2_imports")
+def s_door2_imports(d, fr, c):
+    header(d, "Door 2 · What it means at home", ease(c.t / 0.6))
+    tag(d, "SCENARIO", 1)
+    n = len(c.cues)
+    text(d, (W / 2, 210), "Weaker dollar → pricier imports", 52, WHITE, c.p(0, 0.6), "SemiBold", "mm", True)
+    if n > 1:
+        items = [("Phones", "phones"), ("Cars", "cars"), ("Clothes", "clothes"), ("Coffee", "coffee")]
+        for j, (lab, key) in enumerate(items):
+            g = c.pa(1, key, 0.5)
+            x = W / 2 + (j - 1.5) * 330
+            d.rounded_rectangle((x - 140, 330, x + 140, 520), radius=16, fill=mix(PANEL, g), outline=mix(LINE, g),
+                                width=2)
+            text(d, (x, 400), lab, 44, WHITE, g, "SemiBold", "mm", True, base=PANEL)
+            text(d, (x, 466), "price ↑", 30, ACCENT, g, "Medium", "mm", base=PANEL)
+        text(d, (W / 2, 590), "Foreign sellers want more dollars for the same goods", 28, GREY,
+             c.pa(1, "Foreign", 0.6), "Regular", "mm")
+    if n > 2:
+        g = c.p(2, 0.6)
+        shrink = ease((c.t - c.at(2, "buys less")) / 2.0)
+        text(d, (560, 720), "Same paycheck", 40, WHITE, g, "SemiBold", "mm")
+        d.rounded_rectangle((420, 760, 700, 820), radius=10, outline=mix(BLUE, g), width=3)
+        text(d, (560, 790), "$", 34, BLUE, g, "Bold", "mm", True)
+        arrow(d, (760, 790), (880, 790), DIM, g, 3, 14)
+        text(d, (1120, 720), "What it buys", 40, WHITE, g, "SemiBold", "mm")
+        w = 520 * (1 - 0.22 * shrink)
+        d.rectangle((940, 765, 940 + w, 815), fill=mix(BLUE, g))
+        d.rectangle((940 + w, 765, 1460, 815), outline=mix(ACCENT, g * shrink), width=2)
+        text(d, (1200, 860), "illustrative", 20, DIM, g, "Regular", "mm")
+
+
+@scene("wallet")
+def s_wallet(d, fr, c):
+    hdr(d, c)
+    n = len(c.cues)
+    a = c.p(0, 0.6)
+    text(d, (W / 2, 250), "Not a headline about collapse.", 56, GREY, a, "SemiBold", "mm", True)
+    if n > 1:
+        text(d, (W / 2, 330), "A quiet squeeze on household budgets", 34, WHITE, c.pa(1, "quietly", 0.6), "Medium", "mm")
+        cards = [("Pricier loans", "mortgages · car loans · credit cards", "loans"),
+                 ("Pricier imports", "if the dollar weakens", "imports"),
+                 ("Less room in the budget", "as interest takes a bigger share", "less room")]
+        for j, (title, sub, key) in enumerate(cards):
+            g = c.pa(1, key, 0.6)
+            x = W / 2 + (j - 1) * 560
+            d.rounded_rectangle((x - 250, 440, x + 250, 700), radius=18, fill=mix(PANEL, g),
+                                outline=mix(ACCENT if j == 0 else LINE, g), width=2)
+            text(d, (x, 530), title, 42, WHITE, g, "SemiBold", "mm", True, base=PANEL)
+            text(d, (x, 610), sub, 26, GREY, g, "Regular", "mm", base=PANEL)

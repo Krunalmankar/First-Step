@@ -56,7 +56,7 @@ def year_words(y: int) -> str:
 
 
 MONTHS = "January February March April May June July August September October November December".split()
-NUM = r"\d[\d,]*(?:\.\d+)?"
+NUM = r"\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?"   # commas only as thousands separators
 
 
 def normalize(text: str) -> str:
@@ -65,6 +65,8 @@ def normalize(text: str) -> str:
     t = t.replace("World War II", "World War Two")
     t = re.sub(r"\bAAA\b", "triple A", t)
     t = re.sub(r"(\d+)-year", lambda m: int_words(int(m.group(1))) + "-year", t)
+    # "1,800 years" -> "eighteen hundred years"
+    t = re.sub(r"\b(\d{1,2}),(\d)00 years\b", lambda m: int_words(int(m.group(1) + m.group(2))) + " hundred years", t)
     t = re.sub(r"mid-(\d{4})", lambda m: "mid " + year_words(int(m.group(1))), t)
     # "23 September 2022" -> "September twenty-third, twenty twenty-two"
     t = re.sub(r"\b(\d{1,2}) (%s) (\d{4})" % "|".join(MONTHS),

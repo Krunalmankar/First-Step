@@ -30,7 +30,9 @@ SR = 48000
 MODELS = Path(__import__("os").environ.get("KOKORO_MODELS", HERE / "build" / "models"))
 
 # Phoneme-level fixes for words the Kokoro G2P gets wrong.
-PHONEME_FIXES = [("tɹˈɪpəl ɐ", "tɹˈɪpəl ˈeɪ"), ("pɹˈɑːdʒɛkts", "pɹədʒˈɛkts")]  # triple-A; "projects" as a verb
+PHONEME_FIXES = [("tɹˈɪpəl ɐ", "tɹˈɪpəl ˈeɪ"),          # triple-A
+                 ("pɹˈɑːdʒɛkts", "pɹədʒˈɛkts"),         # "projects" as a verb
+                 ("dɪəklˈɛʃən", "dˌaɪəklˈiːʃən")]       # Diocletian
 
 # Delivery level per emotion (dB after per-clip peak normalisation): quiet lines sit back, urgent ones lean in.
 LEVEL_DB = {"pointed": -2.0, "creeping": -1.5, "grave": -1.0, "reflective": -1.0, "heavy": -0.5,

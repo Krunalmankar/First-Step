@@ -1,6 +1,7 @@
 # SimpleMoney documentary: "Could the United States Collapse Because of Its Debt?"
 
-A complete, reproducible production of the documentary in the master prompt (12 min 55 s). Code generates
+A complete, reproducible production of the documentary in the master prompt, delivered at 1.15× pace
+(`!tempo 1.15` in `script.txt`). Code generates
 everything: the narration, the original score and sound design, every motion graphic and chart, the subtitles,
 the production sheet and the YouTube description. Edit the script or a number, run one command, and the whole
 film re-times itself to the new narration.
@@ -15,6 +16,7 @@ film re-times itself to the new narration.
 | 4 | Editable project / timeline | `script.txt` (script plus markup), `output/timeline.json` (every sentence, scene and pause with timecodes), and the Python sources |
 | 5 | Sentence-by-sentence production sheet | `output/production_sheet.csv` |
 | 6 | Research sources with dates and links | `SOURCES.md`; description-ready copy in `output/youtube_description.txt` |
+| — | Script changes after approval (Rome intro, household impact), with evidence | `SCRIPT_CHANGES.md` |
 | 7 | Asset register with licence information | `ASSET_REGISTER.md` |
 | 8 | Original graphics and audio assets | `output/graphics/` (one still per scene), `output/music_sfx_stem.mp3` (score + SFX, timed to picture) |
 
@@ -29,8 +31,11 @@ script.txt ──► script_data.py ──► tts.py ──► timeline.py ─�
 
 - **`script.txt`**: the approved script, one sentence per line, verbatim, with delivery markup that never
   reaches the screen. `@ scene` assigns visuals, `*word*` / `**word**` marks emphasis, `{e=grave}` an emotion,
-  `{q=rise}` a lifting question, `{s=0.9}` the speed, `{g=0.2}` an extra beat before a reveal, `[pause]` a
-  1.4 s silent beat, and `~` the narrated sub-chapter titles ("Door number one…").
+  `{q=rise}` a lifting question, `{s=0.9}` the speed, `{g=0.2}` an extra beat before a reveal, `{n=new}` a
+  line added after the approved script, `[pause]` a silent beat, and `~` the narrated sub-chapter titles.
+  `!tempo 1.15` sets the global pace. Narration is synthesised that much faster, every gap, pause and card
+  shrinks by the same factor, and scenes are drawn on a tempo-scaled clock, so the film plays exactly like a
+  1.15× playback without the artefacts of speeding up a finished file.
 - **`expressive.py`** + **`prosody_model.py`**: expressive narration. The Kokoro graph gets three
   controls at the points where it predicts timing, pitch and energy. A first pass reads the voice's own
   contour, and a second pass renders a reshaped one, so the vocoder itself produces the new intonation (no

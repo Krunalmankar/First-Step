@@ -47,3 +47,18 @@ DEBT_GDP_HIST = [(1940, 44), (1943, 70), (1946, 106), (1950, 78), (1955, 56), (1
                  (1974, 23), (1980, 25), (1985, 35), (1990, 41), (1995, 48), (2000, 34), (2007, 35), (2010, 61),
                  (2015, 72), (2019, 79), (2020, 99), (2022, 95), (2024, 98), (2026, 101)]
 DEBT_GDP_PROJ = [(2026, 101), (2030, 107), (2036, 120)]
+
+
+# Rome: silver content of the main silver coin (approximate numismatic estimates; see SOURCES.md)
+SRC_ROME = ("Source: numismatic estimates (K. Harl, Coinage in the Roman Economy, 1996; D. Walker, "
+            "The Metrology of the Roman Silver Coinage, 1976-78) · approximate")
+ROME_SILVER = [("c. 14 AD", "Augustus", 95), ("c. 200 AD", "Septimius Severus", 50), ("c. 265 AD", "Gallienus", 5)]
+
+
+def mortgage_payment(principal, annual_rate, years=30):
+    """Standard fixed-rate amortisation: monthly payment."""
+    r, n = annual_rate / 12, years * 12
+    return principal * r / (1 - (1 + r) ** -n)
+
+
+MORTGAGE = (400_000, 0.06, 0.07)        # illustrative: $400,000, 30-year fixed, 6% vs 7%

@@ -16,13 +16,22 @@ SEGDIR = HERE / "build" / "segments"
 
 
 def load():
-    return json.loads((HERE / "build" / "timeline.json").read_text())
+    global TEMPO
+    tl = json.loads((HERE / "build" / "timeline.json").read_text())
+    TEMPO = tl.get("tempo", 1.0)
+    return tl
+
+
+TEMPO = 1.0   # set from the timeline: scenes are drawn on a time axis scaled by the tempo, so every
+              # animation plays exactly as fast as a 1.15x playback would make it
 
 
 def make_ctx(seg, units_by_idx, t):
     us = [units_by_idx[i] for i in seg["units"]]
-    cues = [(u["start"] - seg["start"], u["end"] - seg["start"]) for u in us]
-    return Ctx(t, seg["end"] - seg["start"], cues, [u["text"] for u in us], seg["chapter"], seg.get("extra"))
+    k = TEMPO
+    cues = [((u["start"] - seg["start"]) * k, (u["end"] - seg["start"]) * k) for u in us]
+    return Ctx(t * k, (seg["end"] - seg["start"]) * k, cues, [u["text"] for u in us], seg["chapter"],
+               seg.get("extra"))
 
 
 def frame(seg, units_by_idx, t):
@@ -31,7 +40,7 @@ def frame(seg, units_by_idx, t):
     d = gfx.SDraw(im)
     c = make_ctx(seg, units_by_idx, t)
     SCENES[seg["name"]](d, im, c)
-    dur = c.dur
+    dur = seg["end"] - seg["start"]              # real seconds (c.dur is on the tempo-scaled axis)
     if not seg["name"].startswith("_"):
         z = 1 + 0.022 * (t / max(dur, 1))           # slow push-in
         cw, ch = W / z, H / z
@@ -49,7 +58,8 @@ def frame_range(seg):
 
 
 def render_segment(args):
-    k, seg, units_by_idx = args
+    global TEMPO
+    k, seg, units_by_idx, TEMPO = args
     out = SEGDIR / f"{k:03d}_{seg['name']}.mp4"
     f0, f1 = frame_range(seg)
     if out.exists() and out.stat().st_size > 0:
@@ -72,7 +82,7 @@ def render_all(procs=4, only=None):
     tl = load()
     SEGDIR.mkdir(parents=True, exist_ok=True)
     ub = {u["idx"]: u for u in tl["units"]}
-    jobs = [(k, s, ub) for k, s in enumerate(tl["segments"]) if only is None or s["name"] in only]
+    jobs = [(k, s, ub, TEMPO) for k, s in enumerate(tl["segments"]) if only is None or s["name"] in only]
     jobs.sort(key=lambda j: -(j[1]["end"] - j[1]["start"]))     # longest first for better packing
     with Pool(procs) as pool:
         for i, path in enumerate(pool.imap_unordered(render_segment, jobs)):
