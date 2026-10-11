@@ -1,0 +1,51 @@
+# Asset register and rights evidence
+
+**Summary: the finished video contains no third-party footage, photos, music, sound effects or logos.**
+Code in this project generates every visual and every sound in the cut. The table lists each component
+and the legal basis for using it.
+
+| Asset | Type | Origin | Licence / rights basis | Commercial use / YouTube | Attribution needed |
+|---|---|---|---|---|---|
+| All motion graphics, charts, counters, diagrams, timelines, chapter cards, title and end cards | Original | Generated in `scenes.py` / `gfx.py` (this repo) | Owned by the channel (original work) | Yes | No |
+| Engraved rosette texture (bonds scene) | Original | Procedural spirograph lines in `gfx.guilloche()` | Original work. It is not a copy of any real certificate or banknote design | Yes | No |
+| Colonnade line drawing (Rome scenes) | Original | Drawn in code, `gfx.columns_drawing()` | Original work, labelled "Original illustration" on screen | Yes | No |
+| Music score | Original | Synthesised in `audio.py` (additive pads, pulses, plucked tones, ambience) | Original composition, owned by the channel | Yes; no Content ID claims expected | No |
+| Sound effects (impacts, risers, whooshes, crack, ticks) | Original | Synthesised in `audio.py` | Original work | Yes | No |
+| Typeface: Inter / Inter Display | Font | Rasmus Andersson, system package `fonts-inter` | SIL Open Font License 1.1 (embedding in video is permitted) | Yes | Not required for video output |
+| Narration voice: **Kokoro-82M**, voice `am_michael` | Synthetic speech (TTS) | hexgrad/Kokoro-82M ONNX export (`thewh1teagle/kokoro-onnx`, model-files-v1.0) | Apache License 2.0 (model weights and code). The output audio has no use restrictions | Yes | Not required. Disclose AI-generated voice per YouTube policy (see below) |
+| *(Planned)* Narration voice: Microsoft Neural TTS **en-US-AndrewNeural** | Synthetic speech | Azure AI Speech / Edge read-aloud service | Commercial use requires an Azure Speech resource under Microsoft's product terms. The free Edge read-aloud endpoint is meant for personal use, so render the final Andrew narration through your own Azure Speech key if you monetise | Yes, via Azure terms | No |
+
+## Logos and trademarks
+
+The script names S&P Global Ratings, Fitch Ratings, Moody's Ratings, the IMF, the CBO, the US Treasury and the
+Bank of England **in text only**. No logos, seals or brand marks appear, as the brief requires.
+
+## Real footage and photographs
+
+**None in this cut.** The production environment blocked every external media archive (Wikimedia Commons,
+Library of Congress, National Archives, NASA, White House and Treasury sites), so no authentic footage could be
+sourced or verified. Following the brief ("If authentic footage cannot be sourced legally, use original graphics…"), I used original graphics instead and **fabricated nothing**: no AI-generated "news" shots, no imitation
+broadcasts, and no imagery implying it shows a real event.
+
+If an editor wants to add authentic visuals later, these are good candidates. **Check the rights on each file
+before use:**
+
+| Scene | Suggested asset | Where | Expected status (verify per file) |
+|---|---|---|---|
+| owes / milestones | US Capitol exterior | Architect of the Capitol, LOC Prints & Photographs, Wikimedia Commons (PD-USGov) | Usually public domain (US federal work) |
+| bonds | US Treasury building | LOC (Carol M. Highsmith Archive: "no known restrictions") | Highsmith archive is dedicated to public use |
+| downgrades (2011, 2023) | Congress in session / debt-ceiling talks | House/Senate recording studios, C-SPAN (C-SPAN is **not** PD) | Floor feeds from the House/Senate are generally PD; C-SPAN's own cameras are not |
+| yield / adv4 | Federal Reserve press conference stills | federalreserve.gov (check the photo credit) | Fed photos are often PD; agency or contractor photos may not be |
+| uk | Houses of Parliament, Bank of England | UK Parliament (Open Parliament Licence), gov.uk (OGL v3) | **Not** PD. OGL / OPL require attribution |
+| door2 | Bureau of Engraving and Printing production footage | bep.gov media | Usually PD (federal); check per item |
+| rome | Roman Forum photos, Roman coins | Wikimedia Commons (CC0 / PD-self files only); museum open-access programmes (e.g. the Met, CC0) | Use only CC0 / PD-marked files |
+
+Record each added asset in this table: **title, URL, author, licence, date accessed, screenshot of the licence
+page, and any attribution text.**
+
+## YouTube disclosures
+
+- **Altered or synthetic content:** the narration is AI-generated (TTS). Tick YouTube's "altered or synthetic
+  content" option if required, and keep the end-card line "Narrated with a synthetic (AI) voice".
+- **Reused content:** the video is an original analysis with original graphics, score and editing. It does
+  not compile third-party footage.

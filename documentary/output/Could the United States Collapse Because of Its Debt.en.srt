@@ -1,0 +1,854 @@
+1
+00:00:01,200 --> 00:00:02,991
+Forty trillion dollars.
+
+2
+00:00:05,191 --> 00:00:08,801
+That's how much the United States
+government owes right now.
+
+3
+00:00:09,101 --> 00:00:12,331
+More than $40 trillion,
+and still climbing.
+
+4
+00:00:13,131 --> 00:00:19,793
+In August 2026, America's debt crossed
+$40 trillion for the first time in history.
+
+5
+00:00:20,093 --> 00:00:24,199
+Just five months earlier,
+it was $39 trillion.
+
+6
+00:00:24,999 --> 00:00:27,740
+And here's the part most
+people don't realise.
+
+7
+00:00:28,040 --> 00:00:35,165
+In the fiscal year that just ended, America
+spent $1.14 trillion on interest alone.
+
+8
+00:00:35,465 --> 00:00:37,933
+That's more than its entire military.
+
+9
+00:00:38,233 --> 00:00:39,621
+More than Medicare.
+
+10
+00:00:39,921 --> 00:00:42,250
+Only Social Security costs more.
+
+11
+00:00:43,050 --> 00:00:44,733
+Every single second,
+
+12
+00:00:44,733 --> 00:00:50,709
+around $36,000 of American tax money
+disappears into interest payments.
+
+13
+00:00:51,009 --> 00:00:52,369
+Not into roads.
+
+14
+00:00:52,669 --> 00:00:53,932
+Not into schools.
+
+15
+00:00:54,232 --> 00:00:55,596
+Just interest.
+
+16
+00:00:57,796 --> 00:00:59,804
+So is this the beginning of the end?
+
+17
+00:01:00,104 --> 00:01:03,311
+Or is it one of the most
+overhyped fears in finance?
+
+18
+00:01:03,931 --> 00:01:07,889
+Stay with me, because the answer
+is more surprising than you think.
+
+19
+00:01:18,089 --> 00:01:19,336
+Let's start simple.
+
+20
+00:01:19,956 --> 00:01:25,756
+Every year, the US government spends money
+on Social Security, Medicare, defence,
+
+21
+00:01:25,756 --> 00:01:29,837
+roads, schools, and interest
+on the debt it already owes.
+
+22
+00:01:30,637 --> 00:01:39,631
+In fiscal year 2026, it spent $7.4 trillion.
+But it collected only $5.4 trillion.
+
+23
+00:01:40,431 --> 00:01:41,501
+Think about that.
+
+24
+00:01:41,801 --> 00:01:48,169
+For every $100 the government spent,
+it brought in only about $73.
+
+25
+00:01:48,969 --> 00:01:50,386
+So it borrows the rest.
+
+26
+00:01:50,686 --> 00:01:53,275
+Nearly $2 trillion in a single year.
+
+27
+00:01:53,575 --> 00:01:57,517
+That's about $5.5 billion,
+every single day.
+
+28
+00:01:58,317 --> 00:02:02,715
+It borrows by selling Treasury
+bonds to investors around the world,
+
+29
+00:02:02,715 --> 00:02:05,538
+and those investors
+lend America the money.
+
+30
+00:02:06,158 --> 00:02:09,461
+Sounds fine, right?
+Countries borrow all the time.
+
+31
+00:02:10,261 --> 00:02:12,322
+But here's where it turns dangerous.
+
+32
+00:02:12,942 --> 00:02:14,978
+That new borrowing adds to the debt.
+
+33
+00:02:15,278 --> 00:02:17,031
+More debt means more interest.
+
+34
+00:02:17,331 --> 00:02:23,072
+In just one year, America's interest
+bill jumped by $115 billion.
+
+35
+00:02:23,372 --> 00:02:26,508
+More interest means even
+more borrowing next year.
+
+36
+00:02:26,808 --> 00:02:30,240
+And when old bonds come due,
+America doesn't pay them off.
+
+37
+00:02:30,540 --> 00:02:32,403
+It borrows again to repay them.
+
+38
+00:02:33,203 --> 00:02:33,570
+Today,
+
+39
+00:02:33,570 --> 00:02:38,461
+more than one out of every five dollars
+the government collects goes straight to
+
+40
+00:02:38,461 --> 00:02:39,011
+interest.
+
+41
+00:02:39,811 --> 00:02:45,831
+Split evenly, the debt now works out
+to more than $115,000 for every man,
+
+42
+00:02:45,831 --> 00:02:48,057
+woman and child in America.
+
+43
+00:02:48,857 --> 00:02:50,743
+It's a machine that feeds itself.
+
+44
+00:02:51,043 --> 00:02:54,080
+And the faster it spins,
+the harder it is to stop.
+
+45
+00:02:58,780 --> 00:03:04,336
+Now, you might think, "Come on. It's America.
+Nobody seriously doubts America."
+
+46
+00:03:04,956 --> 00:03:06,705
+Except... they already have.
+
+47
+00:03:07,505 --> 00:03:08,670
+In August 2011,
+
+48
+00:03:08,670 --> 00:03:15,115
+a political fight over the debt ceiling
+pushed the US so close to the edge that S&P
+
+49
+00:03:15,115 --> 00:03:20,861
+stripped America of its perfect AAA
+credit rating for the first time ever.
+
+50
+00:03:21,481 --> 00:03:25,090
+In August 2023, Fitch downgraded it too.
+
+51
+00:03:25,710 --> 00:03:27,579
+And in May 2025, Moody's,
+
+52
+00:03:27,579 --> 00:03:32,290
+which had given America its top
+rating for more than a century,
+
+53
+00:03:32,290 --> 00:03:34,010
+finally cut it as well.
+
+54
+00:03:36,210 --> 00:03:38,850
+For the first time in modern history,
+
+55
+00:03:38,850 --> 00:03:44,773
+not one of the three major rating agencies
+gives the United States a perfect score.
+
+56
+00:03:45,573 --> 00:03:47,298
+And the bond market noticed.
+
+57
+00:03:47,918 --> 00:03:55,984
+In August 2026, the interest rate
+on America's 30-year bond climbed to 5.31%.
+
+58
+00:03:56,284 --> 00:04:02,085
+That's the highest since 2007,
+on the eve of the global financial crisis.
+
+59
+00:04:02,385 --> 00:04:08,930
+Just days earlier, the Treasury had
+to offer 5.22% to sell new 30-year bonds,
+
+60
+00:04:08,930 --> 00:04:13,010
+the highest at one of those
+auctions since 2001.
+
+61
+00:04:13,810 --> 00:04:18,531
+In other words, the world is still lending
+to America. But it's charging more.
+
+62
+00:04:19,151 --> 00:04:22,010
+That doesn't mean collapse
+is coming tomorrow.
+
+63
+00:04:22,010 --> 00:04:26,671
+But it does mean the people whose job
+is to judge risk are getting nervous.
+
+64
+00:04:31,371 --> 00:04:33,925
+So how would a real crisis actually start?
+
+65
+00:04:34,225 --> 00:04:35,567
+There are three doors.
+
+66
+00:04:35,867 --> 00:04:37,534
+And none of them are pleasant.
+
+67
+00:04:38,584 --> 00:04:41,539
+Door number one: the investors walk away.
+
+68
+00:04:42,939 --> 00:04:48,072
+Imagine one morning, global investors
+simply say: "We'll still lend you money...
+
+69
+00:04:48,072 --> 00:04:50,639
+but only at much higher interest rates."
+
+70
+00:04:51,439 --> 00:04:52,904
+Bond prices crash.
+
+71
+00:04:53,204 --> 00:04:54,284
+Yields shoot up.
+
+72
+00:04:54,584 --> 00:04:58,101
+Suddenly every dollar
+America borrows costs more,
+
+73
+00:04:58,101 --> 00:05:01,905
+every dollar it refinances
+costs more, and mortgages,
+
+74
+00:05:01,905 --> 00:05:06,212
+car loans and business loans
+all get more expensive with it.
+
+75
+00:05:07,012 --> 00:05:10,971
+And remember, interest is already
+America's second-biggest bill.
+
+76
+00:05:11,271 --> 00:05:18,108
+The Congressional Budget Office projects
+it will reach $2.1 trillion a year by 2036,
+
+77
+00:05:18,108 --> 00:05:19,817
+even without a panic.
+
+78
+00:05:20,617 --> 00:05:26,294
+Think a sudden panic is far-fetched?
+In 2022, it happened to the United Kingdom.
+
+79
+00:05:27,094 --> 00:05:29,060
+On 23 September 2022,
+
+80
+00:05:29,060 --> 00:05:35,240
+the British government announced
+£45 billion of unfunded tax cuts.
+
+81
+00:05:35,540 --> 00:05:36,789
+Investors panicked.
+
+82
+00:05:37,089 --> 00:05:40,768
+The pound crashed to its lowest
+level against the dollar in history.
+
+83
+00:05:41,068 --> 00:05:43,304
+British bond markets went into freefall.
+
+84
+00:05:43,604 --> 00:05:46,925
+Pension funds were pushed
+to the edge of collapse,
+
+85
+00:05:46,925 --> 00:05:52,172
+and the Bank of England had to pledge
+up to £65 billion in an emergency rescue.
+
+86
+00:05:52,792 --> 00:05:55,993
+Less than a month later,
+the Prime Minister resigned.
+
+87
+00:05:58,193 --> 00:05:59,266
+That was Britain.
+
+88
+00:05:59,566 --> 00:06:05,155
+Now imagine it happening to the country
+whose bonds the entire world depends on.
+
+89
+00:06:06,205 --> 00:06:08,972
+Door number two: the dollar slowly melts.
+
+90
+00:06:10,372 --> 00:06:14,476
+If the government leans on printing
+money to handle its debt,
+
+91
+00:06:14,476 --> 00:06:16,561
+the dollar quietly loses value.
+
+92
+00:06:16,861 --> 00:06:18,098
+Prices rise.
+
+93
+00:06:18,398 --> 00:06:19,553
+Savings shrink.
+
+94
+00:06:19,853 --> 00:06:23,777
+And foreign investors start
+asking a dangerous question:
+
+95
+00:06:23,777 --> 00:06:26,369
+"Why are we holding so many dollars?"
+
+96
+00:06:27,169 --> 00:06:32,661
+This one doesn't arrive with a crash.
+It creeps in. And by the time people notice,
+
+97
+00:06:32,661 --> 00:06:33,867
+it's already deep.
+
+98
+00:06:34,667 --> 00:06:36,775
+Is it already happening? Slowly.
+
+99
+00:06:37,075 --> 00:06:38,548
+Around the year 2000,
+
+100
+00:06:38,548 --> 00:06:43,880
+more than 70% of the world's foreign-exchange
+reserves were held in dollars.
+
+101
+00:06:44,180 --> 00:06:49,294
+By mid-2026, that share
+had slipped to 56.7%.
+
+102
+00:06:50,344 --> 00:06:53,696
+Door number three: America
+defaults... on purpose.
+
+103
+00:06:55,096 --> 00:06:56,884
+This is the strangest one.
+
+104
+00:06:57,184 --> 00:07:00,018
+America could have the money
+and still fail to pay.
+
+105
+00:07:00,638 --> 00:07:01,250
+How?
+
+106
+00:07:01,550 --> 00:07:02,513
+Politics.
+
+107
+00:07:03,313 --> 00:07:06,605
+By law, America can only
+borrow up to a set limit.
+
+108
+00:07:06,905 --> 00:07:10,793
+Right now, that limit is $41.1 trillion.
+
+109
+00:07:11,093 --> 00:07:14,952
+And America is already within
+about a trillion dollars of it.
+
+110
+00:07:15,252 --> 00:07:20,803
+Independent estimates suggest the ceiling
+could be hit sometime in 2027.
+
+111
+00:07:21,603 --> 00:07:25,393
+If Congress and the White House
+can't agree to raise it in time,
+
+112
+00:07:25,393 --> 00:07:26,933
+payments could be delayed.
+
+113
+00:07:27,233 --> 00:07:31,000
+And the moment the world's
+"safest" asset misses a payment,
+
+114
+00:07:31,000 --> 00:07:32,724
+global markets could panic.
+
+115
+00:07:33,344 --> 00:07:35,405
+Not because America is broke.
+
+116
+00:07:35,705 --> 00:07:38,101
+But because America chose to stumble.
+
+117
+00:07:40,301 --> 00:07:42,135
+Now, here's something important.
+
+118
+00:07:42,435 --> 00:07:44,868
+A crisis is not the same as collapse.
+
+119
+00:07:45,168 --> 00:07:49,472
+A country can go through a brutal
+financial shock and still survive.
+
+120
+00:07:49,772 --> 00:07:55,181
+But the Congressional Budget Office itself
+has warned that rising debt raises the
+
+121
+00:07:55,181 --> 00:07:57,585
+risk of exactly this kind of crisis,
+
+122
+00:07:57,585 --> 00:08:00,857
+and leaves less room
+to fight the next emergency.
+
+123
+00:08:05,557 --> 00:08:09,310
+Okay. If all this is true...
+why is America still standing?
+
+124
+00:08:09,930 --> 00:08:12,723
+Because it holds some of the
+strongest cards in the world.
+
+125
+00:08:13,523 --> 00:08:15,319
+First, the dollar is still king.
+
+126
+00:08:15,619 --> 00:08:18,125
+Even after that slow decline,
+
+127
+00:08:18,125 --> 00:08:25,384
+the dollar makes up 56.7% of global
+foreign-exchange reserves, according to the IMF.
+
+128
+00:08:25,684 --> 00:08:30,292
+The euro, its closest rival,
+sits at about 20.6%.
+
+129
+00:08:30,592 --> 00:08:32,100
+Nothing else comes close.
+
+130
+00:08:32,900 --> 00:08:36,518
+Second, America has a giant,
+productive economy,
+
+131
+00:08:36,518 --> 00:08:42,096
+worth more than $30 trillion a year,
+with huge companies, huge innovation,
+
+132
+00:08:42,096 --> 00:08:43,830
+and a massive tax base.
+
+133
+00:08:44,130 --> 00:08:49,425
+Even last year, tax revenue
+rose by $169 billion.
+
+134
+00:08:50,225 --> 00:08:53,101
+Third, America borrows
+in its own currency.
+
+135
+00:08:53,401 --> 00:08:57,449
+It never has to hunt for some
+foreign currency to pay its bills.
+
+136
+00:08:57,749 --> 00:09:02,065
+That alone protects it from the trap
+that has broken many other countries.
+
+137
+00:09:02,865 --> 00:09:06,970
+And fourth, US Treasuries are
+the backbone of global finance.
+
+138
+00:09:07,270 --> 00:09:11,506
+Banks, governments and funds all
+use them as their safest asset.
+
+139
+00:09:11,806 --> 00:09:15,548
+So far, every time America
+has put its bonds up for sale,
+
+140
+00:09:15,548 --> 00:09:17,845
+the world has shown up to buy them.
+
+141
+00:09:18,645 --> 00:09:20,337
+So America is safe, right?
+
+142
+00:09:22,357 --> 00:09:23,441
+Not quite.
+
+143
+00:09:24,241 --> 00:09:28,587
+Because every one of those advantages
+depends on one thing: trust.
+
+144
+00:09:28,887 --> 00:09:30,980
+And trust doesn't disappear slowly.
+
+145
+00:09:31,280 --> 00:09:33,255
+It disappears all at once.
+
+146
+00:09:37,955 --> 00:09:43,349
+People love comparing America to the
+Roman Empire. And it's easy to see why.
+
+147
+00:09:44,149 --> 00:09:48,240
+But a modern collapse wouldn't
+look like barbarians at the gates.
+
+148
+00:09:48,240 --> 00:09:50,821
+It would look like a slow chain reaction.
+
+149
+00:09:51,621 --> 00:09:53,454
+Deficits that never stop.
+
+150
+00:09:53,754 --> 00:10:01,987
+The CBO projects the yearly deficit growing
+from about $2 trillion today to $3.1
+
+151
+00:10:01,987 --> 00:10:03,736
+trillion by 2036.
+
+152
+00:10:04,036 --> 00:10:05,974
+Interest rates that keep climbing.
+
+153
+00:10:06,274 --> 00:10:11,851
+Politicians forced into impossible
+choices: raise taxes, cut benefits,
+
+154
+00:10:11,851 --> 00:10:13,445
+or borrow even more.
+
+155
+00:10:13,745 --> 00:10:15,116
+Then slower growth.
+
+156
+00:10:15,416 --> 00:10:16,781
+Stubborn inflation.
+
+157
+00:10:17,081 --> 00:10:19,611
+Investors losing faith in Treasuries.
+
+158
+00:10:20,411 --> 00:10:23,320
+And here's a date to remember: 2030.
+
+159
+00:10:23,620 --> 00:10:26,329
+That's when, in the CBO's projections,
+
+160
+00:10:26,329 --> 00:10:30,750
+America's debt breaks the record
+set right after World War II.
+
+161
+00:10:31,550 --> 00:10:33,456
+And finally, the quiet part.
+
+162
+00:10:33,756 --> 00:10:37,705
+America's financial superpower
+status starts slipping away.
+
+163
+00:10:38,005 --> 00:10:39,081
+Not in a day.
+
+164
+00:10:39,381 --> 00:10:44,644
+But year by year, until one day
+people realise the world has moved on.
+
+165
+00:10:46,844 --> 00:10:48,700
+Is that guaranteed? No.
+
+166
+00:10:49,000 --> 00:10:54,359
+Smart reforms, stronger growth, or tough
+decisions could still turn this around.
+
+167
+00:10:54,659 --> 00:10:59,119
+But every year that nothing changes,
+the window gets a little smaller.
+
+168
+00:11:03,819 --> 00:11:06,456
+So, will America collapse
+because of its debt?
+
+169
+00:11:07,256 --> 00:11:08,790
+Here's the honest answer.
+
+170
+00:11:09,090 --> 00:11:13,628
+There are three very different
+futures: America going bankrupt,
+
+171
+00:11:13,628 --> 00:11:17,158
+America going through
+a painful financial crisis,
+
+172
+00:11:17,158 --> 00:11:22,273
+or America slowly losing its crown
+as the world's financial superpower.
+
+173
+00:11:22,893 --> 00:11:24,697
+The first is unlikely.
+
+174
+00:11:24,997 --> 00:11:26,596
+The second is possible.
+
+175
+00:11:26,896 --> 00:11:28,001
+And the third?
+
+176
+00:11:28,301 --> 00:11:30,088
+That's the one worth watching.
+
+177
+00:11:30,888 --> 00:11:38,475
+The CBO projects the debt held by the public
+rising from about 101% of the economy
+
+178
+00:11:38,475 --> 00:11:45,136
+this year to 120% by 2036, higher
+than at any point in American history.
+
+179
+00:11:45,436 --> 00:11:50,937
+Interest costs are on track to nearly
+double, to $2.1 trillion a year.
+
+180
+00:11:51,237 --> 00:11:54,508
+Nobody can tell you the exact
+date when things break.
+
+181
+00:11:54,808 --> 00:11:56,310
+But the direction is clear.
+
+182
+00:11:57,110 --> 00:12:00,731
+The real question isn't
+whether America can borrow.
+
+183
+00:12:01,031 --> 00:12:04,304
+It's how long the world will
+keep believing it should.
+
+184
+00:12:05,404 --> 00:12:06,642
+So what do you think?
+
+185
+00:12:06,942 --> 00:12:12,611
+Is $40 trillion a ticking time bomb,
+or a problem America will fix in time?
+
+186
+00:12:12,911 --> 00:12:14,726
+Drop your answer in the comments.
+
+187
+00:12:15,346 --> 00:12:18,827
+And if you want to know who
+actually owns all this debt,
+
+188
+00:12:18,827 --> 00:12:23,613
+or whether the dollar could lose its
+throne, tell me which one you want next.
+
+189
+00:12:23,913 --> 00:12:25,935
+Because that story is even scarier.

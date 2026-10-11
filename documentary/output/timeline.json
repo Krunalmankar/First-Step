@@ -1,0 +1,2600 @@
+{
+ "duration": 753.135,
+ "voice": "am_michael",
+ "backend": "kokoro",
+ "units": [
+  {
+   "idx": 0,
+   "kind": "say",
+   "text": "Forty trillion dollars.",
+   "spoken": "Forty trillion dollars.",
+   "speed": 0.84,
+   "chapter": 0,
+   "scene": "title40",
+   "start": 1.2,
+   "end": 2.991,
+   "file": "build/tts/kokoro/e103573ce49dab38.wav"
+  },
+  {
+   "idx": 1,
+   "kind": "say",
+   "text": "That's how much the United States government owes right now.",
+   "spoken": "That's how much the United States government owes right now.",
+   "speed": 0.94,
+   "chapter": 0,
+   "scene": "owes",
+   "start": 5.191,
+   "end": 8.801,
+   "file": "build/tts/kokoro/1dfb3fe29f50744f.wav"
+  },
+  {
+   "idx": 2,
+   "kind": "say",
+   "text": "More than $40 trillion, and still climbing.",
+   "spoken": "More than forty trillion dollars, and still climbing.",
+   "speed": 0.94,
+   "chapter": 0,
+   "scene": "owes",
+   "start": 9.101,
+   "end": 12.331,
+   "file": "build/tts/kokoro/fe908fe2a85aa1e7.wav"
+  },
+  {
+   "idx": 3,
+   "kind": "say",
+   "text": "In August 2026, America's debt crossed $40 trillion for the first time in history.",
+   "spoken": "In August twenty twenty-six, America's debt crossed forty trillion dollars for the first time in history.",
+   "speed": 0.94,
+   "chapter": 0,
+   "scene": "milestones",
+   "start": 13.131,
+   "end": 19.793,
+   "file": "build/tts/kokoro/b4efe36610d82b4c.wav"
+  },
+  {
+   "idx": 4,
+   "kind": "say",
+   "text": "Just five months earlier, it was $39 trillion.",
+   "spoken": "Just five months earlier, it was thirty-nine trillion dollars.",
+   "speed": 0.94,
+   "chapter": 0,
+   "scene": "milestones",
+   "start": 20.093,
+   "end": 24.199,
+   "file": "build/tts/kokoro/9ba71dd53634b6a1.wav"
+  },
+  {
+   "idx": 5,
+   "kind": "say",
+   "text": "And here's the part most people don't realise.",
+   "spoken": "And here's the part most people don't realise.",
+   "speed": 0.94,
+   "chapter": 0,
+   "scene": "outlays",
+   "start": 24.999,
+   "end": 27.74,
+   "file": "build/tts/kokoro/37ee16403e768f7e.wav"
+  },
+  {
+   "idx": 6,
+   "kind": "say",
+   "text": "In the fiscal year that just ended, America spent $1.14 trillion on interest alone.",
+   "spoken": "In the fiscal year that just ended, America spent one point one four trillion dollars on interest alone.",
+   "speed": 0.94,
+   "chapter": 0,
+   "scene": "outlays",
+   "start": 28.04,
+   "end": 35.165,
+   "file": "build/tts/kokoro/980668d236b36892.wav"
+  },
+  {
+   "idx": 7,
+   "kind": "say",
+   "text": "That's more than its entire military.",
+   "spoken": "That's more than its entire military.",
+   "speed": 0.86,
+   "chapter": 0,
+   "scene": "outlays",
+   "start": 35.465,
+   "end": 37.933,
+   "file": "build/tts/kokoro/2bc00dac54046a6c.wav"
+  },
+  {
+   "idx": 8,
+   "kind": "say",
+   "text": "More than Medicare.",
+   "spoken": "More than Medicare.",
+   "speed": 0.86,
+   "chapter": 0,
+   "scene": "outlays",
+   "start": 38.233,
+   "end": 39.621,
+   "file": "build/tts/kokoro/7b4c91b5161d7f0a.wav"
+  },
+  {
+   "idx": 9,
+   "kind": "say",
+   "text": "Only Social Security costs more.",
+   "spoken": "Only Social Security costs more.",
+   "speed": 0.94,
+   "chapter": 0,
+   "scene": "outlays",
+   "start": 39.921,
+   "end": 42.25,
+   "file": "build/tts/kokoro/60edde914c5b524c.wav"
+  },
+  {
+   "idx": 10,
+   "kind": "say",
+   "text": "Every single second, around $36,000 of American tax money disappears into interest payments.",
+   "spoken": "Every single second, around thirty-six thousand dollars of American tax money disappears into interest payments.",
+   "speed": 0.94,
+   "chapter": 0,
+   "scene": "interest_counter",
+   "start": 43.05,
+   "end": 50.709,
+   "file": "build/tts/kokoro/b0bdcceb70738df0.wav"
+  },
+  {
+   "idx": 11,
+   "kind": "say",
+   "text": "Not into roads.",
+   "spoken": "Not into roads.",
+   "speed": 0.88,
+   "chapter": 0,
+   "scene": "interest_counter",
+   "start": 51.009,
+   "end": 52.369,
+   "file": "build/tts/kokoro/fd891cae69588033.wav"
+  },
+  {
+   "idx": 12,
+   "kind": "say",
+   "text": "Not into schools.",
+   "spoken": "Not into schools.",
+   "speed": 0.88,
+   "chapter": 0,
+   "scene": "interest_counter",
+   "start": 52.669,
+   "end": 53.932,
+   "file": "build/tts/kokoro/d464adf00a52001c.wav"
+  },
+  {
+   "idx": 13,
+   "kind": "say",
+   "text": "Just interest.",
+   "spoken": "Just interest.",
+   "speed": 0.82,
+   "chapter": 0,
+   "scene": "interest_counter",
+   "start": 54.232,
+   "end": 55.596,
+   "file": "build/tts/kokoro/6aecd2fe9d08af41.wav"
+  },
+  {
+   "idx": 14,
+   "kind": "say",
+   "text": "So is this the beginning of the end?",
+   "spoken": "So is this the beginning of the end?",
+   "speed": 0.94,
+   "chapter": 0,
+   "scene": "question",
+   "start": 57.796,
+   "end": 59.804,
+   "file": "build/tts/kokoro/060be125a7b52a30.wav"
+  },
+  {
+   "idx": 15,
+   "kind": "say",
+   "text": "Or is it one of the most overhyped fears in finance?",
+   "spoken": "Or is it one of the most overhyped fears in finance?",
+   "speed": 0.94,
+   "chapter": 0,
+   "scene": "question",
+   "start": 60.104,
+   "end": 63.311,
+   "file": "build/tts/kokoro/09d5453496891550.wav"
+  },
+  {
+   "idx": 16,
+   "kind": "say",
+   "text": "Stay with me, because the answer is more surprising than you think.",
+   "spoken": "Stay with me, because the answer is more surprising than you think.",
+   "speed": 0.94,
+   "chapter": 0,
+   "scene": "question",
+   "start": 63.931,
+   "end": 67.889,
+   "file": "build/tts/kokoro/165c8c42d71046c4.wav"
+  },
+  {
+   "idx": 17,
+   "kind": "say",
+   "text": "Let's start simple.",
+   "spoken": "Let's start simple.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "spend_list",
+   "start": 78.089,
+   "end": 79.336,
+   "file": "build/tts/kokoro/79c84dfda157cd97.wav"
+  },
+  {
+   "idx": 18,
+   "kind": "say",
+   "text": "Every year, the US government spends money on Social Security, Medicare, defence, roads, schools, and interest on the debt it already owes.",
+   "spoken": "Every year, the US government spends money on Social Security, Medicare, defence, roads, schools, and interest on the debt it already owes.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "spend_list",
+   "start": 79.956,
+   "end": 89.837,
+   "file": "build/tts/kokoro/b90bdb89880aa4aa.wav"
+  },
+  {
+   "idx": 19,
+   "kind": "say",
+   "text": "In fiscal year 2026, it spent $7.4 trillion. But it collected only $5.4 trillion.",
+   "spoken": "In fiscal year twenty twenty-six, it spent seven point four trillion dollars. But it collected only five point four trillion dollars.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "spend_vs",
+   "start": 90.637,
+   "end": 99.631,
+   "file": "build/tts/kokoro/56f462ca542abbfd.wav"
+  },
+  {
+   "idx": 20,
+   "kind": "say",
+   "text": "Think about that.",
+   "spoken": "Think about that.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "hundred",
+   "start": 100.431,
+   "end": 101.501,
+   "file": "build/tts/kokoro/b2b7c8ce2d4705f9.wav"
+  },
+  {
+   "idx": 21,
+   "kind": "say",
+   "text": "For every $100 the government spent, it brought in only about $73.",
+   "spoken": "For every one hundred dollars the government spent, it brought in only about seventy-three dollars.",
+   "speed": 0.92,
+   "chapter": 1,
+   "scene": "hundred",
+   "start": 101.801,
+   "end": 108.169,
+   "file": "build/tts/kokoro/0226a958bb12d08c.wav"
+  },
+  {
+   "idx": 22,
+   "kind": "say",
+   "text": "So it borrows the rest.",
+   "spoken": "So it borrows the rest.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "deficit",
+   "start": 108.969,
+   "end": 110.386,
+   "file": "build/tts/kokoro/307e0919b82e86da.wav"
+  },
+  {
+   "idx": 23,
+   "kind": "say",
+   "text": "Nearly $2 trillion in a single year.",
+   "spoken": "Nearly two trillion dollars in a single year.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "deficit",
+   "start": 110.686,
+   "end": 113.275,
+   "file": "build/tts/kokoro/44d6fd57ef4caf83.wav"
+  },
+  {
+   "idx": 24,
+   "kind": "say",
+   "text": "That's about $5.5 billion, every single day.",
+   "spoken": "That's about five point five billion dollars, every single day.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "deficit",
+   "start": 113.575,
+   "end": 117.517,
+   "file": "build/tts/kokoro/861d8806f42f2fee.wav"
+  },
+  {
+   "idx": 25,
+   "kind": "say",
+   "text": "It borrows by selling Treasury bonds to investors around the world, and those investors lend America the money.",
+   "spoken": "It borrows by selling Treasury bonds to investors around the world, and those investors lend America the money.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "bonds",
+   "start": 118.317,
+   "end": 125.538,
+   "file": "build/tts/kokoro/cc733ebda16b7ed5.wav"
+  },
+  {
+   "idx": 26,
+   "kind": "say",
+   "text": "Sounds fine, right? Countries borrow all the time.",
+   "spoken": "Sounds fine, right? Countries borrow all the time.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "bonds",
+   "start": 126.158,
+   "end": 129.461,
+   "file": "build/tts/kokoro/45f35273a8b55ded.wav"
+  },
+  {
+   "idx": 27,
+   "kind": "say",
+   "text": "But here's where it turns dangerous.",
+   "spoken": "But here's where it turns dangerous.",
+   "speed": 0.92,
+   "chapter": 1,
+   "scene": "machine",
+   "start": 130.261,
+   "end": 132.322,
+   "file": "build/tts/kokoro/bcb8f4b8bc0c0fb4.wav"
+  },
+  {
+   "idx": 28,
+   "kind": "say",
+   "text": "That new borrowing adds to the debt.",
+   "spoken": "That new borrowing adds to the debt.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "machine",
+   "start": 132.942,
+   "end": 134.978,
+   "file": "build/tts/kokoro/90131fe1281be77b.wav"
+  },
+  {
+   "idx": 29,
+   "kind": "say",
+   "text": "More debt means more interest.",
+   "spoken": "More debt means more interest.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "machine",
+   "start": 135.278,
+   "end": 137.031,
+   "file": "build/tts/kokoro/eea3821648c34c88.wav"
+  },
+  {
+   "idx": 30,
+   "kind": "say",
+   "text": "In just one year, America's interest bill jumped by $115 billion.",
+   "spoken": "In just one year, America's interest bill jumped by one hundred fifteen billion dollars.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "machine",
+   "start": 137.331,
+   "end": 143.072,
+   "file": "build/tts/kokoro/80614b2db86204ad.wav"
+  },
+  {
+   "idx": 31,
+   "kind": "say",
+   "text": "More interest means even more borrowing next year.",
+   "spoken": "More interest means even more borrowing next year.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "machine",
+   "start": 143.372,
+   "end": 146.508,
+   "file": "build/tts/kokoro/35c5b13903480420.wav"
+  },
+  {
+   "idx": 32,
+   "kind": "say",
+   "text": "And when old bonds come due, America doesn't pay them off.",
+   "spoken": "And when old bonds come due, America doesn't pay them off.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "machine",
+   "start": 146.808,
+   "end": 150.24,
+   "file": "build/tts/kokoro/c87434ae388e0ba6.wav"
+  },
+  {
+   "idx": 33,
+   "kind": "say",
+   "text": "It borrows again to repay them.",
+   "spoken": "It borrows again to repay them.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "machine",
+   "start": 150.54,
+   "end": 152.403,
+   "file": "build/tts/kokoro/c9043662da5ece74.wav"
+  },
+  {
+   "idx": 34,
+   "kind": "say",
+   "text": "Today, more than one out of every five dollars the government collects goes straight to interest.",
+   "spoken": "Today, more than one out of every five dollars the government collects goes straight to interest.",
+   "speed": 0.94,
+   "chapter": 1,
+   "scene": "one_in_five",
+   "start": 153.203,
+   "end": 159.011,
+   "file": "build/tts/kokoro/33bade3239d71686.wav"
+  },
+  {
+   "idx": 35,
+   "kind": "say",
+   "text": "Split evenly, the debt now works out to more than $115,000 for every man, woman and child in America.",
+   "spoken": "Split evenly, the debt now works out to more than one hundred fifteen thousand dollars for every man, woman and child in America.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "per_person",
+   "start": 159.811,
+   "end": 168.057,
+   "file": "build/tts/kokoro/9ecd87407a4614da.wav"
+  },
+  {
+   "idx": 36,
+   "kind": "say",
+   "text": "It's a machine that feeds itself.",
+   "spoken": "It's a machine that feeds itself.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "spin",
+   "start": 168.857,
+   "end": 170.743,
+   "file": "build/tts/kokoro/b88f63f8c6ee0ebc.wav"
+  },
+  {
+   "idx": 37,
+   "kind": "say",
+   "text": "And the faster it spins, the harder it is to stop.",
+   "spoken": "And the faster it spins, the harder it is to stop.",
+   "speed": 1.0,
+   "chapter": 1,
+   "scene": "spin",
+   "start": 171.043,
+   "end": 174.08,
+   "file": "build/tts/kokoro/70eefb94d40c69d9.wav"
+  },
+  {
+   "idx": 38,
+   "kind": "say",
+   "text": "Now, you might think, \"Come on. It's America. Nobody seriously doubts America.\"",
+   "spoken": "Now, you might think, \"Come on. It's America. Nobody seriously doubts America.\"",
+   "speed": 0.96,
+   "chapter": 2,
+   "scene": "nobody",
+   "start": 178.78,
+   "end": 184.336,
+   "file": "build/tts/kokoro/2042e6517966f0b3.wav"
+  },
+  {
+   "idx": 39,
+   "kind": "say",
+   "text": "Except... they already have.",
+   "spoken": "Except... they already have.",
+   "speed": 0.9,
+   "chapter": 2,
+   "scene": "nobody",
+   "start": 184.956,
+   "end": 186.705,
+   "file": "build/tts/kokoro/f829cc599e879804.wav"
+  },
+  {
+   "idx": 40,
+   "kind": "say",
+   "text": "In August 2011, a political fight over the debt ceiling pushed the US so close to the edge that S&P stripped America of its perfect AAA credit rating for the first time ever.",
+   "spoken": "In August twenty eleven, a political fight over the debt ceiling pushed the US so close to the edge that S and P stripped America of its perfect triple A credit rating for the first time ever.",
+   "speed": 0.96,
+   "chapter": 2,
+   "scene": "downgrades",
+   "start": 187.505,
+   "end": 200.861,
+   "file": "build/tts/kokoro/a28724f60dba5a21.wav"
+  },
+  {
+   "idx": 41,
+   "kind": "say",
+   "text": "In August 2023, Fitch downgraded it too.",
+   "spoken": "In August twenty twenty-three, Fitch downgraded it too.",
+   "speed": 0.96,
+   "chapter": 2,
+   "scene": "downgrades",
+   "start": 201.481,
+   "end": 205.09,
+   "file": "build/tts/kokoro/7b653ac3bbd322aa.wav"
+  },
+  {
+   "idx": 42,
+   "kind": "say",
+   "text": "And in May 2025, Moody's, which had given America its top rating for more than a century, finally cut it as well.",
+   "spoken": "And in May twenty twenty-five, Moody's, which had given America its top rating for more than a century, finally cut it as well.",
+   "speed": 0.96,
+   "chapter": 2,
+   "scene": "downgrades",
+   "start": 205.71,
+   "end": 214.01,
+   "file": "build/tts/kokoro/f6c93851cd066883.wav"
+  },
+  {
+   "idx": 43,
+   "kind": "say",
+   "text": "For the first time in modern history, not one of the three major rating agencies gives the United States a perfect score.",
+   "spoken": "For the first time in modern history, not one of the three major rating agencies gives the United States a perfect score.",
+   "speed": 0.86,
+   "chapter": 2,
+   "scene": "none_perfect",
+   "start": 216.21,
+   "end": 224.773,
+   "file": "build/tts/kokoro/8e4fce8c3af9512a.wav"
+  },
+  {
+   "idx": 44,
+   "kind": "say",
+   "text": "And the bond market noticed.",
+   "spoken": "And the bond market noticed.",
+   "speed": 0.96,
+   "chapter": 2,
+   "scene": "yield",
+   "start": 225.573,
+   "end": 227.298,
+   "file": "build/tts/kokoro/d2067e1a065d1328.wav"
+  },
+  {
+   "idx": 45,
+   "kind": "say",
+   "text": "In August 2026, the interest rate on America's 30-year bond climbed to 5.31%.",
+   "spoken": "In August twenty twenty-six, the interest rate on America's thirty-year bond climbed to five point three one percent.",
+   "speed": 0.92,
+   "chapter": 2,
+   "scene": "yield",
+   "start": 227.918,
+   "end": 235.984,
+   "file": "build/tts/kokoro/11f5a6e5e5a9fe9e.wav"
+  },
+  {
+   "idx": 46,
+   "kind": "say",
+   "text": "That's the highest since 2007, on the eve of the global financial crisis.",
+   "spoken": "That's the highest since two thousand seven, on the eve of the global financial crisis.",
+   "speed": 0.92,
+   "chapter": 2,
+   "scene": "yield",
+   "start": 236.284,
+   "end": 242.085,
+   "file": "build/tts/kokoro/7e691630f70d768e.wav"
+  },
+  {
+   "idx": 47,
+   "kind": "say",
+   "text": "Just days earlier, the Treasury had to offer 5.22% to sell new 30-year bonds, the highest at one of those auctions since 2001.",
+   "spoken": "Just days earlier, the Treasury had to offer five point two two percent to sell new thirty-year bonds, the highest at one of those auctions since two thousand one.",
+   "speed": 0.96,
+   "chapter": 2,
+   "scene": "yield",
+   "start": 242.385,
+   "end": 253.01,
+   "file": "build/tts/kokoro/38d7dc01b000211f.wav"
+  },
+  {
+   "idx": 48,
+   "kind": "say",
+   "text": "In other words, the world is still lending to America. But it's charging more.",
+   "spoken": "In other words, the world is still lending to America. But it's charging more.",
+   "speed": 0.96,
+   "chapter": 2,
+   "scene": "charging",
+   "start": 253.81,
+   "end": 258.531,
+   "file": "build/tts/kokoro/39fac4546c5f1f17.wav"
+  },
+  {
+   "idx": 49,
+   "kind": "say",
+   "text": "That doesn't mean collapse is coming tomorrow. But it does mean the people whose job is to judge risk are getting nervous.",
+   "spoken": "That doesn't mean collapse is coming tomorrow. But it does mean the people whose job is to judge risk are getting nervous.",
+   "speed": 0.96,
+   "chapter": 2,
+   "scene": "charging",
+   "start": 259.151,
+   "end": 266.671,
+   "file": "build/tts/kokoro/c1c788fef5d4ce95.wav"
+  },
+  {
+   "idx": 50,
+   "kind": "say",
+   "text": "So how would a real crisis actually start?",
+   "spoken": "So how would a real crisis actually start?",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "doors",
+   "start": 271.371,
+   "end": 273.925,
+   "file": "build/tts/kokoro/fe16085cf43dd865.wav"
+  },
+  {
+   "idx": 51,
+   "kind": "say",
+   "text": "There are three doors.",
+   "spoken": "There are three doors.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "doors",
+   "start": 274.225,
+   "end": 275.567,
+   "file": "build/tts/kokoro/8cccd47881926594.wav"
+  },
+  {
+   "idx": 52,
+   "kind": "say",
+   "text": "And none of them are pleasant.",
+   "spoken": "And none of them are pleasant.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "doors",
+   "start": 275.867,
+   "end": 277.534,
+   "file": "build/tts/kokoro/987e63a7d82087f4.wav"
+  },
+  {
+   "idx": 53,
+   "kind": "title",
+   "text": "Door number one: the investors walk away.",
+   "spoken": "Door number one: the investors walk away.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door1",
+   "start": 278.584,
+   "end": 281.539,
+   "file": "build/tts/kokoro/a62b39c41577ccd1.wav"
+  },
+  {
+   "idx": 54,
+   "kind": "say",
+   "text": "Imagine one morning, global investors simply say: \"We'll still lend you money... but only at much higher interest rates.\"",
+   "spoken": "Imagine one morning, global investors simply say: \"We'll still lend you money... but only at much higher interest rates.\"",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door1_quote",
+   "start": 282.939,
+   "end": 290.639,
+   "file": "build/tts/kokoro/f6728a0f322e198c.wav"
+  },
+  {
+   "idx": 55,
+   "kind": "say",
+   "text": "Bond prices crash.",
+   "spoken": "Bond prices crash.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door1_chain",
+   "start": 291.439,
+   "end": 292.904,
+   "file": "build/tts/kokoro/a8af6c0caffdfb03.wav"
+  },
+  {
+   "idx": 56,
+   "kind": "say",
+   "text": "Yields shoot up.",
+   "spoken": "Yields shoot up.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door1_chain",
+   "start": 293.204,
+   "end": 294.284,
+   "file": "build/tts/kokoro/e32b12a3eb9beb67.wav"
+  },
+  {
+   "idx": 57,
+   "kind": "say",
+   "text": "Suddenly every dollar America borrows costs more, every dollar it refinances costs more, and mortgages, car loans and business loans all get more expensive with it.",
+   "spoken": "Suddenly every dollar America borrows costs more, every dollar it refinances costs more, and mortgages, car loans and business loans all get more expensive with it.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door1_chain",
+   "start": 294.584,
+   "end": 306.212,
+   "file": "build/tts/kokoro/01599e77f7c2e4ff.wav"
+  },
+  {
+   "idx": 58,
+   "kind": "say",
+   "text": "And remember, interest is already America's second-biggest bill.",
+   "spoken": "And remember, interest is already America's second-biggest bill.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door1_cbo",
+   "start": 307.012,
+   "end": 310.971,
+   "file": "build/tts/kokoro/bf8692b25cee0e67.wav"
+  },
+  {
+   "idx": 59,
+   "kind": "say",
+   "text": "The Congressional Budget Office projects it will reach $2.1 trillion a year by 2036, even without a panic.",
+   "spoken": "The Congressional Budget Office projects it will reach two point one trillion dollars a year by twenty thirty-six, even without a panic.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door1_cbo",
+   "start": 311.271,
+   "end": 319.817,
+   "file": "build/tts/kokoro/9cb691cd9a5b1acd.wav"
+  },
+  {
+   "idx": 60,
+   "kind": "say",
+   "text": "Think a sudden panic is far-fetched? In 2022, it happened to the United Kingdom.",
+   "spoken": "Think a sudden panic is far-fetched? In twenty twenty-two, it happened to the United Kingdom.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "uk_intro",
+   "start": 320.617,
+   "end": 326.294,
+   "file": "build/tts/kokoro/052fc056af88c7d8.wav"
+  },
+  {
+   "idx": 61,
+   "kind": "say",
+   "text": "On 23 September 2022, the British government announced \u00a345 billion of unfunded tax cuts.",
+   "spoken": "On September twenty-third, twenty twenty-two, the British government announced forty-five billion pounds of unfunded tax cuts.",
+   "speed": 1.04,
+   "chapter": 3,
+   "scene": "uk",
+   "start": 327.094,
+   "end": 335.24,
+   "file": "build/tts/kokoro/4be86a271be31554.wav"
+  },
+  {
+   "idx": 62,
+   "kind": "say",
+   "text": "Investors panicked.",
+   "spoken": "Investors panicked.",
+   "speed": 1.06,
+   "chapter": 3,
+   "scene": "uk",
+   "start": 335.54,
+   "end": 336.789,
+   "file": "build/tts/kokoro/e047c4b797a59e75.wav"
+  },
+  {
+   "idx": 63,
+   "kind": "say",
+   "text": "The pound crashed to its lowest level against the dollar in history.",
+   "spoken": "The pound crashed to its lowest level against the dollar in history.",
+   "speed": 1.06,
+   "chapter": 3,
+   "scene": "uk",
+   "start": 337.089,
+   "end": 340.768,
+   "file": "build/tts/kokoro/7be95a895917ea6d.wav"
+  },
+  {
+   "idx": 64,
+   "kind": "say",
+   "text": "British bond markets went into freefall.",
+   "spoken": "British bond markets went into freefall.",
+   "speed": 1.06,
+   "chapter": 3,
+   "scene": "uk",
+   "start": 341.068,
+   "end": 343.304,
+   "file": "build/tts/kokoro/22eb9278e662c3d3.wav"
+  },
+  {
+   "idx": 65,
+   "kind": "say",
+   "text": "Pension funds were pushed to the edge of collapse, and the Bank of England had to pledge up to \u00a365 billion in an emergency rescue.",
+   "spoken": "Pension funds were pushed to the edge of collapse, and the Bank of England had to pledge up to sixty-five billion pounds in an emergency rescue.",
+   "speed": 1.06,
+   "chapter": 3,
+   "scene": "uk",
+   "start": 343.604,
+   "end": 352.172,
+   "file": "build/tts/kokoro/78a3ddfec6ea0438.wav"
+  },
+  {
+   "idx": 66,
+   "kind": "say",
+   "text": "Less than a month later, the Prime Minister resigned.",
+   "spoken": "Less than a month later, the Prime Minister resigned.",
+   "speed": 0.96,
+   "chapter": 3,
+   "scene": "uk",
+   "start": 352.792,
+   "end": 355.993,
+   "file": "build/tts/kokoro/f860aeb9a988e490.wav"
+  },
+  {
+   "idx": 67,
+   "kind": "say",
+   "text": "That was Britain.",
+   "spoken": "That was Britain.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "uk_imagine",
+   "start": 358.193,
+   "end": 359.266,
+   "file": "build/tts/kokoro/2239546b4201a656.wav"
+  },
+  {
+   "idx": 68,
+   "kind": "say",
+   "text": "Now imagine it happening to the country whose bonds the entire world depends on.",
+   "spoken": "Now imagine it happening to the country whose bonds the entire world depends on.",
+   "speed": 0.92,
+   "chapter": 3,
+   "scene": "uk_imagine",
+   "start": 359.566,
+   "end": 365.155,
+   "file": "build/tts/kokoro/a7c7eb5d2b027d1e.wav"
+  },
+  {
+   "idx": 69,
+   "kind": "title",
+   "text": "Door number two: the dollar slowly melts.",
+   "spoken": "Door number two: the dollar slowly melts.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door2",
+   "start": 366.205,
+   "end": 368.972,
+   "file": "build/tts/kokoro/918e1b026bf32974.wav"
+  },
+  {
+   "idx": 70,
+   "kind": "say",
+   "text": "If the government leans on printing money to handle its debt, the dollar quietly loses value.",
+   "spoken": "If the government leans on printing money to handle its debt, the dollar quietly loses value.",
+   "speed": 0.92,
+   "chapter": 3,
+   "scene": "door2_print",
+   "start": 370.372,
+   "end": 376.561,
+   "file": "build/tts/kokoro/55335a1e74fcd4ce.wav"
+  },
+  {
+   "idx": 71,
+   "kind": "say",
+   "text": "Prices rise.",
+   "spoken": "Prices rise.",
+   "speed": 0.9,
+   "chapter": 3,
+   "scene": "door2_print",
+   "start": 376.861,
+   "end": 378.098,
+   "file": "build/tts/kokoro/614349f4f1ac6360.wav"
+  },
+  {
+   "idx": 72,
+   "kind": "say",
+   "text": "Savings shrink.",
+   "spoken": "Savings shrink.",
+   "speed": 0.9,
+   "chapter": 3,
+   "scene": "door2_print",
+   "start": 378.398,
+   "end": 379.553,
+   "file": "build/tts/kokoro/ff31d273eb5373ec.wav"
+  },
+  {
+   "idx": 73,
+   "kind": "say",
+   "text": "And foreign investors start asking a dangerous question: \"Why are we holding so many dollars?\"",
+   "spoken": "And foreign investors start asking a dangerous question: \"Why are we holding so many dollars?\"",
+   "speed": 0.92,
+   "chapter": 3,
+   "scene": "door2_print",
+   "start": 379.853,
+   "end": 386.369,
+   "file": "build/tts/kokoro/5bbe149e1530b92e.wav"
+  },
+  {
+   "idx": 74,
+   "kind": "say",
+   "text": "This one doesn't arrive with a crash. It creeps in. And by the time people notice, it's already deep.",
+   "spoken": "This one doesn't arrive with a crash. It creeps in. And by the time people notice, it's already deep.",
+   "speed": 0.9,
+   "chapter": 3,
+   "scene": "door2_creep",
+   "start": 387.169,
+   "end": 393.867,
+   "file": "build/tts/kokoro/b8fe6dd301161479.wav"
+  },
+  {
+   "idx": 75,
+   "kind": "say",
+   "text": "Is it already happening? Slowly.",
+   "spoken": "Is it already happening? Slowly.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door2_reserve",
+   "start": 394.667,
+   "end": 396.775,
+   "file": "build/tts/kokoro/4db5387ebc413e09.wav"
+  },
+  {
+   "idx": 76,
+   "kind": "say",
+   "text": "Around the year 2000, more than 70% of the world's foreign-exchange reserves were held in dollars.",
+   "spoken": "Around the year two thousand, more than seventy percent of the world's foreign-exchange reserves were held in dollars.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door2_reserve",
+   "start": 397.075,
+   "end": 403.88,
+   "file": "build/tts/kokoro/54a26dccec556121.wav"
+  },
+  {
+   "idx": 77,
+   "kind": "say",
+   "text": "By mid-2026, that share had slipped to 56.7%.",
+   "spoken": "By mid twenty twenty-six, that share had slipped to fifty-six point seven percent.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door2_reserve",
+   "start": 404.18,
+   "end": 409.294,
+   "file": "build/tts/kokoro/9930741c1fd08322.wav"
+  },
+  {
+   "idx": 78,
+   "kind": "title",
+   "text": "Door number three: America defaults... on purpose.",
+   "spoken": "Door number three: America defaults... on purpose.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door3",
+   "start": 410.344,
+   "end": 413.696,
+   "file": "build/tts/kokoro/cf27bc1323ce043c.wav"
+  },
+  {
+   "idx": 79,
+   "kind": "say",
+   "text": "This is the strangest one.",
+   "spoken": "This is the strangest one.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door3_strange",
+   "start": 415.096,
+   "end": 416.884,
+   "file": "build/tts/kokoro/65fcd122dd371a78.wav"
+  },
+  {
+   "idx": 80,
+   "kind": "say",
+   "text": "America could have the money and still fail to pay.",
+   "spoken": "America could have the money and still fail to pay.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door3_strange",
+   "start": 417.184,
+   "end": 420.018,
+   "file": "build/tts/kokoro/ba014d59b9c58e4d.wav"
+  },
+  {
+   "idx": 81,
+   "kind": "say",
+   "text": "How?",
+   "spoken": "How?",
+   "speed": 0.92,
+   "chapter": 3,
+   "scene": "door3_strange",
+   "start": 420.638,
+   "end": 421.25,
+   "file": "build/tts/kokoro/af0748edcb457273.wav"
+  },
+  {
+   "idx": 82,
+   "kind": "say",
+   "text": "Politics.",
+   "spoken": "Politics.",
+   "speed": 0.88,
+   "chapter": 3,
+   "scene": "door3_strange",
+   "start": 421.55,
+   "end": 422.513,
+   "file": "build/tts/kokoro/e07ff5f9f87edd9f.wav"
+  },
+  {
+   "idx": 83,
+   "kind": "say",
+   "text": "By law, America can only borrow up to a set limit.",
+   "spoken": "By law, America can only borrow up to a set limit.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door3_limit",
+   "start": 423.313,
+   "end": 426.605,
+   "file": "build/tts/kokoro/869ca934eb98b686.wav"
+  },
+  {
+   "idx": 84,
+   "kind": "say",
+   "text": "Right now, that limit is $41.1 trillion.",
+   "spoken": "Right now, that limit is forty-one point one trillion dollars.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door3_limit",
+   "start": 426.905,
+   "end": 430.793,
+   "file": "build/tts/kokoro/99cbd2cbb51bdc54.wav"
+  },
+  {
+   "idx": 85,
+   "kind": "say",
+   "text": "And America is already within about a trillion dollars of it.",
+   "spoken": "And America is already within about a trillion dollars of it.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door3_limit",
+   "start": 431.093,
+   "end": 434.952,
+   "file": "build/tts/kokoro/7a720159e2bed29d.wav"
+  },
+  {
+   "idx": 86,
+   "kind": "say",
+   "text": "Independent estimates suggest the ceiling could be hit sometime in 2027.",
+   "spoken": "Independent estimates suggest the ceiling could be hit sometime in twenty twenty-seven.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door3_limit",
+   "start": 435.252,
+   "end": 440.803,
+   "file": "build/tts/kokoro/e93237302a45476d.wav"
+  },
+  {
+   "idx": 87,
+   "kind": "say",
+   "text": "If Congress and the White House can't agree to raise it in time, payments could be delayed.",
+   "spoken": "If Congress and the White House can't agree to raise it in time, payments could be delayed.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door3_panic",
+   "start": 441.603,
+   "end": 446.933,
+   "file": "build/tts/kokoro/af5ef101fe899a2c.wav"
+  },
+  {
+   "idx": 88,
+   "kind": "say",
+   "text": "And the moment the world's \"safest\" asset misses a payment, global markets could panic.",
+   "spoken": "And the moment the world's \"safest\" asset misses a payment, global markets could panic.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "door3_panic",
+   "start": 447.233,
+   "end": 452.724,
+   "file": "build/tts/kokoro/495b15d6c398f882.wav"
+  },
+  {
+   "idx": 89,
+   "kind": "say",
+   "text": "Not because America is broke.",
+   "spoken": "Not because America is broke.",
+   "speed": 0.92,
+   "chapter": 3,
+   "scene": "door3_panic",
+   "start": 453.344,
+   "end": 455.405,
+   "file": "build/tts/kokoro/ef8b05d714d912a1.wav"
+  },
+  {
+   "idx": 90,
+   "kind": "say",
+   "text": "But because America chose to stumble.",
+   "spoken": "But because America chose to stumble.",
+   "speed": 0.88,
+   "chapter": 3,
+   "scene": "door3_panic",
+   "start": 455.705,
+   "end": 458.101,
+   "file": "build/tts/kokoro/c1ae784088f61cda.wav"
+  },
+  {
+   "idx": 91,
+   "kind": "say",
+   "text": "Now, here's something important.",
+   "spoken": "Now, here's something important.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "crisis_collapse",
+   "start": 460.301,
+   "end": 462.135,
+   "file": "build/tts/kokoro/df5a1bfcba896b10.wav"
+  },
+  {
+   "idx": 92,
+   "kind": "say",
+   "text": "A crisis is not the same as collapse.",
+   "spoken": "A crisis is not the same as collapse.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "crisis_collapse",
+   "start": 462.435,
+   "end": 464.868,
+   "file": "build/tts/kokoro/65a4635f158f4471.wav"
+  },
+  {
+   "idx": 93,
+   "kind": "say",
+   "text": "A country can go through a brutal financial shock and still survive.",
+   "spoken": "A country can go through a brutal financial shock and still survive.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "crisis_collapse",
+   "start": 465.168,
+   "end": 469.472,
+   "file": "build/tts/kokoro/4a7647610f6a8dc7.wav"
+  },
+  {
+   "idx": 94,
+   "kind": "say",
+   "text": "But the Congressional Budget Office itself has warned that rising debt raises the risk of exactly this kind of crisis, and leaves less room to fight the next emergency.",
+   "spoken": "But the Congressional Budget Office itself has warned that rising debt raises the risk of exactly this kind of crisis, and leaves less room to fight the next emergency.",
+   "speed": 0.98,
+   "chapter": 3,
+   "scene": "crisis_collapse",
+   "start": 469.772,
+   "end": 480.857,
+   "file": "build/tts/kokoro/f723aa0c14bd6c3a.wav"
+  },
+  {
+   "idx": 95,
+   "kind": "say",
+   "text": "Okay. If all this is true... why is America still standing?",
+   "spoken": "Okay. If all this is true... why is America still standing?",
+   "speed": 1.0,
+   "chapter": 4,
+   "scene": "cards",
+   "start": 485.557,
+   "end": 489.31,
+   "file": "build/tts/kokoro/f298da08ead6a289.wav"
+  },
+  {
+   "idx": 96,
+   "kind": "say",
+   "text": "Because it holds some of the strongest cards in the world.",
+   "spoken": "Because it holds some of the strongest cards in the world.",
+   "speed": 1.0,
+   "chapter": 4,
+   "scene": "cards",
+   "start": 489.93,
+   "end": 492.723,
+   "file": "build/tts/kokoro/dbf46a4331a1b446.wav"
+  },
+  {
+   "idx": 97,
+   "kind": "say",
+   "text": "First, the dollar is still king.",
+   "spoken": "First, the dollar is still king.",
+   "speed": 1.0,
+   "chapter": 4,
+   "scene": "adv1",
+   "start": 493.523,
+   "end": 495.319,
+   "file": "build/tts/kokoro/6a81b56b6e3358d4.wav"
+  },
+  {
+   "idx": 98,
+   "kind": "say",
+   "text": "Even after that slow decline, the dollar makes up 56.7% of global foreign-exchange reserves, according to the IMF.",
+   "spoken": "Even after that slow decline, the dollar makes up fifty-six point seven percent of global foreign-exchange reserves, according to the I-M-F.",
+   "speed": 1.0,
+   "chapter": 4,
+   "scene": "adv1",
+   "start": 495.619,
+   "end": 505.384,
+   "file": "build/tts/kokoro/61a35e4438d2bf37.wav"
+  },
+  {
+   "idx": 99,
+   "kind": "say",
+   "text": "The euro, its closest rival, sits at about 20.6%.",
+   "spoken": "The euro, its closest rival, sits at about twenty point six percent.",
+   "speed": 1.0,
+   "chapter": 4,
+   "scene": "adv1",
+   "start": 505.684,
+   "end": 510.292,
+   "file": "build/tts/kokoro/35d180f4a072d6b9.wav"
+  },
+  {
+   "idx": 100,
+   "kind": "say",
+   "text": "Nothing else comes close.",
+   "spoken": "Nothing else comes close.",
+   "speed": 1.0,
+   "chapter": 4,
+   "scene": "adv1",
+   "start": 510.592,
+   "end": 512.1,
+   "file": "build/tts/kokoro/b43467ce3da8db52.wav"
+  },
+  {
+   "idx": 101,
+   "kind": "say",
+   "text": "Second, America has a giant, productive economy, worth more than $30 trillion a year, with huge companies, huge innovation, and a massive tax base.",
+   "spoken": "Second, America has a giant, productive economy, worth more than thirty trillion dollars a year, with huge companies, huge innovation, and a massive tax base.",
+   "speed": 1.0,
+   "chapter": 4,
+   "scene": "adv2",
+   "start": 512.9,
+   "end": 523.83,
+   "file": "build/tts/kokoro/971feb86b5663a74.wav"
+  },
+  {
+   "idx": 102,
+   "kind": "say",
+   "text": "Even last year, tax revenue rose by $169 billion.",
+   "spoken": "Even last year, tax revenue rose by one hundred sixty-nine billion dollars.",
+   "speed": 1.0,
+   "chapter": 4,
+   "scene": "adv2",
+   "start": 524.13,
+   "end": 529.425,
+   "file": "build/tts/kokoro/01c9a47c3bec7bf2.wav"
+  },
+  {
+   "idx": 103,
+   "kind": "say",
+   "text": "Third, America borrows in its own currency.",
+   "spoken": "Third, America borrows in its own currency.",
+   "speed": 1.0,
+   "chapter": 4,
+   "scene": "adv3",
+   "start": 530.225,
+   "end": 533.101,
+   "file": "build/tts/kokoro/dbaa7385a968f940.wav"
+  },
+  {
+   "idx": 104,
+   "kind": "say",
+   "text": "It never has to hunt for some foreign currency to pay its bills.",
+   "spoken": "It never has to hunt for some foreign currency to pay its bills.",
+   "speed": 1.0,
+   "chapter": 4,
+   "scene": "adv3",
+   "start": 533.401,
+   "end": 537.449,
+   "file": "build/tts/kokoro/453c15d0df2c9728.wav"
+  },
+  {
+   "idx": 105,
+   "kind": "say",
+   "text": "That alone protects it from the trap that has broken many other countries.",
+   "spoken": "That alone protects it from the trap that has broken many other countries.",
+   "speed": 1.0,
+   "chapter": 4,
+   "scene": "adv3",
+   "start": 537.749,
+   "end": 542.065,
+   "file": "build/tts/kokoro/0e09634c6d915872.wav"
+  },
+  {
+   "idx": 106,
+   "kind": "say",
+   "text": "And fourth, US Treasuries are the backbone of global finance.",
+   "spoken": "And fourth, US Treasuries are the backbone of global finance.",
+   "speed": 1.0,
+   "chapter": 4,
+   "scene": "adv4",
+   "start": 542.865,
+   "end": 546.97,
+   "file": "build/tts/kokoro/e0fd66b200e4ebac.wav"
+  },
+  {
+   "idx": 107,
+   "kind": "say",
+   "text": "Banks, governments and funds all use them as their safest asset.",
+   "spoken": "Banks, governments and funds all use them as their safest asset.",
+   "speed": 1.0,
+   "chapter": 4,
+   "scene": "adv4",
+   "start": 547.27,
+   "end": 551.506,
+   "file": "build/tts/kokoro/3802d0c3ae889b13.wav"
+  },
+  {
+   "idx": 108,
+   "kind": "say",
+   "text": "So far, every time America has put its bonds up for sale, the world has shown up to buy them.",
+   "spoken": "So far, every time America has put its bonds up for sale, the world has shown up to buy them.",
+   "speed": 1.0,
+   "chapter": 4,
+   "scene": "adv4",
+   "start": 551.806,
+   "end": 557.845,
+   "file": "build/tts/kokoro/6324e1623359a3ae.wav"
+  },
+  {
+   "idx": 109,
+   "kind": "say",
+   "text": "So America is safe, right?",
+   "spoken": "So America is safe, right?",
+   "speed": 1.0,
+   "chapter": 4,
+   "scene": "safe",
+   "start": 558.645,
+   "end": 560.337,
+   "file": "build/tts/kokoro/43adae2ae5903373.wav"
+  },
+  {
+   "idx": 110,
+   "kind": "say",
+   "text": "Not quite.",
+   "spoken": "Not quite.",
+   "speed": 0.84,
+   "chapter": 4,
+   "scene": "safe",
+   "start": 562.357,
+   "end": 563.441,
+   "file": "build/tts/kokoro/8645c25a607fb71e.wav"
+  },
+  {
+   "idx": 111,
+   "kind": "say",
+   "text": "Because every one of those advantages depends on one thing: trust.",
+   "spoken": "Because every one of those advantages depends on one thing: trust.",
+   "speed": 0.92,
+   "chapter": 4,
+   "scene": "trust",
+   "start": 564.241,
+   "end": 568.587,
+   "file": "build/tts/kokoro/12f52e2cf554a426.wav"
+  },
+  {
+   "idx": 112,
+   "kind": "say",
+   "text": "And trust doesn't disappear slowly.",
+   "spoken": "And trust doesn't disappear slowly.",
+   "speed": 0.9,
+   "chapter": 4,
+   "scene": "trust",
+   "start": 568.887,
+   "end": 570.98,
+   "file": "build/tts/kokoro/8bf795b37d9f66b4.wav"
+  },
+  {
+   "idx": 113,
+   "kind": "say",
+   "text": "It disappears all at once.",
+   "spoken": "It disappears all at once.",
+   "speed": 0.84,
+   "chapter": 4,
+   "scene": "trust",
+   "start": 571.28,
+   "end": 573.255,
+   "file": "build/tts/kokoro/b70e0c94c9cec23e.wav"
+  },
+  {
+   "idx": 114,
+   "kind": "say",
+   "text": "People love comparing America to the Roman Empire. And it's easy to see why.",
+   "spoken": "People love comparing America to the Roman Empire. And it's easy to see why.",
+   "speed": 0.93,
+   "chapter": 5,
+   "scene": "rome",
+   "start": 577.955,
+   "end": 583.349,
+   "file": "build/tts/kokoro/a93ef9410ad1fafa.wav"
+  },
+  {
+   "idx": 115,
+   "kind": "say",
+   "text": "But a modern collapse wouldn't look like barbarians at the gates. It would look like a slow chain reaction.",
+   "spoken": "But a modern collapse wouldn't look like barbarians at the gates. It would look like a slow chain reaction.",
+   "speed": 0.93,
+   "chapter": 5,
+   "scene": "chain_intro",
+   "start": 584.149,
+   "end": 590.821,
+   "file": "build/tts/kokoro/78a74f472e95238f.wav"
+  },
+  {
+   "idx": 116,
+   "kind": "say",
+   "text": "Deficits that never stop.",
+   "spoken": "Deficits that never stop.",
+   "speed": 0.93,
+   "chapter": 5,
+   "scene": "chain",
+   "start": 591.621,
+   "end": 593.454,
+   "file": "build/tts/kokoro/320d37d9be82403a.wav"
+  },
+  {
+   "idx": 117,
+   "kind": "say",
+   "text": "The CBO projects the yearly deficit growing from about $2 trillion today to $3.1 trillion by 2036.",
+   "spoken": "The CBO projects the yearly deficit growing from about two trillion dollars today to three point one trillion dollars by twenty thirty-six.",
+   "speed": 0.93,
+   "chapter": 5,
+   "scene": "chain",
+   "start": 593.754,
+   "end": 603.736,
+   "file": "build/tts/kokoro/a38afb42f3fab55f.wav"
+  },
+  {
+   "idx": 118,
+   "kind": "say",
+   "text": "Interest rates that keep climbing.",
+   "spoken": "Interest rates that keep climbing.",
+   "speed": 0.93,
+   "chapter": 5,
+   "scene": "chain",
+   "start": 604.036,
+   "end": 605.974,
+   "file": "build/tts/kokoro/3de4c9e51600bee5.wav"
+  },
+  {
+   "idx": 119,
+   "kind": "say",
+   "text": "Politicians forced into impossible choices: raise taxes, cut benefits, or borrow even more.",
+   "spoken": "Politicians forced into impossible choices: raise taxes, cut benefits, or borrow even more.",
+   "speed": 0.93,
+   "chapter": 5,
+   "scene": "chain",
+   "start": 606.274,
+   "end": 613.445,
+   "file": "build/tts/kokoro/bb4ab8fd9522cb08.wav"
+  },
+  {
+   "idx": 120,
+   "kind": "say",
+   "text": "Then slower growth.",
+   "spoken": "Then slower growth.",
+   "speed": 0.93,
+   "chapter": 5,
+   "scene": "chain",
+   "start": 613.745,
+   "end": 615.116,
+   "file": "build/tts/kokoro/157c8c655c490d16.wav"
+  },
+  {
+   "idx": 121,
+   "kind": "say",
+   "text": "Stubborn inflation.",
+   "spoken": "Stubborn inflation.",
+   "speed": 0.93,
+   "chapter": 5,
+   "scene": "chain",
+   "start": 615.416,
+   "end": 616.781,
+   "file": "build/tts/kokoro/5d8defa1f54f2d3c.wav"
+  },
+  {
+   "idx": 122,
+   "kind": "say",
+   "text": "Investors losing faith in Treasuries.",
+   "spoken": "Investors losing faith in Treasuries.",
+   "speed": 0.93,
+   "chapter": 5,
+   "scene": "chain",
+   "start": 617.081,
+   "end": 619.611,
+   "file": "build/tts/kokoro/93bb04f53ce0c6e4.wav"
+  },
+  {
+   "idx": 123,
+   "kind": "say",
+   "text": "And here's a date to remember: 2030.",
+   "spoken": "And here's a date to remember: twenty thirty.",
+   "speed": 0.88,
+   "chapter": 5,
+   "scene": "record2030",
+   "start": 620.411,
+   "end": 623.32,
+   "file": "build/tts/kokoro/009880953b614691.wav"
+  },
+  {
+   "idx": 124,
+   "kind": "say",
+   "text": "That's when, in the CBO's projections, America's debt breaks the record set right after World War II.",
+   "spoken": "That's when, in the CBO's projections, America's debt breaks the record set right after World War Two.",
+   "speed": 0.93,
+   "chapter": 5,
+   "scene": "record2030",
+   "start": 623.62,
+   "end": 630.75,
+   "file": "build/tts/kokoro/a0c62c8bcac9b565.wav"
+  },
+  {
+   "idx": 125,
+   "kind": "say",
+   "text": "And finally, the quiet part.",
+   "spoken": "And finally, the quiet part.",
+   "speed": 0.93,
+   "chapter": 5,
+   "scene": "slipping",
+   "start": 631.55,
+   "end": 633.456,
+   "file": "build/tts/kokoro/a1ce8ab576e1a2a1.wav"
+  },
+  {
+   "idx": 126,
+   "kind": "say",
+   "text": "America's financial superpower status starts slipping away.",
+   "spoken": "America's financial superpower status starts slipping away.",
+   "speed": 0.93,
+   "chapter": 5,
+   "scene": "slipping",
+   "start": 633.756,
+   "end": 637.705,
+   "file": "build/tts/kokoro/fc243898436c5eda.wav"
+  },
+  {
+   "idx": 127,
+   "kind": "say",
+   "text": "Not in a day.",
+   "spoken": "Not in a day.",
+   "speed": 0.93,
+   "chapter": 5,
+   "scene": "slipping",
+   "start": 638.005,
+   "end": 639.081,
+   "file": "build/tts/kokoro/4c99153bc5b2eb9b.wav"
+  },
+  {
+   "idx": 128,
+   "kind": "say",
+   "text": "But year by year, until one day people realise the world has moved on.",
+   "spoken": "But year by year, until one day people realise the world has moved on.",
+   "speed": 0.86,
+   "chapter": 5,
+   "scene": "slipping",
+   "start": 639.381,
+   "end": 644.644,
+   "file": "build/tts/kokoro/5e770b98d852b18f.wav"
+  },
+  {
+   "idx": 129,
+   "kind": "say",
+   "text": "Is that guaranteed? No.",
+   "spoken": "Is that guaranteed? No.",
+   "speed": 0.96,
+   "chapter": 5,
+   "scene": "window",
+   "start": 646.844,
+   "end": 648.7,
+   "file": "build/tts/kokoro/2826699c777b8d4f.wav"
+  },
+  {
+   "idx": 130,
+   "kind": "say",
+   "text": "Smart reforms, stronger growth, or tough decisions could still turn this around.",
+   "spoken": "Smart reforms, stronger growth, or tough decisions could still turn this around.",
+   "speed": 0.93,
+   "chapter": 5,
+   "scene": "window",
+   "start": 649.0,
+   "end": 654.359,
+   "file": "build/tts/kokoro/831a627d3cb5cc52.wav"
+  },
+  {
+   "idx": 131,
+   "kind": "say",
+   "text": "But every year that nothing changes, the window gets a little smaller.",
+   "spoken": "But every year that nothing changes, the window gets a little smaller.",
+   "speed": 0.93,
+   "chapter": 5,
+   "scene": "window",
+   "start": 654.659,
+   "end": 659.119,
+   "file": "build/tts/kokoro/1239b118e6bdf12f.wav"
+  },
+  {
+   "idx": 132,
+   "kind": "say",
+   "text": "So, will America collapse because of its debt?",
+   "spoken": "So, will America collapse because of its debt?",
+   "speed": 0.95,
+   "chapter": 6,
+   "scene": "conc_q",
+   "start": 663.819,
+   "end": 666.456,
+   "file": "build/tts/kokoro/1656eb242165ed3b.wav"
+  },
+  {
+   "idx": 133,
+   "kind": "say",
+   "text": "Here's the honest answer.",
+   "spoken": "Here's the honest answer.",
+   "speed": 0.95,
+   "chapter": 6,
+   "scene": "futures",
+   "start": 667.256,
+   "end": 668.79,
+   "file": "build/tts/kokoro/6b0442110c26ff7e.wav"
+  },
+  {
+   "idx": 134,
+   "kind": "say",
+   "text": "There are three very different futures: America going bankrupt, America going through a painful financial crisis, or America slowly losing its crown as the world's financial superpower.",
+   "spoken": "There are three very different futures: America going bankrupt, America going through a painful financial crisis, or America slowly losing its crown as the world's financial superpower.",
+   "speed": 0.95,
+   "chapter": 6,
+   "scene": "futures",
+   "start": 669.09,
+   "end": 682.273,
+   "file": "build/tts/kokoro/17ec8696a2e60ff3.wav"
+  },
+  {
+   "idx": 135,
+   "kind": "say",
+   "text": "The first is unlikely.",
+   "spoken": "The first is unlikely.",
+   "speed": 0.9,
+   "chapter": 6,
+   "scene": "futures",
+   "start": 682.893,
+   "end": 684.697,
+   "file": "build/tts/kokoro/55c13ca4b1fceb7f.wav"
+  },
+  {
+   "idx": 136,
+   "kind": "say",
+   "text": "The second is possible.",
+   "spoken": "The second is possible.",
+   "speed": 0.9,
+   "chapter": 6,
+   "scene": "futures",
+   "start": 684.997,
+   "end": 686.596,
+   "file": "build/tts/kokoro/bd4f0754a8c8c9c4.wav"
+  },
+  {
+   "idx": 137,
+   "kind": "say",
+   "text": "And the third?",
+   "spoken": "And the third?",
+   "speed": 0.9,
+   "chapter": 6,
+   "scene": "futures",
+   "start": 686.896,
+   "end": 688.001,
+   "file": "build/tts/kokoro/fd58a07f76788105.wav"
+  },
+  {
+   "idx": 138,
+   "kind": "say",
+   "text": "That's the one worth watching.",
+   "spoken": "That's the one worth watching.",
+   "speed": 0.86,
+   "chapter": 6,
+   "scene": "futures",
+   "start": 688.301,
+   "end": 690.088,
+   "file": "build/tts/kokoro/685eadae0e437a6f.wav"
+  },
+  {
+   "idx": 139,
+   "kind": "say",
+   "text": "The CBO projects the debt held by the public rising from about 101% of the economy this year to 120% by 2036, higher than at any point in American history.",
+   "spoken": "The CBO projects the debt held by the public rising from about one hundred one percent of the economy this year to one hundred twenty percent by twenty thirty-six, higher than at any point in American history.",
+   "speed": 0.95,
+   "chapter": 6,
+   "scene": "conc_cbo",
+   "start": 690.888,
+   "end": 705.136,
+   "file": "build/tts/kokoro/57702edbf881fed8.wav"
+  },
+  {
+   "idx": 140,
+   "kind": "say",
+   "text": "Interest costs are on track to nearly double, to $2.1 trillion a year.",
+   "spoken": "Interest costs are on track to nearly double, to two point one trillion dollars a year.",
+   "speed": 0.95,
+   "chapter": 6,
+   "scene": "conc_cbo",
+   "start": 705.436,
+   "end": 710.937,
+   "file": "build/tts/kokoro/56831bfa6b4277ca.wav"
+  },
+  {
+   "idx": 141,
+   "kind": "say",
+   "text": "Nobody can tell you the exact date when things break.",
+   "spoken": "Nobody can tell you the exact date when things break.",
+   "speed": 0.95,
+   "chapter": 6,
+   "scene": "conc_cbo",
+   "start": 711.237,
+   "end": 714.508,
+   "file": "build/tts/kokoro/8011f5c5f905ee20.wav"
+  },
+  {
+   "idx": 142,
+   "kind": "say",
+   "text": "But the direction is clear.",
+   "spoken": "But the direction is clear.",
+   "speed": 0.95,
+   "chapter": 6,
+   "scene": "conc_cbo",
+   "start": 714.808,
+   "end": 716.31,
+   "file": "build/tts/kokoro/45938a7941e90cba.wav"
+  },
+  {
+   "idx": 143,
+   "kind": "say",
+   "text": "The real question isn't whether America can borrow.",
+   "spoken": "The real question isn't whether America can borrow.",
+   "speed": 0.9,
+   "chapter": 6,
+   "scene": "final",
+   "start": 717.11,
+   "end": 720.731,
+   "file": "build/tts/kokoro/478e928370710149.wav"
+  },
+  {
+   "idx": 144,
+   "kind": "say",
+   "text": "It's how long the world will keep believing it should.",
+   "spoken": "It's how long the world will keep believing it should.",
+   "speed": 0.82,
+   "chapter": 6,
+   "scene": "final",
+   "start": 721.031,
+   "end": 724.304,
+   "file": "build/tts/kokoro/2f46b0a50aed7027.wav"
+  },
+  {
+   "idx": 145,
+   "kind": "say",
+   "text": "So what do you think?",
+   "spoken": "So what do you think?",
+   "speed": 1.0,
+   "chapter": 7,
+   "scene": "outro",
+   "start": 725.404,
+   "end": 726.642,
+   "file": "build/tts/kokoro/0df80335de16627f.wav"
+  },
+  {
+   "idx": 146,
+   "kind": "say",
+   "text": "Is $40 trillion a ticking time bomb, or a problem America will fix in time?",
+   "spoken": "Is forty trillion dollars a ticking time bomb, or a problem America will fix in time?",
+   "speed": 1.0,
+   "chapter": 7,
+   "scene": "outro",
+   "start": 726.942,
+   "end": 732.611,
+   "file": "build/tts/kokoro/939c5ee6d83bfa35.wav"
+  },
+  {
+   "idx": 147,
+   "kind": "say",
+   "text": "Drop your answer in the comments.",
+   "spoken": "Drop your answer in the comments.",
+   "speed": 1.0,
+   "chapter": 7,
+   "scene": "outro",
+   "start": 732.911,
+   "end": 734.726,
+   "file": "build/tts/kokoro/f4c29df9bb3cc14b.wav"
+  },
+  {
+   "idx": 148,
+   "kind": "say",
+   "text": "And if you want to know who actually owns all this debt, or whether the dollar could lose its throne, tell me which one you want next.",
+   "spoken": "And if you want to know who actually owns all this debt, or whether the dollar could lose its throne, tell me which one you want next.",
+   "speed": 1.0,
+   "chapter": 7,
+   "scene": "outro",
+   "start": 735.346,
+   "end": 743.613,
+   "file": "build/tts/kokoro/620af15650298881.wav"
+  },
+  {
+   "idx": 149,
+   "kind": "say",
+   "text": "Because that story is even scarier.",
+   "spoken": "Because that story is even scarier.",
+   "speed": 1.0,
+   "chapter": 7,
+   "scene": "outro",
+   "start": 743.913,
+   "end": 745.935,
+   "file": "build/tts/kokoro/44a6e12c90aeedf6.wav"
+  }
+ ],
+ "segments": [
+  {
+   "name": "title40",
+   "start": 0.0,
+   "chapter": 0,
+   "units": [
+    0
+   ],
+   "extra": {},
+   "end": 4.751
+  },
+  {
+   "name": "owes",
+   "start": 4.751,
+   "chapter": 0,
+   "units": [
+    1,
+    2
+   ],
+   "extra": {},
+   "end": 12.691
+  },
+  {
+   "name": "milestones",
+   "start": 12.691,
+   "chapter": 0,
+   "units": [
+    3,
+    4
+   ],
+   "extra": {},
+   "end": 24.559
+  },
+  {
+   "name": "outlays",
+   "start": 24.559,
+   "chapter": 0,
+   "units": [
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "extra": {},
+   "end": 42.61
+  },
+  {
+   "name": "interest_counter",
+   "start": 42.61,
+   "chapter": 0,
+   "units": [
+    10,
+    11,
+    12,
+    13
+   ],
+   "extra": {},
+   "end": 57.356
+  },
+  {
+   "name": "question",
+   "start": 57.356,
+   "chapter": 0,
+   "units": [
+    14,
+    15,
+    16
+   ],
+   "extra": {},
+   "end": 68.389
+  },
+  {
+   "name": "_title",
+   "start": 68.389,
+   "end": 73.889,
+   "chapter": 0,
+   "units": [],
+   "extra": {}
+  },
+  {
+   "name": "_chapter",
+   "start": 73.889,
+   "end": 77.489,
+   "chapter": 1,
+   "units": [],
+   "extra": {
+    "num": 1,
+    "title": "The machine that never stops borrowing"
+   }
+  },
+  {
+   "name": "spend_list",
+   "start": 77.489,
+   "chapter": 1,
+   "units": [
+    17,
+    18
+   ],
+   "extra": {},
+   "end": 90.197
+  },
+  {
+   "name": "spend_vs",
+   "start": 90.197,
+   "chapter": 1,
+   "units": [
+    19
+   ],
+   "extra": {},
+   "end": 99.991
+  },
+  {
+   "name": "hundred",
+   "start": 99.991,
+   "chapter": 1,
+   "units": [
+    20,
+    21
+   ],
+   "extra": {},
+   "end": 108.529
+  },
+  {
+   "name": "deficit",
+   "start": 108.529,
+   "chapter": 1,
+   "units": [
+    22,
+    23,
+    24
+   ],
+   "extra": {},
+   "end": 117.877
+  },
+  {
+   "name": "bonds",
+   "start": 117.877,
+   "chapter": 1,
+   "units": [
+    25,
+    26
+   ],
+   "extra": {},
+   "end": 129.821
+  },
+  {
+   "name": "machine",
+   "start": 129.821,
+   "chapter": 1,
+   "units": [
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33
+   ],
+   "extra": {},
+   "end": 152.763
+  },
+  {
+   "name": "one_in_five",
+   "start": 152.763,
+   "chapter": 1,
+   "units": [
+    34
+   ],
+   "extra": {},
+   "end": 159.371
+  },
+  {
+   "name": "per_person",
+   "start": 159.371,
+   "chapter": 1,
+   "units": [
+    35
+   ],
+   "extra": {},
+   "end": 168.417
+  },
+  {
+   "name": "spin",
+   "start": 168.417,
+   "chapter": 1,
+   "units": [
+    36,
+    37
+   ],
+   "extra": {},
+   "end": 174.58
+  },
+  {
+   "name": "_chapter",
+   "start": 174.58,
+   "end": 178.18,
+   "chapter": 2,
+   "units": [],
+   "extra": {
+    "num": 2,
+    "title": "The warning signs are already here"
+   }
+  },
+  {
+   "name": "nobody",
+   "start": 178.18,
+   "chapter": 2,
+   "units": [
+    38,
+    39
+   ],
+   "extra": {},
+   "end": 187.065
+  },
+  {
+   "name": "downgrades",
+   "start": 187.065,
+   "chapter": 2,
+   "units": [
+    40,
+    41,
+    42
+   ],
+   "extra": {},
+   "end": 215.77
+  },
+  {
+   "name": "none_perfect",
+   "start": 215.77,
+   "chapter": 2,
+   "units": [
+    43
+   ],
+   "extra": {},
+   "end": 225.133
+  },
+  {
+   "name": "yield",
+   "start": 225.133,
+   "chapter": 2,
+   "units": [
+    44,
+    45,
+    46,
+    47
+   ],
+   "extra": {},
+   "end": 253.37
+  },
+  {
+   "name": "charging",
+   "start": 253.37,
+   "chapter": 2,
+   "units": [
+    48,
+    49
+   ],
+   "extra": {},
+   "end": 267.171
+  },
+  {
+   "name": "_chapter",
+   "start": 267.171,
+   "end": 270.771,
+   "chapter": 3,
+   "units": [],
+   "extra": {
+    "num": 3,
+    "title": "Three ways this could go terribly wrong"
+   }
+  },
+  {
+   "name": "doors",
+   "start": 270.771,
+   "chapter": 3,
+   "units": [
+    50,
+    51,
+    52
+   ],
+   "extra": {},
+   "end": 277.894
+  },
+  {
+   "name": "door1",
+   "start": 277.894,
+   "chapter": 3,
+   "units": [
+    53
+   ],
+   "extra": {},
+   "end": 282.169
+  },
+  {
+   "name": "door1_quote",
+   "start": 282.169,
+   "chapter": 3,
+   "units": [
+    54
+   ],
+   "extra": {},
+   "end": 290.999
+  },
+  {
+   "name": "door1_chain",
+   "start": 290.999,
+   "chapter": 3,
+   "units": [
+    55,
+    56,
+    57
+   ],
+   "extra": {},
+   "end": 306.572
+  },
+  {
+   "name": "door1_cbo",
+   "start": 306.572,
+   "chapter": 3,
+   "units": [
+    58,
+    59
+   ],
+   "extra": {},
+   "end": 320.177
+  },
+  {
+   "name": "uk_intro",
+   "start": 320.177,
+   "chapter": 3,
+   "units": [
+    60
+   ],
+   "extra": {},
+   "end": 326.654
+  },
+  {
+   "name": "uk",
+   "start": 326.654,
+   "chapter": 3,
+   "units": [
+    61,
+    62,
+    63,
+    64,
+    65,
+    66
+   ],
+   "extra": {},
+   "end": 357.753
+  },
+  {
+   "name": "uk_imagine",
+   "start": 357.753,
+   "chapter": 3,
+   "units": [
+    67,
+    68
+   ],
+   "extra": {},
+   "end": 365.515
+  },
+  {
+   "name": "door2",
+   "start": 365.515,
+   "chapter": 3,
+   "units": [
+    69
+   ],
+   "extra": {},
+   "end": 369.602
+  },
+  {
+   "name": "door2_print",
+   "start": 369.602,
+   "chapter": 3,
+   "units": [
+    70,
+    71,
+    72,
+    73
+   ],
+   "extra": {},
+   "end": 386.729
+  },
+  {
+   "name": "door2_creep",
+   "start": 386.729,
+   "chapter": 3,
+   "units": [
+    74
+   ],
+   "extra": {},
+   "end": 394.227
+  },
+  {
+   "name": "door2_reserve",
+   "start": 394.227,
+   "chapter": 3,
+   "units": [
+    75,
+    76,
+    77
+   ],
+   "extra": {},
+   "end": 409.654
+  },
+  {
+   "name": "door3",
+   "start": 409.654,
+   "chapter": 3,
+   "units": [
+    78
+   ],
+   "extra": {},
+   "end": 414.326
+  },
+  {
+   "name": "door3_strange",
+   "start": 414.326,
+   "chapter": 3,
+   "units": [
+    79,
+    80,
+    81,
+    82
+   ],
+   "extra": {},
+   "end": 422.873
+  },
+  {
+   "name": "door3_limit",
+   "start": 422.873,
+   "chapter": 3,
+   "units": [
+    83,
+    84,
+    85,
+    86
+   ],
+   "extra": {},
+   "end": 441.163
+  },
+  {
+   "name": "door3_panic",
+   "start": 441.163,
+   "chapter": 3,
+   "units": [
+    87,
+    88,
+    89,
+    90
+   ],
+   "extra": {},
+   "end": 459.861
+  },
+  {
+   "name": "crisis_collapse",
+   "start": 459.861,
+   "chapter": 3,
+   "units": [
+    91,
+    92,
+    93,
+    94
+   ],
+   "extra": {},
+   "end": 481.357
+  },
+  {
+   "name": "_chapter",
+   "start": 481.357,
+   "end": 484.957,
+   "chapter": 4,
+   "units": [],
+   "extra": {
+    "num": 4,
+    "title": "So why hasn't it happened yet?"
+   }
+  },
+  {
+   "name": "cards",
+   "start": 484.957,
+   "chapter": 4,
+   "units": [
+    95,
+    96
+   ],
+   "extra": {},
+   "end": 493.083
+  },
+  {
+   "name": "adv1",
+   "start": 493.083,
+   "chapter": 4,
+   "units": [
+    97,
+    98,
+    99,
+    100
+   ],
+   "extra": {},
+   "end": 512.46
+  },
+  {
+   "name": "adv2",
+   "start": 512.46,
+   "chapter": 4,
+   "units": [
+    101,
+    102
+   ],
+   "extra": {},
+   "end": 529.785
+  },
+  {
+   "name": "adv3",
+   "start": 529.785,
+   "chapter": 4,
+   "units": [
+    103,
+    104,
+    105
+   ],
+   "extra": {},
+   "end": 542.425
+  },
+  {
+   "name": "adv4",
+   "start": 542.425,
+   "chapter": 4,
+   "units": [
+    106,
+    107,
+    108
+   ],
+   "extra": {},
+   "end": 558.205
+  },
+  {
+   "name": "safe",
+   "start": 558.205,
+   "chapter": 4,
+   "units": [
+    109,
+    110
+   ],
+   "extra": {},
+   "end": 563.801
+  },
+  {
+   "name": "trust",
+   "start": 563.801,
+   "chapter": 4,
+   "units": [
+    111,
+    112,
+    113
+   ],
+   "extra": {},
+   "end": 573.755
+  },
+  {
+   "name": "_chapter",
+   "start": 573.755,
+   "end": 577.355,
+   "chapter": 5,
+   "units": [],
+   "extra": {
+    "num": 5,
+    "title": "Could America fall like Rome?"
+   }
+  },
+  {
+   "name": "rome",
+   "start": 577.355,
+   "chapter": 5,
+   "units": [
+    114
+   ],
+   "extra": {},
+   "end": 583.709
+  },
+  {
+   "name": "chain_intro",
+   "start": 583.709,
+   "chapter": 5,
+   "units": [
+    115
+   ],
+   "extra": {},
+   "end": 591.181
+  },
+  {
+   "name": "chain",
+   "start": 591.181,
+   "chapter": 5,
+   "units": [
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122
+   ],
+   "extra": {},
+   "end": 619.971
+  },
+  {
+   "name": "record2030",
+   "start": 619.971,
+   "chapter": 5,
+   "units": [
+    123,
+    124
+   ],
+   "extra": {},
+   "end": 631.11
+  },
+  {
+   "name": "slipping",
+   "start": 631.11,
+   "chapter": 5,
+   "units": [
+    125,
+    126,
+    127,
+    128
+   ],
+   "extra": {},
+   "end": 646.404
+  },
+  {
+   "name": "window",
+   "start": 646.404,
+   "chapter": 5,
+   "units": [
+    129,
+    130,
+    131
+   ],
+   "extra": {},
+   "end": 659.619
+  },
+  {
+   "name": "_chapter",
+   "start": 659.619,
+   "end": 663.219,
+   "chapter": 6,
+   "units": [],
+   "extra": {
+    "num": 6,
+    "title": "Conclusion"
+   }
+  },
+  {
+   "name": "conc_q",
+   "start": 663.219,
+   "chapter": 6,
+   "units": [
+    132
+   ],
+   "extra": {},
+   "end": 666.816
+  },
+  {
+   "name": "futures",
+   "start": 666.816,
+   "chapter": 6,
+   "units": [
+    133,
+    134,
+    135,
+    136,
+    137,
+    138
+   ],
+   "extra": {},
+   "end": 690.448
+  },
+  {
+   "name": "conc_cbo",
+   "start": 690.448,
+   "chapter": 6,
+   "units": [
+    139,
+    140,
+    141,
+    142
+   ],
+   "extra": {},
+   "end": 716.67
+  },
+  {
+   "name": "final",
+   "start": 716.67,
+   "chapter": 6,
+   "units": [
+    143,
+    144
+   ],
+   "extra": {},
+   "end": 724.804
+  },
+  {
+   "name": "outro",
+   "start": 724.804,
+   "chapter": 7,
+   "units": [
+    145,
+    146,
+    147,
+    148,
+    149
+   ],
+   "extra": {},
+   "end": 747.135
+  },
+  {
+   "name": "_end",
+   "start": 747.135,
+   "end": 753.135,
+   "chapter": 7,
+   "units": [],
+   "extra": {}
+  }
+ ],
+ "pauses": [
+  [
+   2.991,
+   4.391
+  ],
+  [
+   55.596,
+   56.996
+  ],
+  [
+   214.01,
+   215.41
+  ],
+  [
+   355.993,
+   357.393
+  ],
+  [
+   458.101,
+   459.501
+  ],
+  [
+   560.337,
+   561.737
+  ],
+  [
+   644.644,
+   646.044
+  ]
+ ],
+ "chapters": [
+  {
+   "num": 0,
+   "title": "Cold open"
+  },
+  {
+   "num": 1,
+   "title": "The machine that never stops borrowing"
+  },
+  {
+   "num": 2,
+   "title": "The warning signs are already here"
+  },
+  {
+   "num": 3,
+   "title": "Three ways this could go terribly wrong"
+  },
+  {
+   "num": 4,
+   "title": "So why hasn't it happened yet?"
+  },
+  {
+   "num": 5,
+   "title": "Could America fall like Rome?"
+  },
+  {
+   "num": 6,
+   "title": "Conclusion"
+  },
+  {
+   "num": 7,
+   "title": "Outro"
+  }
+ ]
+}

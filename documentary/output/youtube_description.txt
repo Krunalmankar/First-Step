@@ -1,0 +1,29 @@
+Could the United States Collapse Because of Its Debt?
+
+America owes more than $40 trillion, and in fiscal year 2026 it spent $1.14 trillion on interest alone: more than its entire military, more than Medicare. Is this the beginning of the end, or one of the most overhyped fears in finance? We look at the evidence: three credit downgrades, the highest 30-year yields since 2007, the UK's 2022 gilt crisis, the dollar's shrinking share of world reserves, the debt limit, and what the CBO projects next.
+
+Figures verified as of 11 October 2026. Fiscal year 2026 ran from 1 October 2025 to 30 September 2026. The three "doors" and the chain reaction are scenarios, not predictions; projections are labelled on screen.
+
+CHAPTERS
+0:00 Cold open: $40 trillion
+1:13 The machine that never stops borrowing
+2:54 The warning signs are already here
+4:27 Three ways this could go terribly wrong
+8:01 So why hasn't it happened yet?
+9:33 Could America fall like Rome?
+10:59 Conclusion: three futures
+12:04 Your turn
+
+SOURCES
+- US Treasury, Debt to the Penny (total public debt outstanding $40.31 trillion, 8 October 2026): https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/
+- CBO, Monthly Budget Review: September 2026 (FY2026 deficit, outlays, revenue, net interest, defense, Social Security, Medicare), 8 October 2026: https://www.cbo.gov/publication/61985
+- CBO, The Budget and Economic Outlook: 2026 to 2036, February 2026: https://www.cbo.gov/publication/61882
+- IMF, COFER data brief for Q2 2026, 30 September 2026: https://data.imf.org
+- 30-year Treasury yield (constant maturity), FRED series DGS30: https://fred.stlouisfed.org/series/DGS30; Treasury auction results: https://www.treasurydirect.gov
+- Debt limit ($41.104 trillion, set 4 July 2025) and the 2027 timing estimate: National Taxpayers Union Foundation, Projecting the Debt Limit: https://www.ntu.org/publications/detail/projecting-the-debt-limit
+- UK 2022 gilt crisis: Bank of England, letter from Deputy Governor Jon Cunliffe to the Treasury Committee, October 2022: https://www.bankofengland.co.uk
+- Credit rating actions: S&P Global Ratings (August 2011), Fitch Ratings (August 2023), Moody's Ratings (May 2025) press releases
+
+PRODUCTION NOTES
+Narration uses a synthetic (AI-generated) voice. All graphics, music and sound design are original; the video contains no archival or news footage. Every chart shows its source and period on screen.
+This video is for education and is not financial advice.
