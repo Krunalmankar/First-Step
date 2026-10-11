@@ -167,8 +167,8 @@ def write_sheet(tl, path):
     with open(path, "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["chapter_no", "chapter_title", "sentence_no", "start", "end", "duration_s", "narration_exact",
-                    "spoken_as", "voice_direction", "speed", "scene_id", "visual_description", "asset_source_rights",
-                    "music_sfx_cue", "transition_out"])
+                    "spoken_as", "voice_direction", "emotion_preset", "emphasis", "speed", "scene_id",
+                    "visual_description", "asset_source_rights", "music_sfx_cue", "transition_out"])
         units = tl["units"]
         for k, u in enumerate(units):
             s = seg_of[u["idx"]]
@@ -180,7 +180,9 @@ def write_sheet(tl, path):
             w.writerow([u["chapter"], chap[u["chapter"]], u["idx"] + 1, fmt_ts(u["start"]), fmt_ts(u["end"]),
                         round(u["end"] - u["start"], 2), u["text"], u["spoken"],
                         ("Sub-chapter title, narrated and shown on screen. " if u["kind"] == "title" else "")
-                        + VOICE_DIRECTION[u["chapter"]], u["speed"], u["scene"], vis,
+                        + VOICE_DIRECTION[u["chapter"]], u.get("emotion", ""),
+                        "; ".join(re.findall(r"\*\*?([^*]+)\*\*?", u.get("marked", ""))) +
+                        (" (rising question)" if u.get("rise") else ""), u["speed"], u["scene"], vis,
                         "Original procedural motion graphic created for this project (code in this repo); "
                         "font: Inter (SIL Open Font License 1.1)", mus, trans])
 
@@ -227,6 +229,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--backend", default="kokoro", choices=["kokoro", "edge"])
     ap.add_argument("--skip-tts", action="store_true")
+    ap.add_argument("--flat", action="store_true", help="narration without expressive shaping (A/B)")
     ap.add_argument("--skip-video", action="store_true")
     ap.add_argument("--reuse-video", action="store_true", help="re-mux with the existing build/video_only.mp4")
     ap.add_argument("--skip-audio", action="store_true", help="reuse build/mix_final.wav and the voiceover stem")
@@ -235,7 +238,7 @@ def main():
 
     if not a.skip_tts:
         import tts
-        tts.run(a.backend)
+        tts.run(a.backend, a.flat)
     import timeline
     tl = timeline.build(a.backend)
     print("timeline:", tl["duration"], "s")
@@ -251,6 +254,8 @@ def main():
 
     run(["ffmpeg", "-loglevel", "error", "-y", "-i", HERE / "build" / "voiceover.wav", "-b:a", "192k",
          OUT / "voiceover_narration.mp3"])
+    run(["ffmpeg", "-loglevel", "error", "-y", "-i", HERE / "build" / "music_sfx_stem.wav", "-b:a", "192k",
+         OUT / "music_sfx_stem.mp3"])
 
     if not a.skip_video:
         import render
@@ -258,6 +263,7 @@ def main():
         if not (a.reuse_video and video.exists()):
             shutil.rmtree(render.SEGDIR, ignore_errors=True)
             video = render.render_all()
+            render.export_graphics()
         run(["ffmpeg", "-loglevel", "error", "-y", "-i", video, "-i", HERE / "build" / "mix_final.wav",
              "-i", OUT / f"{TITLE}.en.srt", "-map", "0:v", "-map", "1:a", "-map", "2:s", "-c:v", "copy",
              "-c:a", "aac", "-b:a", "256k", "-c:s", "mov_text", "-metadata:s:s:0", "language=eng",

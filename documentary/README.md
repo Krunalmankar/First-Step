@@ -1,6 +1,6 @@
 # SimpleMoney documentary: "Could the United States Collapse Because of Its Debt?"
 
-A complete, reproducible production of the documentary in the master prompt (12 min 33 s). Code generates
+A complete, reproducible production of the documentary in the master prompt (12 min 55 s). Code generates
 everything: the narration, the original score and sound design, every motion graphic and chart, the subtitles,
 the production sheet and the YouTube description. Edit the script or a number, run one command, and the whole
 film re-times itself to the new narration.
@@ -9,7 +9,7 @@ film re-times itself to the new narration.
 
 | # | Deliverable (from the brief) | File |
 |---|---|---|
-| 1 | Final documentary: 1920×1080, 24 fps, H.264 + AAC 256 kb/s, -14 LUFS / -1.4 dBTP, English subtitle track | `output/Could the United States Collapse Because of Its Debt.mp4` |
+| 1 | Final documentary: 1920×1080, 24 fps, H.264 + AAC 256 kb/s, -14 LUFS / -1.2 dBTP, English subtitle track | `output/Could the United States Collapse Because of Its Debt.mp4` |
 | 2 | Complete voiceover, timed to picture | `output/voiceover_narration.mp3` |
 | 3 | Synchronised subtitles | `output/Could the United States Collapse Because of Its Debt.en.srt` |
 | 4 | Editable project / timeline | `script.txt` (script plus markup), `output/timeline.json` (every sentence, scene and pause with timecodes), and the Python sources |
@@ -27,9 +27,19 @@ script.txt ──► script_data.py ──► tts.py ──► timeline.py ─�
   markup)                          sentence)  scene bounds)   mastering)    in parallel)
 ```
 
-- **`script.txt`**: the approved script, one sentence per line, verbatim. `@ scene` lines assign visuals,
-  `{s=0.9}` sets per-sentence delivery speed, `[pause]` is a 1.4 s silent beat that is never spoken, and `~`
-  marks the narrated sub-chapter titles ("Door number one…").
+- **`script.txt`**: the approved script, one sentence per line, verbatim, with delivery markup that never
+  reaches the screen. `@ scene` assigns visuals, `*word*` / `**word**` marks emphasis, `{e=grave}` an emotion,
+  `{q=rise}` a lifting question, `{s=0.9}` the speed, `{g=0.2}` an extra beat before a reveal, `[pause]` a
+  1.4 s silent beat, and `~` the narrated sub-chapter titles ("Door number one…").
+- **`expressive.py`** + **`prosody_model.py`**: expressive narration. The Kokoro graph gets three
+  controls at the points where it predicts timing, pitch and energy. A first pass reads the voice's own
+  contour, and a second pass renders a reshaped one, so the vocoder itself produces the new intonation (no
+  post-processing pitch shifting). Each line has an emotion preset from the brief's voice direction
+  (`intrigue`, `pointed`, `tight`, `heavy`, `urgent`, `creeping`, `puzzled`, `grave`, `reassuring`,
+  `reflective`, `hopeful`, `decisive`, `warm`, …). A preset sets the register, the pitch range (the rise and
+  fall of the voice), declination, energy and pauses. On top of that, `*focus words*` get a pitch and energy
+  lift with slight lengthening, statements settle at the end, yes/no and tag questions lift, and ellipses
+  and colons get dramatic beats.
 - **`normalize.py`** turns figures into natural speech: "$1.14 trillion" → "one point one four trillion
   dollars", "£45 billion" → "forty-five billion pounds", "5.31%" → "five point three one percent", plus dates and
   years.
@@ -52,6 +62,7 @@ pip install kokoro-onnx soundfile scipy numpy pillow pyloudnorm edge-tts
 #   https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin
 python3 build.py                               # full build, ~15-20 min on 4 cores
 python3 build.py --skip-tts                    # reuse cached narration clips
+python3 build.py --flat                        # narration without expressive shaping (for A/B listening)
 python3 build.py --skip-tts --reuse-video      # re-mix and re-mux only
 python3 render.py stills 0.9                   # review PNGs of every scene at 90% of its duration
 python3 qa.py                                  # run the checks
@@ -68,8 +79,9 @@ python3 build.py --backend edge   # synthesises every sentence with en-US-Andrew
 ```
 
 Pacing, pauses, chapter-specific speed, subtitles and the full picture edit re-time automatically from the new
-clip lengths. Kokoro has no emotion or style controls, so chapter delivery is shaped through per-sentence speed
-and timing. For a monetised channel, render Andrew through your own Azure AI Speech resource (see
+clip lengths. The Andrew service only offers global rate and pitch, so its emotion presets map to those;
+the word-level emphasis and intonation shaping are Kokoro-only (they work inside the model). For a monetised
+channel, render Andrew through your own Azure AI Speech resource (see
 `ASSET_REGISTER.md`).
 
 ## Before publishing

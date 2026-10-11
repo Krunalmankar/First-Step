@@ -65,10 +65,12 @@ def build(backend="kokoro"):
                 gap += 0.6
         if u.kind == "title":
             gap += 0.25
+        gap += u.pre_gap                     # deliberate beat before a reveal
         s = t + gap
         clip = clips[u.idx]
         e = s + clip["dur"]
         units.append({"idx": u.idx, "kind": u.kind, "text": u.text, "spoken": clip["spoken"], "speed": u.speed,
+                      "emotion": clip.get("emotion", "neutral"), "marked": u.marked, "rise": u.rise,
                       "chapter": u.chapter, "scene": u.scene, "start": round(s, 3), "end": round(e, 3),
                       "file": clip["file"]})
         cur["units"].append(u.idx)

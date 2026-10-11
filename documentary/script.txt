@@ -1,303 +1,306 @@
 # Production script — "Could the United States Collapse Because of Its Debt?"
 #
-# Markup (parsed by script_data.py):
-#   ## <n> | <chapter title> | <base voice speed>   chapter (shown as a card, not narrated)
-#   @ <scene_id>                                   start a new visual scene
-#   ~ <text>                                       sub-chapter title: narrated AND shown on screen
-#   [pause]                                        silent beat (~1.4 s), never spoken
-#   <text> {s=0.9}                                 one narrated sentence, optional speed override
-#   blank line                                     paragraph break (slightly longer gap)
+# Markup (parsed by script_data.py; none of it appears on screen or in subtitles):
+#   ## <n> | <chapter title> | <base speed> | <base emotion>   chapter card (shown, not narrated)
+#   @ <scene_id>                     start a new visual scene
+#   ~ <text>                         sub-chapter title: narrated AND shown on screen
+#   [pause]                          silent beat (~1.4 s), never spoken
+#   *word*  / **word**               emphasis / strong emphasis (pitch lift, energy, slight lengthening)
+#   {s=0.9}                          delivery speed for this line
+#   {e=grave}                        emotion preset for this line (see expressive.py PRESETS)
+#   {q=rise}                         question that lifts at the end (yes/no, tag, elliptical)
+#   {g=0.3}                          extra silence (seconds) before this line, for a reveal
+#   blank line                       paragraph break (slightly longer gap, pitch reset)
 #
-# Sentences are the approved script, verbatim, split one per line. Only punctuation-level
-# segmentation was changed. Number reading is handled in normalize.py.
+# Sentences are the approved script, verbatim; qa.py checks them word for word against the brief.
 
-## 0 | Cold open | 0.94
+## 0 | Cold open | 0.94 | intrigue
 @ title40
-Forty trillion dollars. {s=0.84}
+*Forty trillion* dollars. {s=0.84}
 [pause]
 
 @ owes
-That's how much the United States government owes right now.
-More than $40 trillion, and still climbing.
+That's how much the United States government owes *right now*.
+More than $40 trillion, and *still climbing*.
 
 @ milestones
-In August 2026, America's debt crossed $40 trillion for the first time in history.
-Just five months earlier, it was $39 trillion.
+In August 2026, America's debt crossed $40 trillion for the *first time* in history.
+Just *five months* earlier, it was $39 trillion.
 
 @ outlays
-And here's the part most people don't realise.
-In the fiscal year that just ended, America spent $1.14 trillion on interest alone.
-That's more than its entire military. {s=0.86}
-More than Medicare. {s=0.86}
-Only Social Security costs more.
+And here's the part most people *don't realise*.
+In the fiscal year that just ended, America spent *$1.14 trillion* on interest *alone*.
+That's more than its *entire military*. {s=0.86} {e=heavy} {g=0.2}
+More than *Medicare*. {s=0.86} {e=heavy}
+Only *Social Security* costs more.
 
 @ interest_counter
-Every single second, around $36,000 of American tax money disappears into interest payments.
-Not into roads. {s=0.88}
-Not into schools. {s=0.88}
-Just interest. {s=0.82}
+Every single second, around *$36,000* of American tax money disappears into interest payments.
+Not into *roads*. {s=0.88} {e=pointed}
+Not into *schools*. {s=0.88} {e=pointed}
+Just *interest*. {s=0.82} {e=pointed} {g=0.15}
 [pause]
 
 @ question
-So is this the beginning of the end?
-Or is it one of the most overhyped fears in finance?
+So is this the beginning of the *end*? {e=curious} {q=rise}
+Or is it one of the most *overhyped* fears in finance? {e=curious} {q=rise}
 
-Stay with me, because the answer is more surprising than you think.
+Stay with me, because the answer is *more surprising* than you think. {e=conversational}
 
-## 1 | The machine that never stops borrowing | 1.0
+## 1 | The machine that never stops borrowing | 1.0 | conversational
 @ spend_list
 Let's start simple.
 
-Every year, the US government spends money on Social Security, Medicare, defence, roads, schools, and interest on the debt it already owes.
+Every year, the US government spends money on Social Security, Medicare, defence, roads, schools, and *interest* on the debt it already owes.
 
 @ spend_vs
-In fiscal year 2026, it spent $7.4 trillion. But it collected only $5.4 trillion.
+In fiscal year 2026, it spent *$7.4 trillion*. But it collected only *$5.4 trillion*.
 
 @ hundred
-Think about that.
-For every $100 the government spent, it brought in only about $73. {s=0.92}
+Think about *that*.
+For every $100 the government spent, it brought in only *about $73*. {s=0.92}
 
 @ deficit
-So it borrows the rest.
-Nearly $2 trillion in a single year.
-That's about $5.5 billion, every single day.
+So it *borrows* the rest.
+Nearly *$2 trillion* in a single year.
+That's about *$5.5 billion*, every single day.
 
 @ bonds
-It borrows by selling Treasury bonds to investors around the world, and those investors lend America the money.
+It borrows by selling *Treasury bonds* to investors around the world, and those investors *lend* America the money.
 
-Sounds fine, right? Countries borrow all the time.
+Sounds fine, *right*? Countries borrow all the time.
 
 @ machine
-But here's where it turns dangerous. {s=0.92}
+But here's where it turns *dangerous*. {s=0.92} {e=tight} {g=0.2}
 
-That new borrowing adds to the debt.
-More debt means more interest.
-In just one year, America's interest bill jumped by $115 billion.
-More interest means even more borrowing next year.
-And when old bonds come due, America doesn't pay them off.
-It borrows again to repay them.
+That new borrowing adds to the *debt*. {e=tight}
+More debt means more *interest*. {e=tight}
+In just one year, America's interest bill jumped by *$115 billion*. {e=tight}
+More interest means *even more* borrowing next year. {e=tight}
+And when old bonds come due, America *doesn't pay them off*. {e=tight}
+It *borrows again* to repay them. {e=tight}
 
 @ one_in_five
-Today, more than one out of every five dollars the government collects goes straight to interest. {s=0.94}
+Today, more than *one out of every five dollars* the government collects goes straight to interest. {s=0.94} {e=tight}
 
 @ per_person
-Split evenly, the debt now works out to more than $115,000 for every man, woman and child in America.
+Split evenly, the debt now works out to more than *$115,000* for every man, woman and child in America. {e=tight}
 
 @ spin
-It's a machine that feeds itself.
-And the faster it spins, the harder it is to stop.
+It's a machine that *feeds itself*. {e=tight}
+And the faster it spins, the *harder* it is to stop. {e=tight}
 
-## 2 | The warning signs are already here | 0.96
+## 2 | The warning signs are already here | 0.96 | measured
 @ nobody
-Now, you might think, "Come on. It's America. Nobody seriously doubts America."
+Now, you might think, "Come on. It's America. Nobody *seriously* doubts America." {e=conversational}
 
-Except... they already have. {s=0.9}
+Except... they *already have*. {s=0.9} {e=grave}
 
 @ downgrades
-In August 2011, a political fight over the debt ceiling pushed the US so close to the edge that S&P stripped America of its perfect AAA credit rating for the first time ever.
+In August 2011, a political fight over the debt ceiling pushed the US so close to the edge that S&P stripped America of its perfect *AAA* credit rating for the *first time ever*.
 
-In August 2023, Fitch downgraded it too.
+In August 2023, *Fitch* downgraded it too.
 
-And in May 2025, Moody's, which had given America its top rating for more than a century, finally cut it as well.
+And in May 2025, *Moody's*, which had given America its top rating for *more than a century*, finally cut it as well.
 [pause]
 
 @ none_perfect
-For the first time in modern history, not one of the three major rating agencies gives the United States a perfect score. {s=0.86}
+For the first time in modern history, **not one** of the three major rating agencies gives the United States a *perfect score*. {s=0.86} {e=heavy}
 
 @ yield
-And the bond market noticed.
+And the bond market *noticed*.
 
-In August 2026, the interest rate on America's 30-year bond climbed to 5.31%. {s=0.92}
-That's the highest since 2007, on the eve of the global financial crisis. {s=0.92}
-Just days earlier, the Treasury had to offer 5.22% to sell new 30-year bonds, the highest at one of those auctions since 2001.
+In August 2026, the interest rate on America's 30-year bond climbed to *5.31%*. {s=0.92}
+That's the *highest since 2007*, on the eve of the global financial crisis. {s=0.92}
+Just days earlier, the Treasury had to offer *5.22%* to sell new 30-year bonds, the highest at one of those auctions *since 2001*.
 
 @ charging
-In other words, the world is still lending to America. But it's charging more.
+In other words, the world is *still lending* to America. But it's *charging more*.
 
-That doesn't mean collapse is coming tomorrow. But it does mean the people whose job is to judge risk are getting nervous.
+That doesn't mean collapse is coming *tomorrow*. But it does mean the people whose job is to judge risk are getting *nervous*.
 
-## 3 | Three ways this could go terribly wrong | 0.98
+## 3 | Three ways this could go terribly wrong | 0.98 | analytical
 @ doors
-So how would a real crisis actually start?
-There are three doors.
-And none of them are pleasant.
+So how would a real crisis *actually* start?
+There are *three doors*.
+And *none* of them are pleasant.
 
 @ door1
-~ Door number one: the investors walk away.
+~ Door number one: the investors *walk away*.
 
 @ door1_quote
-Imagine one morning, global investors simply say: "We'll still lend you money... but only at much higher interest rates."
+Imagine one morning, global investors simply say: "We'll still lend you money... but only at *much higher* interest rates." {e=tight}
 
 @ door1_chain
-Bond prices crash.
-Yields shoot up.
-Suddenly every dollar America borrows costs more, every dollar it refinances costs more, and mortgages, car loans and business loans all get more expensive with it.
+Bond prices *crash*. {e=urgent}
+Yields *shoot up*. {e=urgent}
+Suddenly *every dollar* America borrows costs more, every dollar it refinances costs more, and mortgages, car loans and business loans *all* get more expensive with it. {e=tight}
 
 @ door1_cbo
-And remember, interest is already America's second-biggest bill.
-The Congressional Budget Office projects it will reach $2.1 trillion a year by 2036, even without a panic.
+And remember, interest is already America's *second-biggest* bill.
+The Congressional Budget Office projects it will reach *$2.1 trillion* a year by 2036, even *without* a panic.
 
 @ uk_intro
-Think a sudden panic is far-fetched? In 2022, it happened to the United Kingdom.
+Think a sudden panic is *far-fetched*? In 2022, it happened to the *United Kingdom*.
 
 @ uk
-On 23 September 2022, the British government announced £45 billion of unfunded tax cuts. {s=1.04}
-Investors panicked. {s=1.06}
-The pound crashed to its lowest level against the dollar in history. {s=1.06}
-British bond markets went into freefall. {s=1.06}
-Pension funds were pushed to the edge of collapse, and the Bank of England had to pledge up to £65 billion in an emergency rescue. {s=1.06}
+On 23 September 2022, the British government announced *£45 billion* of unfunded tax cuts. {s=1.04} {e=urgent}
+Investors *panicked*. {s=1.06} {e=urgent}
+The pound crashed to its *lowest level* against the dollar in history. {s=1.06} {e=urgent}
+British bond markets went into *freefall*. {s=1.06} {e=urgent}
+Pension funds were pushed to the *edge of collapse*, and the Bank of England had to pledge up to *£65 billion* in an emergency rescue. {s=1.06} {e=urgent}
 
-Less than a month later, the Prime Minister resigned. {s=0.96}
+Less than a month later, the Prime Minister *resigned*. {s=0.96} {e=grave} {g=0.15}
 [pause]
 
 @ uk_imagine
-That was Britain.
-Now imagine it happening to the country whose bonds the entire world depends on. {s=0.92}
+That was *Britain*. {e=reflective}
+Now imagine it happening to the country whose bonds the *entire world* depends on. {s=0.92} {e=grave}
 
 @ door2
-~ Door number two: the dollar slowly melts.
+~ Door number two: the dollar *slowly melts*. {e=creeping}
 
 @ door2_print
-If the government leans on printing money to handle its debt, the dollar quietly loses value. {s=0.92}
-Prices rise. {s=0.9}
-Savings shrink. {s=0.9}
-And foreign investors start asking a dangerous question: "Why are we holding so many dollars?" {s=0.92}
+If the government leans on *printing money* to handle its debt, the dollar *quietly* loses value. {s=0.92} {e=creeping}
+Prices *rise*. {s=0.9} {e=creeping}
+Savings *shrink*. {s=0.9} {e=creeping}
+And foreign investors start asking a *dangerous* question: "Why are we holding so many dollars?" {s=0.92} {e=creeping}
 
 @ door2_creep
-This one doesn't arrive with a crash. It creeps in. And by the time people notice, it's already deep. {s=0.9}
+This one doesn't arrive with a *crash*. It *creeps in*. And by the time people notice, it's already *deep*. {s=0.9} {e=creeping}
 
 @ door2_reserve
-Is it already happening? Slowly.
-Around the year 2000, more than 70% of the world's foreign-exchange reserves were held in dollars.
-By mid-2026, that share had slipped to 56.7%.
+Is it already happening? *Slowly*. {e=creeping}
+Around the year 2000, more than *70%* of the world's foreign-exchange reserves were held in dollars.
+By mid-2026, that share had slipped to *56.7%*.
 
 @ door3
-~ Door number three: America defaults... on purpose.
+~ Door number three: America defaults... *on purpose*. {e=puzzled}
 
 @ door3_strange
-This is the strangest one.
-America could have the money and still fail to pay.
+This is the *strangest* one. {e=puzzled}
+America could *have the money* and still *fail to pay*. {e=puzzled}
 
-How? {s=0.92}
-Politics. {s=0.88}
+How? {s=0.92} {e=puzzled} {q=rise}
+*Politics*. {s=0.88} {e=grave}
 
 @ door3_limit
-By law, America can only borrow up to a set limit.
-Right now, that limit is $41.1 trillion.
-And America is already within about a trillion dollars of it.
-Independent estimates suggest the ceiling could be hit sometime in 2027.
+By law, America can only borrow up to a *set limit*.
+Right now, that limit is *$41.1 trillion*.
+And America is already within *about a trillion dollars* of it.
+Independent estimates suggest the ceiling could be hit sometime in *2027*.
 
 @ door3_panic
-If Congress and the White House can't agree to raise it in time, payments could be delayed.
-And the moment the world's "safest" asset misses a payment, global markets could panic.
+If Congress and the White House *can't agree* to raise it in time, payments could be *delayed*. {e=grave}
+And the moment the world's "safest" asset *misses a payment*, global markets could *panic*. {e=grave}
 
-Not because America is broke. {s=0.92}
-But because America chose to stumble. {s=0.88}
+Not because America is *broke*. {s=0.92} {e=grave}
+But because America *chose* to stumble. {s=0.88} {e=grave}
 [pause]
 
 @ crisis_collapse
-Now, here's something important.
-A crisis is not the same as collapse.
-A country can go through a brutal financial shock and still survive.
-But the Congressional Budget Office itself has warned that rising debt raises the risk of exactly this kind of crisis, and leaves less room to fight the next emergency.
+Now, here's something *important*. {e=measured}
+A crisis is *not the same* as collapse. {e=measured}
+A country can go through a brutal financial shock and *still survive*. {e=reassuring}
+But the Congressional Budget Office itself has *warned* that rising debt raises the risk of exactly this kind of crisis, and leaves *less room* to fight the next emergency. {e=measured}
 
-## 4 | So why hasn't it happened yet? | 1.0
+## 4 | So why hasn't it happened yet? | 1.0 | reassuring
 @ cards
-Okay. If all this is true... why is America still standing?
+Okay. If all this is true... why is America *still standing*? {e=curious}
 
-Because it holds some of the strongest cards in the world.
+Because it holds some of the *strongest cards* in the world.
 
 @ adv1
-First, the dollar is still king.
-Even after that slow decline, the dollar makes up 56.7% of global foreign-exchange reserves, according to the IMF.
-The euro, its closest rival, sits at about 20.6%.
-Nothing else comes close.
+First, the dollar is still *king*.
+Even after that slow decline, the dollar makes up *56.7%* of global foreign-exchange reserves, according to the IMF.
+The euro, its closest rival, sits at about *20.6%*.
+*Nothing else* comes close.
 
 @ adv2
-Second, America has a giant, productive economy, worth more than $30 trillion a year, with huge companies, huge innovation, and a massive tax base.
-Even last year, tax revenue rose by $169 billion.
+Second, America has a *giant*, productive economy, worth more than *$30 trillion* a year, with huge companies, huge innovation, and a massive tax base.
+Even last year, tax revenue *rose* by $169 billion.
 
 @ adv3
-Third, America borrows in its own currency.
-It never has to hunt for some foreign currency to pay its bills.
-That alone protects it from the trap that has broken many other countries.
+Third, America borrows in its *own currency*.
+It never has to hunt for some *foreign* currency to pay its bills.
+That alone protects it from the *trap* that has broken many other countries.
 
 @ adv4
-And fourth, US Treasuries are the backbone of global finance.
-Banks, governments and funds all use them as their safest asset.
-So far, every time America has put its bonds up for sale, the world has shown up to buy them.
+And fourth, US Treasuries are the *backbone* of global finance.
+Banks, governments and funds all use them as their *safest asset*.
+So far, *every time* America has put its bonds up for sale, the world has shown up to buy them.
 
 @ safe
-So America is safe, right?
+So America is *safe*, right? {e=curious} {q=rise}
 [pause]
 
-Not quite. {s=0.84}
+*Not* quite. {s=0.84} {e=grave}
 
 @ trust
-Because every one of those advantages depends on one thing: trust. {s=0.92}
-And trust doesn't disappear slowly. {s=0.9}
-It disappears all at once. {s=0.84}
+Because every one of those advantages depends on one thing: *trust*. {s=0.92} {e=grave}
+And trust doesn't disappear *slowly*. {s=0.9} {e=grave}
+It disappears *all at once*. {s=0.84} {e=grave}
 
-## 5 | Could America fall like Rome? | 0.93
+## 5 | Could America fall like Rome? | 0.93 | reflective
 @ rome
-People love comparing America to the Roman Empire. And it's easy to see why.
+People love comparing America to the *Roman Empire*. And it's easy to see why.
 
 @ chain_intro
-But a modern collapse wouldn't look like barbarians at the gates. It would look like a slow chain reaction.
+But a modern collapse wouldn't look like *barbarians at the gates*. It would look like a *slow chain reaction*.
 
 @ chain
-Deficits that never stop.
-The CBO projects the yearly deficit growing from about $2 trillion today to $3.1 trillion by 2036.
-Interest rates that keep climbing.
-Politicians forced into impossible choices: raise taxes, cut benefits, or borrow even more.
-Then slower growth.
-Stubborn inflation.
-Investors losing faith in Treasuries.
+Deficits that *never stop*.
+The CBO projects the yearly deficit growing from about $2 trillion today to *$3.1 trillion* by 2036.
+Interest rates that keep *climbing*.
+Politicians forced into *impossible choices*: raise taxes, cut benefits, or borrow even more.
+Then *slower growth*.
+*Stubborn* inflation.
+Investors losing *faith* in Treasuries.
 
 @ record2030
-And here's a date to remember: 2030. {s=0.88}
-That's when, in the CBO's projections, America's debt breaks the record set right after World War II.
+And here's a date to remember: *2030*. {s=0.88} {e=intrigue} {g=0.15}
+That's when, in the CBO's projections, America's debt breaks the record set right after *World War II*.
 
 @ slipping
-And finally, the quiet part.
-America's financial superpower status starts slipping away.
-Not in a day.
-But year by year, until one day people realise the world has moved on. {s=0.86}
+And finally, the *quiet part*.
+America's financial superpower status starts *slipping away*.
+Not in a *day*.
+But year by year, until one day people realise the world has *moved on*. {s=0.86}
 [pause]
 
 @ window
-Is that guaranteed? No. {s=0.96}
-Smart reforms, stronger growth, or tough decisions could still turn this around.
-But every year that nothing changes, the window gets a little smaller.
+Is that *guaranteed*? *No*. {s=0.96} {e=hopeful}
+Smart reforms, stronger growth, or tough decisions could *still turn this around*. {e=hopeful}
+But every year that nothing changes, the window gets a little *smaller*.
 
-## 6 | Conclusion | 0.95
+## 6 | Conclusion | 0.95 | decisive
 @ conc_q
-So, will America collapse because of its debt?
+So, will America collapse because of its *debt*? {e=reflective} {q=rise}
 
 @ futures
-Here's the honest answer.
-There are three very different futures: America going bankrupt, America going through a painful financial crisis, or America slowly losing its crown as the world's financial superpower.
+Here's the *honest* answer.
+There are three very different futures: America going *bankrupt*, America going through a painful financial *crisis*, or America slowly losing its *crown* as the world's financial superpower.
 
-The first is unlikely. {s=0.9}
-The second is possible. {s=0.9}
-And the third? {s=0.9}
-That's the one worth watching. {s=0.86}
+The first is *unlikely*. {s=0.9}
+The second is *possible*. {s=0.9}
+And the third? {s=0.9} {q=rise}
+That's the one *worth watching*. {s=0.86} {g=0.15}
 
 @ conc_cbo
-The CBO projects the debt held by the public rising from about 101% of the economy this year to 120% by 2036, higher than at any point in American history.
-Interest costs are on track to nearly double, to $2.1 trillion a year.
-Nobody can tell you the exact date when things break.
-But the direction is clear.
+The CBO projects the debt held by the public rising from about 101% of the economy this year to *120%* by 2036, higher than at any point in *American history*.
+Interest costs are on track to *nearly double*, to $2.1 trillion a year.
+*Nobody* can tell you the exact date when things break.
+But the *direction* is clear.
 
 @ final
-The real question isn't whether America can borrow. {s=0.9}
-It's how long the world will keep believing it should. {s=0.82}
+The real question isn't whether America *can* borrow. {s=0.9}
+It's how long the world will keep *believing* it should. {s=0.82} {g=0.1}
 
-## 7 | Outro | 1.0
+## 7 | Outro | 1.0 | warm
 @ outro
-So what do you think?
-Is $40 trillion a ticking time bomb, or a problem America will fix in time?
-Drop your answer in the comments.
+So what do you *think*?
+Is $40 trillion a *ticking time bomb*, or a problem America will *fix* in time?
+Drop your answer in the *comments*.
 
-And if you want to know who actually owns all this debt, or whether the dollar could lose its throne, tell me which one you want next.
-Because that story is even scarier.
+And if you want to know who *actually owns* all this debt, or whether the dollar could *lose its throne*, tell me which one you want next.
+Because that story is *even scarier*. {e=intrigue}

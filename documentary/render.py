@@ -86,6 +86,20 @@ def render_all(procs=4, only=None):
     return out
 
 
+def export_graphics(outdir=HERE / "output" / "graphics"):
+    """Deliverable: one high-quality JPEG still per scene, taken where the scene is fully built."""
+    tl = load()
+    outdir.mkdir(parents=True, exist_ok=True)
+    for old in outdir.glob("*.jpg"):
+        old.unlink()
+    ub = {u["idx"]: u for u in tl["units"]}
+    frac = {"_chapter": 0.6, "_title": 0.7, "_end": 0.5, "trust": 0.55, "safe": 0.95, "title40": 0.6}
+    for k, s in enumerate(tl["segments"]):
+        name = s["name"].lstrip("_") + (f"_{s['chapter']}" if s["name"] == "_chapter" else "")
+        img = frame(s, ub, (s["end"] - s["start"]) * frac.get(s["name"], 0.93))
+        img.save(outdir / f"{k:02d}_{name}.jpg", quality=92, subsampling=0, optimize=True)
+
+
 def stills(names=None, frac=0.85, outdir=HERE / "build" / "stills"):
     """Write a PNG per scene at a given fraction of its duration, for review."""
     tl = load()

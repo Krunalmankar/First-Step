@@ -58,6 +58,11 @@ def check_script(src_path):
     diffs = [op for op in difflib.SequenceMatcher(None, a, b, autojunk=False).get_opcodes() if op[0] != "equal"]
     for tag, i1, i2, j1, j2 in diffs:
         fail(f"{tag}: source {' '.join(a[i1:i2])!r} vs narration {' '.join(b[j1:j2])!r}")
+    for u in sc.units:
+        if u.kind != "pause" and re.search(r"[*{}]", u.text):
+            fail(f"delivery markup leaked into on-screen text of unit {u.idx}: {u.text!r}")
+        if u.kind != "pause" and u.marked.replace("*", "") != u.text:
+            fail(f"emphasis markup changes the words of unit {u.idx}")
     n_sent = len(re.findall(r"[.?!](?=\s|$|\")", re.sub(r"\.\.\.", "…", ours)))
     print(f"  {len(a)} source tokens, {len(b)} narration tokens, {len(diffs)} differences; "
           f"{sum(u.kind != 'pause' for u in sc.units)} narration units (~{n_sent} sentences), "
