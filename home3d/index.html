@@ -2408,11 +2408,36 @@ function toast(msg) {
   t.textContent = msg; t.hidden = false;
   clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 3200);
 }
-function download(blob, name) {
+// Inside the Claude viewer, files go through its downloads capability (the viewer confirms each save);
+// on a normal website the browser download link is used.
+const downloadsReady = window.claude?.use ? window.claude.use('downloads').catch(() => null) : Promise.resolve(null);
+async function download(blob, name) {
+  const api = await downloadsReady;
+  if (api) {
+    try { await api.save({ filename: name, data: blob }); toast(`Saved ${name}`); }
+    catch (err) {
+      if (err?.code === 'declined') return;
+      toast(err?.code === 'rate_limited' ? 'Another save is still waiting for an answer. Finish it, then try again.' : 'This view cannot save files. Open the page from your website to download it.');
+    }
+    return;
+  }
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob); a.download = name;
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+// The viewer's save dialog does not accept .glb, so there the model travels inside a plain (stored) .zip.
+const CRC_TABLE = Array.from({ length: 256 }, (_, n) => { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; return c >>> 0; });
+function zipOne(name, bytes) {
+  let crc = 0xFFFFFFFF;
+  for (let i = 0; i < bytes.length; i++) crc = CRC_TABLE[(crc ^ bytes[i]) & 0xFF] ^ (crc >>> 8);
+  crc = (crc ^ 0xFFFFFFFF) >>> 0;
+  const fname = new TextEncoder().encode(name), n = bytes.length;
+  const local = new DataView(new ArrayBuffer(30)), central = new DataView(new ArrayBuffer(46)), end = new DataView(new ArrayBuffer(22));
+  [[0, 0x04034b50, 4], [4, 20, 2], [12, 0x21, 2], [14, crc, 4], [18, n, 4], [22, n, 4], [26, fname.length, 2]].forEach(([o, v, w]) => (w === 4 ? local.setUint32(o, v, true) : local.setUint16(o, v, true)));
+  [[0, 0x02014b50, 4], [4, 20, 2], [6, 20, 2], [14, 0x21, 2], [16, crc, 4], [20, n, 4], [24, n, 4], [28, fname.length, 2]].forEach(([o, v, w]) => (w === 4 ? central.setUint32(o, v, true) : central.setUint16(o, v, true)));
+  [[0, 0x06054b50, 4], [8, 1, 2], [10, 1, 2], [12, 46 + fname.length, 4], [16, 30 + fname.length + n, 4]].forEach(([o, v, w]) => (w === 4 ? end.setUint32(o, v, true) : end.setUint16(o, v, true)));
+  return new Blob([local, fname, bytes, central, fname, end], { type: 'application/zip' });
 }
 
 /* ------------------------------------------------------------------ photo render */
@@ -2533,9 +2558,9 @@ $('#jsonFile').addEventListener('change', (e) => {
 });
 function exportGLB() {
   const vis = selBox.visible;
-  new GLTFExporter().parse(house, (glb) => {
-    download(new Blob([glb], { type: 'model/gltf-binary' }), 'ghar-3d.glb');
-    toast('3D model exported as ghar-3d.glb');
+  new GLTFExporter().parse(house, async (glb) => {
+    if (await downloadsReady) download(zipOne('ghar-3d.glb', new Uint8Array(glb)), 'ghar-3d-model.zip');
+    else { download(new Blob([glb], { type: 'model/gltf-binary' }), 'ghar-3d.glb'); toast('3D model exported as ghar-3d.glb'); }
   }, (err) => { console.error(err); toast('Export failed. Try again after reloading the page.'); }, { binary: true, onlyVisible: true });
   selBox.visible = vis;
 }
