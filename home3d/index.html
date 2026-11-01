@@ -397,7 +397,7 @@ function defaultModel() {
     return { id: uid('i'), type, name, pos, rot, size: [...d.size], color: d.color, color2: d.color2 ?? null, power: 1, ...extra };
   };
   return {
-    version: 2,
+    version: 3,
     height: 3.0,
     rooms: [
       { id: 'r_hall', name: 'Hall', x0: 0, z0: 0, x1: 3.6, z1: 4.2, floor: '#e6dfcb', floorKind: 'tile', tile: 0.6, ceil: '#f2f0e9' },
@@ -406,14 +406,15 @@ function defaultModel() {
     ],
     walls: [
       W('w_hb', 'Hall / Bedroom', [0, 0], [3.6, 0], PAINT.hall, PAINT.white, { skirtB: true, openings: [
-        { id: 'o_bdoor', type: 'door', at: 0.75, w: 0.9, h: 2.05, sill: 0, style: 'flush', color: '#8a5631', open: 75, hinge: 'start', swing: 'B' },
+        { id: 'o_bdoor', type: 'door', at: 0.75, w: 0.9, h: 2.05, sill: 0, style: 'flush', color: '#8a5631', open: 75, hinge: 'start', swing: 'B', curtain: { ...DEFAULT_CURTAINS.o_bdoor } },
       ] }),
       W('w_he', 'Hall east wall', [3.6, 0], [3.6, 4.2], PAINT.hall, PAINT.ext),
       W('w_hs', 'Hall south wall', [3.6, 4.2], [0, 4.2], PAINT.hall, PAINT.ext, { openings: [
         { id: 'o_main', type: 'door', at: 2.65, w: 1.0, h: 2.1, sill: 0, style: 'flush', color: '#5c3b25', open: 0, hinge: 'end', swing: 'A' },
-        { id: 'o_hwin', type: 'window', at: 1.15, w: 1.4, h: 1.2, sill: 0.9, color: '#2f5e57', frame: '#e3dfd3', curtain: { ...DEFAULT_CURTAINS.o_hwin } },
       ] }),
-      W('w_hw', 'Hall west wall', [0, 4.2], [0, 0], PAINT.hall, PAINT.ext),
+      W('w_hw', 'Hall west wall', [0, 4.2], [0, 0], PAINT.hall, PAINT.ext, { openings: [
+        { id: 'o_hwin', type: 'window', at: 2.1, w: 1.4, h: 1.2, sill: 0.9, color: '#2f5e57', frame: '#e3dfd3', curtain: { ...DEFAULT_CURTAINS.o_hwin } },
+      ] }),
       W('w_bn', 'Bedroom north wall', [0, -3.6], [3.6, -3.6], PAINT.mauve, PAINT.ext, { openings: [
         { id: 'o_arch', type: 'opening', at: 0.6, w: 0.85, h: 2.05, sill: 0 },
         { id: 'o_niche', type: 'niche', at: 2.55, w: 0.55, h: 1.45, sill: 0.62, depth: 0.15, shelves: 2, side: 'A' },
@@ -464,13 +465,14 @@ function defaultModel() {
   };
 }
 
-// Curtains added in version 2 of the model (also given to models saved before then).
-// The bedroom rod sits just under the loft slab.
+// Curtains added in versions 2 and 3 of the model (also given to models saved before then).
+// The bedroom rod sits just under the loft slab; the door curtain hangs on the hall side.
 const DEFAULT_CURTAINS = {
   o_hwin: { color: '#2e6f73', pattern: 'plain', open: 0.75, length: 'floor', side: 'A', sheer: true, rod: 2.25 },
   o_bwin: { color: '#b9787a', pattern: 'floral', open: 0.7, length: 'floor', side: 'A', sheer: true, rod: 2.1 },
+  o_bdoor: { color: '#2e6f73', pattern: 'plain', open: 0.6, length: 'floor', side: 'A', sheer: false, rod: 2.17 },
 };
-const HALL_WINDOW_VIEW = { name: 'Hall · window and main door', mode: 'walk', pos: [2.1, 1.45, 0.8], target: [1.85, 1.25, 4.2] };
+const HALL_WINDOW_VIEW = { name: 'Hall · window and bedroom door', mode: 'walk', pos: [3.2, 1.45, 3.5], target: [0, 1.25, 1.1] };
 
 const DEFAULT_SETTINGS = { time: 11, lightsOn: true, fansOn: true, exposure: 1.0, cut: 3.2, showCeiling: false, labels: true, gridSnap: true, wallSnap: true };
 
@@ -1375,7 +1377,7 @@ function buildOpening(w, op, f) {
     cg.position.z = sgn * (t / 2 + 0.11);
     if (sgn < 0) cg.rotation.y = Math.PI;
     g.add(cg);
-    buildCurtain(cg, { span: op.w + 0.3, top, bottom, color: c.color, pattern: c.pattern, open: c.open ?? 0.7, sheer: !!c.sheer && op.type === 'window' });
+    buildCurtain(cg, { span: op.w + (op.type === 'window' ? 0.3 : 0.2), top, bottom, color: c.color, pattern: c.pattern, open: c.open ?? 0.7, sheer: !!c.sheer && op.type === 'window' });
   }
   g.traverse((o) => { if (o.isMesh && !o.userData.noShadow) { o.castShadow = true; o.receiveShadow = true; } });
   return g;
@@ -1965,6 +1967,20 @@ function normalize(m) {
     for (const w of m.walls) for (const o of w.openings) if (o.type === 'window' && !o.curtain && DEFAULT_CURTAINS[o.id]) o.curtain = { ...DEFAULT_CURTAINS[o.id] };
     if (!m.views.some((v) => v.name === HALL_WINDOW_VIEW.name)) m.views.splice(Math.min(2, m.views.length), 0, clone(HALL_WINDOW_VIEW));
     m.version = 2;
+  }
+  if (m.version < 3) {
+    // the hall window is on the side wall beside the TV wall, not the front wall; the TV-wall door has a curtain
+    const front = m.walls.find((w) => w.id === 'w_hs'), side = m.walls.find((w) => w.id === 'w_hw');
+    const win = front?.openings.find((o) => o.id === 'o_hwin');
+    if (win && side && !side.openings.some((o) => o.type === 'window')) {
+      front.openings = front.openings.filter((o) => o !== win);
+      side.openings.push({ ...win, at: r3(wallFrame(side).len / 2) });
+    }
+    const door = m.walls.find((w) => w.id === 'w_hb')?.openings.find((o) => o.id === 'o_bdoor');
+    if (door && !door.curtain) door.curtain = { ...DEFAULT_CURTAINS.o_bdoor };
+    m.views = m.views.filter((v) => v.name !== 'Hall · window and main door');
+    if (!m.views.some((v) => v.name === HALL_WINDOW_VIEW.name)) m.views.splice(Math.min(2, m.views.length), 0, clone(HALL_WINDOW_VIEW));
+    m.version = 3;
   }
   return m;
 }
